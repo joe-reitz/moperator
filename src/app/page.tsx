@@ -41,12 +41,6 @@ export default function Home() {
           <a href="#about" className="text-muted hover:text-foreground transition-colors">
             About
           </a>
-          <a
-            href="/studio"
-            className="text-muted hover:text-foreground transition-colors font-mono text-xs"
-          >
-            /studio
-          </a>
         </div>
       </nav>
 
