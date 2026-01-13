@@ -65,27 +65,25 @@ export default function Home() {
             className="animate-fade-up text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-6"
             style={{ animationDelay: "100ms" }}
           >
-            Learn to{" "}
-            <span className="text-accent glow-text">ship apps</span>
+            By Operators,{" "}
+            <span className="text-accent glow-text">for Operators</span>:
             <br className="hidden md:block" />
-            <span className="whitespace-nowrap">
-              —from operators,{" "}
-              <span className="inline-block">
-                <span className="relative">
-                  for operators
-                  <svg
-                    className="absolute -bottom-2 left-0 w-full"
-                    viewBox="0 0 300 8"
-                    fill="none"
-                  >
-                    <path
-                      d="M2 6C75 2 225 2 298 6"
-                      stroke="#f59e0b"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </span>
+            learn how to{" "}
+            <span className="inline-block">
+              <span className="relative">
+                ship apps
+                <svg
+                  className="absolute -bottom-2 left-0 w-full"
+                  viewBox="0 0 200 8"
+                  fill="none"
+                >
+                  <path
+                    d="M2 6C50 2 150 2 198 6"
+                    stroke="#f59e0b"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                  />
+                </svg>
               </span>
             </span>
           </h1>
