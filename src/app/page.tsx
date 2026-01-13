@@ -56,7 +56,7 @@ export default function Home() {
           >
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
             <span className="text-sm text-muted">
-              Learn to ship apps—from operators, to operators
+              For Operators becoming GTM Engineers
             </span>
           </div>
 
@@ -65,9 +65,9 @@ export default function Home() {
             className="animate-fade-up text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-6"
             style={{ animationDelay: "100ms" }}
           >
-            Learn to build{" "}
-            <span className="text-accent glow-text">AI-powered</span> apps with
-            tools made for{" "}
+            Learn to{" "}
+            <span className="text-accent glow-text">ship apps</span>—from
+            operators, to{" "}
             <span className="inline-block">
               <span className="relative">
                 operators
@@ -285,7 +285,7 @@ export default function Home() {
               The <span className="text-accent glow-text">MOP</span>erator
             </span>
             <span className="text-sm text-muted">
-              © 2026 Built with Cursor.
+              © 2026 Joe Reitz.
             </span>
           </div>
           <div className="flex items-center gap-6 text-sm text-muted">
