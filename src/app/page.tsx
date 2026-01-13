@@ -65,12 +65,11 @@ export default function Home() {
             className="animate-fade-up text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-6"
             style={{ animationDelay: "100ms" }}
           >
-            By Operators,{" "}
-            <span className="text-accent glow-text">for Operators</span>:
+            By Operators, for Operators:
             <br className="hidden md:block" />
             learn how to{" "}
             <span className="inline-block">
-              <span className="relative">
+              <span className="relative text-accent glow-text">
                 ship apps
                 <svg
                   className="absolute -bottom-2 left-0 w-full"
