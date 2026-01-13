@@ -108,8 +108,8 @@ export default function AboutPage() {
                   <h2 className="text-2xl md:text-3xl font-bold mb-2">Joe Reitz</h2>
                   <p className="text-accent font-medium mb-4">Marketing Operations → GTM Engineer</p>
                   <p className="text-muted text-lg leading-relaxed">
-                    Whether we wanted it or not, times are changing. The best Operators are no longer just system admins, they're part product manager, part engineer. This is becoming known Building in public and documenting the journey from Marketing Ops to shipping 
-                    real applications. If I can do it, so can you.
+                    Whether we wanted it or not, times are changing. The best Operators are no longer just system admins, they're part product manager, part engineer. This is new emerging field is becoming known as GTM Engineering. The MOPerator is about building in public and documenting the journey from traditional Ops work to shipping 
+                    real applications. If I can do it, so can you. LFG.
                   </p>
                   <a
                     href="https://x.com/joe_reitz"
