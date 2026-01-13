@@ -34,10 +34,10 @@ export default function Home() {
           </span>
         </a>
         <div className="hidden md:flex items-center gap-8 text-sm">
-          <a href="#videos" className="text-muted hover:text-foreground transition-colors">
+          <a href="/coming-soon" className="text-muted hover:text-foreground transition-colors">
             Videos
           </a>
-          <a href="#blog" className="text-muted hover:text-foreground transition-colors">
+          <a href="/blog" className="text-muted hover:text-foreground transition-colors">
             Blog
           </a>
           <a href="/about" className="text-muted hover:text-foreground transition-colors">
@@ -103,12 +103,12 @@ export default function Home() {
             className="animate-fade-up flex flex-col sm:flex-row gap-4"
             style={{ animationDelay: "300ms" }}
           >
-            <button className="gradient-border rounded-lg px-8 py-4 font-medium hover:bg-surface-elevated transition-colors">
+            <a href="/coming-soon" className="gradient-border rounded-lg px-8 py-4 font-medium hover:bg-surface-elevated transition-colors">
               Watch Latest Videos
-            </button>
-            <button className="border border-border rounded-lg px-8 py-4 font-medium text-muted hover:text-foreground hover:border-muted transition-colors">
+            </a>
+            <a href="/coming-soon" className="border border-border rounded-lg px-8 py-4 font-medium text-muted hover:text-foreground hover:border-muted transition-colors">
               Browse Tutorials
-            </button>
+            </a>
           </div>
         </div>
 
