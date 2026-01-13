@@ -11,7 +11,7 @@ export default function AboutPage() {
     <main className="min-h-screen relative overflow-hidden">
       {/* Geometric background pattern */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] opacity-10">
+        <div className="absolute top-0 right-0 w-[300px] sm:w-[500px] lg:w-[800px] h-[300px] sm:h-[500px] lg:h-[800px] opacity-10">
           <svg viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="400" cy="400" r="380" stroke="#f59e0b" strokeWidth="1" />
             <circle cx="400" cy="400" r="280" stroke="#f59e0b" strokeWidth="1" />
@@ -19,7 +19,7 @@ export default function AboutPage() {
             <circle cx="400" cy="400" r="80" stroke="#f59e0b" strokeWidth="1" />
           </svg>
         </div>
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] opacity-5">
+        <div className="absolute bottom-0 left-0 w-[200px] sm:w-[400px] lg:w-[600px] h-[200px] sm:h-[400px] lg:h-[600px] opacity-5">
           <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="50" y="50" width="500" height="500" stroke="#f59e0b" strokeWidth="1" />
             <rect x="150" y="150" width="300" height="300" stroke="#f59e0b" strokeWidth="1" />
@@ -29,22 +29,32 @@ export default function AboutPage() {
       </div>
 
       {/* Navigation */}
-      <nav className="relative z-10 flex items-center justify-between px-6 py-6 md:px-12 lg:px-20">
-        <a href="/" className="flex items-center gap-4">
+      <nav className="relative z-10 flex items-center justify-between px-4 py-4 sm:px-6 sm:py-6 md:px-12 lg:px-20">
+        <a href="/" className="flex items-center gap-2 sm:gap-4">
           <img
             src="/icon.svg"
             alt="The MOPerator"
-            className="h-14 md:h-16 lg:h-20 w-auto"
+            className="h-10 sm:h-14 md:h-16 lg:h-20 w-auto"
           />
-          <span className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight">
+          <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight">
             The <span className="text-accent glow-text">MOP</span>erator
           </span>
         </a>
-        <div className="hidden md:flex items-center gap-8 text-sm">
-          <a href="/#videos" className="text-muted hover:text-foreground transition-colors">
+        
+        {/* Mobile menu button */}
+        <div className="md:hidden">
+          <a href="/" className="text-muted hover:text-foreground transition-colors p-2">
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </a>
+        </div>
+
+        <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm">
+          <a href="/coming-soon" className="text-muted hover:text-foreground transition-colors">
             Videos
           </a>
-          <a href="/#blog" className="text-muted hover:text-foreground transition-colors">
+          <a href="/blog" className="text-muted hover:text-foreground transition-colors">
             Blog
           </a>
           <a href="/about" className="text-foreground transition-colors">
@@ -54,9 +64,9 @@ export default function AboutPage() {
       </nav>
 
       {/* Hero with Giant Logo */}
-      <section className="relative z-10 px-6 md:px-12 lg:px-20 pt-8 md:pt-16 pb-16">
+      <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 pt-6 sm:pt-8 md:pt-16 pb-10 sm:pb-16">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+          <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-20">
             {/* Giant Logo */}
             <div className="animate-fade-up flex-shrink-0" style={{ animationDelay: "0ms" }}>
               <div className="relative">
@@ -64,39 +74,39 @@ export default function AboutPage() {
                 <img
                   src="/icon.svg"
                   alt="The MOPerator"
-                  className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96"
+                  className="relative w-40 h-40 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-96 lg:h-96"
                 />
               </div>
             </div>
 
             {/* Hero Text */}
             <div className="animate-fade-up text-center lg:text-left" style={{ animationDelay: "100ms" }}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-4">
                 About{" "}
                 <span className="text-accent glow-text">The MOPerator</span>
               </h1>
-<blockquote className="text-lg md:text-xl text-muted max-w-xl italic leading-relaxed">
-                  <p className="mb-1">Only where love and need are one,</p>
-                  <p className="mb-1">And the work is play for mortal stakes,</p>
-                  <p>Is the deed ever really done.</p>
-                  <p>For Heaven and the Future's sakes.</p>
-                  <footer className="mt-4 text-sm not-italic text-accent">
-                    — Robert Frost, &quot;Two Tramps in Mud Time&quot;
-                  </footer>
-                </blockquote>
+              <blockquote className="text-base sm:text-lg md:text-xl text-muted max-w-xl italic leading-relaxed">
+                <p className="mb-1">Only where love and need are one,</p>
+                <p className="mb-1">And the work is play for mortal stakes,</p>
+                <p>Is the deed ever really done.</p>
+                <p>For Heaven and the Future's sakes.</p>
+                <footer className="mt-4 text-xs sm:text-sm not-italic text-accent">
+                  — Robert Frost, &quot;Two Tramps in Mud Time&quot;
+                </footer>
+              </blockquote>
             </div>
           </div>
         </div>
       </section>
 
       {/* Author Card */}
-      <section className="relative z-10 px-6 md:px-12 lg:px-20 py-12">
+      <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-8 sm:py-12">
         <div className="max-w-4xl mx-auto">
           <div
-            className="animate-fade-up gradient-border rounded-2xl overflow-hidden"
+            className="animate-fade-up gradient-border rounded-xl sm:rounded-2xl overflow-hidden"
             style={{ animationDelay: "200ms" }}
           >
-            <div className="bg-surface p-8 md:p-12">
+            <div className="bg-surface p-5 sm:p-8 md:p-12">
               <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
                 <div className="flex-shrink-0">
                   <img
@@ -131,7 +141,7 @@ export default function AboutPage() {
       </section>
 
       {/* The Mission */}
-      <section className="relative z-10 px-6 md:px-12 lg:px-20 py-16">
+      <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-10 sm:py-16">
         <div className="max-w-4xl mx-auto">
           <div className="animate-fade-up" style={{ animationDelay: "300ms" }}>
             <div className="flex items-center gap-4 mb-8">
@@ -180,7 +190,7 @@ export default function AboutPage() {
       </section>
 
       {/* What You'll Find */}
-      <section className="relative z-10 px-6 md:px-12 lg:px-20 py-16">
+      <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-10 sm:py-16">
         <div className="max-w-5xl mx-auto">
           <div className="animate-fade-up" style={{ animationDelay: "400ms" }}>
             <div className="flex items-center gap-4 mb-12">
@@ -248,7 +258,7 @@ export default function AboutPage() {
       </section>
 
       {/* The Name */}
-      <section className="relative z-10 px-6 md:px-12 lg:px-20 py-16">
+      <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-10 sm:py-16">
         <div className="max-w-4xl mx-auto text-center">
           <div className="animate-fade-up" style={{ animationDelay: "500ms" }}>
             <div className="flex items-center gap-4 mb-8">
@@ -275,7 +285,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="relative z-10 px-6 md:px-12 lg:px-20 py-20">
+      <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-12 sm:py-20">
         <div className="max-w-3xl mx-auto text-center">
           <div className="animate-fade-up" style={{ animationDelay: "600ms" }}>
             <p className="text-muted mb-6 text-lg">Want to follow along or connect?</p>
@@ -308,16 +318,18 @@ export default function AboutPage() {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 px-6 md:px-12 lg:px-20 py-12 border-t border-border">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <img src="/icon.svg" alt="The MOPerator" className="h-12 w-auto" />
-            <span className="font-medium text-lg">
-              The <span className="text-accent glow-text">MOP</span>erator
-            </span>
-            <span className="text-sm text-muted">© 2026 Joe Reitz.</span>
+      <footer className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-8 sm:py-10 md:py-12 border-t border-border">
+        <div className="max-w-7xl mx-auto flex flex-col gap-4 sm:gap-6 md:flex-row items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <img src="/icon.svg" alt="The MOPerator" className="h-8 sm:h-10 md:h-12 w-auto" />
+              <span className="font-medium text-base sm:text-lg">
+                The <span className="text-accent glow-text">MOP</span>erator
+              </span>
+            </div>
+            <span className="text-xs sm:text-sm text-muted">© 2026 Joe Reitz.</span>
           </div>
-          <div className="flex items-center gap-6 text-sm text-muted">
+          <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm text-muted">
             <a
               href="https://x.com/joe_reitz"
               target="_blank"

@@ -44,7 +44,7 @@ export default async function BlogPage() {
     <main className="min-h-screen relative overflow-hidden">
       {/* Geometric background pattern */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] opacity-10">
+        <div className="absolute top-0 right-0 w-[300px] sm:w-[400px] lg:w-[600px] h-[300px] sm:h-[400px] lg:h-[600px] opacity-10">
           <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="300" cy="300" r="280" stroke="#f59e0b" strokeWidth="1" />
             <circle cx="300" cy="300" r="200" stroke="#f59e0b" strokeWidth="1" />
@@ -54,18 +54,28 @@ export default async function BlogPage() {
       </div>
 
       {/* Navigation */}
-      <nav className="relative z-10 flex items-center justify-between px-6 py-6 md:px-12 lg:px-20">
-        <a href="/" className="flex items-center gap-4">
+      <nav className="relative z-10 flex items-center justify-between px-4 py-4 sm:px-6 sm:py-6 md:px-12 lg:px-20">
+        <a href="/" className="flex items-center gap-2 sm:gap-4">
           <img
             src="/icon.svg"
             alt="The MOPerator"
-            className="h-14 md:h-16 lg:h-20 w-auto"
+            className="h-10 sm:h-14 md:h-16 lg:h-20 w-auto"
           />
-          <span className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight">
+          <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight">
             The <span className="text-accent glow-text">MOP</span>erator
           </span>
         </a>
-        <div className="hidden md:flex items-center gap-8 text-sm">
+        
+        {/* Mobile menu button */}
+        <div className="md:hidden">
+          <a href="/" className="text-muted hover:text-foreground transition-colors p-2">
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </a>
+        </div>
+
+        <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm">
           <a href="/coming-soon" className="text-muted hover:text-foreground transition-colors">
             Videos
           </a>
@@ -79,19 +89,19 @@ export default async function BlogPage() {
       </nav>
 
       {/* Hero */}
-      <section className="relative z-10 px-6 md:px-12 lg:px-20 pt-16 md:pt-24 pb-12">
+      <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 pt-8 sm:pt-12 md:pt-20 pb-8 sm:pb-12">
         <div className="max-w-4xl">
-          <h1 className="animate-fade-up text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-4">
+          <h1 className="animate-fade-up text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-3 sm:mb-4">
             <span className="text-accent glow-text">Blog</span>
           </h1>
-          <p className="animate-fade-up text-lg md:text-xl text-muted" style={{ animationDelay: "100ms" }}>
+          <p className="animate-fade-up text-base sm:text-lg md:text-xl text-muted" style={{ animationDelay: "100ms" }}>
             Guides, insights, and lessons learned on the journey from operator to builder.
           </p>
         </div>
       </section>
 
       {/* Posts Grid */}
-      <section className="relative z-10 px-6 md:px-12 lg:px-20 pb-24">
+      <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 pb-16 sm:pb-24">
         <div className="max-w-6xl">
           {posts.length === 0 ? (
             <div className="text-center py-20">
@@ -275,16 +285,18 @@ export default async function BlogPage() {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 px-6 md:px-12 lg:px-20 py-12 border-t border-border">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <img src="/icon.svg" alt="The MOPerator" className="h-12 w-auto" />
-            <span className="font-medium text-lg">
-              The <span className="text-accent glow-text">MOP</span>erator
-            </span>
-            <span className="text-sm text-muted">© 2026 Joe Reitz.</span>
+      <footer className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-8 sm:py-10 md:py-12 border-t border-border">
+        <div className="max-w-7xl mx-auto flex flex-col gap-4 sm:gap-6 md:flex-row items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <img src="/icon.svg" alt="The MOPerator" className="h-8 sm:h-10 md:h-12 w-auto" />
+              <span className="font-medium text-base sm:text-lg">
+                The <span className="text-accent glow-text">MOP</span>erator
+              </span>
+            </div>
+            <span className="text-xs sm:text-sm text-muted">© 2026 Joe Reitz.</span>
           </div>
-          <div className="flex items-center gap-6 text-sm text-muted">
+          <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm text-muted">
             <a
               href="https://x.com/joe_reitz"
               target="_blank"
