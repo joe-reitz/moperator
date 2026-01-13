@@ -79,6 +79,7 @@ export default function AboutPage() {
                   <p className="mb-1">Only where love and need are one,</p>
                   <p className="mb-1">And the work is play for mortal stakes,</p>
                   <p>Is the deed ever really done.</p>
+                  <p>For Heaven and the Future's sakes.</p>
                   <footer className="mt-4 text-sm not-italic text-accent">
                     — Robert Frost, &quot;Two Tramps in Mud Time&quot;
                   </footer>
@@ -99,7 +100,7 @@ export default function AboutPage() {
               <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
                 <div className="flex-shrink-0">
                   <img
-                    src="https://pbs.twimg.com/profile_images/1877541781976743936/fAPmHVq8_400x400.jpg"
+                    src="/joe-reitz.jpg"
                     alt="Joe Reitz"
                     className="w-24 h-24 md:w-32 md:h-32 rounded-2xl object-cover glow"
                   />
@@ -108,7 +109,7 @@ export default function AboutPage() {
                   <h2 className="text-2xl md:text-3xl font-bold mb-2">Joe Reitz</h2>
                   <p className="text-accent font-medium mb-4">Marketing Operations → GTM Engineer</p>
                   <p className="text-muted text-lg leading-relaxed">
-                    Whether we wanted it or not, times are changing. The best Operators are no longer just system admins, they're part product manager, part engineer. This is new emerging field is becoming known as GTM Engineering. The MOPerator is about building in public and documenting the journey from traditional Ops work to shipping 
+                    Whether we wanted it or not, times are changing. The best Operators are no longer just system admins, they're part product manager, part engineer. This new emerging field is becoming known as GTM Engineering. The MOPerator is about building in public and documenting the journey from traditional Ops work to shipping 
                     real applications. If I can do it, so can you. LFG.
                   </p>
                   <a
