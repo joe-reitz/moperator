@@ -27,9 +27,9 @@ export default function Home() {
           <img
             src="/icon.svg"
             alt="The MOPerator"
-            className="h-14 md:h-16 lg:h-20 w-auto"
+            className="h-16 md:h-20 lg:h-24 w-auto"
           />
-          <span className="text-2xl md:text-3xl font-semibold tracking-tight">
+          <span className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight">
             The <span className="text-accent glow-text">MOP</span>erator
           </span>
         </a>
