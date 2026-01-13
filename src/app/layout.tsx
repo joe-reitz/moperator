@@ -27,6 +27,12 @@ export const metadata: Metadata = {
     "Low-Code",
     "MarTech",
   ],
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/icon.svg",
+  },
   openGraph: {
     title: "The MOPerator",
     description: "AI App Development for Marketing Ops Professionals",
