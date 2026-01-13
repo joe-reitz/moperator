@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
-export const alt = "The MOPerator - AI App Development for Marketing Ops";
+export const alt = "The MOPerator - Everybody Ships";
 export const size = {
   width: 1200,
   height: 630,
@@ -10,6 +10,14 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function Image() {
+  // Fetch the icon SVG
+  const iconData = await fetch(
+    new URL("../../public/icon.svg", import.meta.url)
+  ).then((res) => res.text());
+
+  // Convert SVG to data URL
+  const iconDataUrl = `data:image/svg+xml;base64,${Buffer.from(iconData).toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -68,37 +76,24 @@ export default async function Image() {
             gap: "32px",
           }}
         >
-          {/* Mop icon representation */}
+          {/* Crossed mops icon */}
           <div
             style={{
-              width: "160px",
-              height: "160px",
-              background: "linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)",
-              borderRadius: "32px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              boxShadow: "0 0 80px rgba(245, 158, 11, 0.4)",
+              filter: "drop-shadow(0 0 60px rgba(245, 158, 11, 0.5))",
             }}
           >
-            <svg
-              width="100"
-              height="100"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#0c0c0f"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 2L12 10" />
-              <path d="M5 10L19 10" />
-              <path d="M5 10L3 22" />
-              <path d="M19 10L21 22" />
-              <path d="M8 10L6 22" />
-              <path d="M16 10L18 22" />
-              <path d="M12 10L12 22" />
-            </svg>
+            <img
+              src={iconDataUrl}
+              width="200"
+              height="200"
+              style={{
+                width: "200px",
+                height: "200px",
+              }}
+            />
           </div>
 
           {/* Title */}
@@ -145,12 +140,13 @@ export default async function Image() {
           {/* Tagline */}
           <div
             style={{
-              fontSize: "28px",
+              fontSize: "32px",
               color: "#6b7280",
-              letterSpacing: "0.05em",
+              letterSpacing: "0.1em",
+              fontWeight: "500",
             }}
           >
-            AI App Development for Marketing Ops
+            Everybody Ships.
           </div>
         </div>
 
