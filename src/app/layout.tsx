@@ -28,15 +28,22 @@ export const metadata: Metadata = {
     "MarTech",
   ],
   icons: {
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-    ],
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     apple: "/icon.svg",
   },
+  metadataBase: new URL("https://the-moperator.com"),
   openGraph: {
     title: "The MOPerator",
     description: "AI App Development for Marketing Ops Professionals",
     type: "website",
+    siteName: "The MOPerator",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The MOPerator",
+    description: "AI App Development for Marketing Ops Professionals",
+    creator: "@joe_reitz",
   },
 };
 
