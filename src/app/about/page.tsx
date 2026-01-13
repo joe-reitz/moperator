@@ -75,9 +75,14 @@ export default function AboutPage() {
                 About{" "}
                 <span className="text-accent glow-text">The MOPerator</span>
               </h1>
-              <p className="text-xl md:text-2xl text-muted max-w-xl">
-                A resource built by an operator, for operators ready to level up.
-              </p>
+<blockquote className="text-lg md:text-xl text-muted max-w-xl italic leading-relaxed">
+                  <p className="mb-1">Only where love and need are one,</p>
+                  <p className="mb-1">And the work is play for mortal stakes,</p>
+                  <p>Is the deed ever really done.</p>
+                  <footer className="mt-4 text-sm not-italic text-accent">
+                    — Robert Frost, &quot;Two Tramps in Mud Time&quot;
+                  </footer>
+                </blockquote>
             </div>
           </div>
         </div>
