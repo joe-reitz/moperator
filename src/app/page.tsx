@@ -27,7 +27,7 @@ export default function Home() {
           <img
             src="/logo.svg"
             alt="The MOPerator"
-            className="h-10 md:h-12 w-auto"
+            className="h-12 md:h-14 lg:h-16 w-auto"
           />
         </a>
         <div className="hidden md:flex items-center gap-8 text-sm">
@@ -276,7 +276,7 @@ export default function Home() {
             <img
               src="/logo.svg"
               alt="The MOPerator"
-              className="h-8 w-auto"
+              className="h-10 w-auto"
             />
             <span className="text-sm text-muted">
               © 2026 Built with Cursor.
