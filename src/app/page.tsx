@@ -40,7 +40,7 @@ export default function Home() {
           <a href="#blog" className="text-muted hover:text-foreground transition-colors">
             Blog
           </a>
-          <a href="#about" className="text-muted hover:text-foreground transition-colors">
+          <a href="/about" className="text-muted hover:text-foreground transition-colors">
             About
           </a>
         </div>
@@ -95,7 +95,7 @@ export default function Home() {
           >
             Video tutorials, guides, and real-world examples for Marketing
             Operations professionals ready to break into AI app development
-            using Cursor, v0, and more.
+            using tools like v0, Cursor, Claude, and more.
           </p>
 
           {/* CTA Buttons */}
@@ -290,7 +290,12 @@ export default function Home() {
             </span>
           </div>
           <div className="flex items-center gap-6 text-sm text-muted">
-            <a href="#" className="hover:text-foreground transition-colors">
+            <a
+              href="https://x.com/joe_reitz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors"
+            >
               Twitter
             </a>
             <a href="#" className="hover:text-foreground transition-colors">
