@@ -23,12 +23,15 @@ export default function Home() {
 
       {/* Navigation */}
       <nav className="relative z-10 flex items-center justify-between px-6 py-6 md:px-12 lg:px-20">
-        <a href="/" className="flex items-center">
+        <a href="/" className="flex items-center gap-3">
           <img
-            src="/logo.svg"
+            src="/icon.svg"
             alt="The MOPerator"
-            className="h-12 md:h-14 lg:h-16 w-auto"
+            className="h-12 md:h-14 w-auto"
           />
+          <span className="text-xl md:text-2xl font-semibold tracking-tight">
+            The <span className="text-accent">MOP</span>erator
+          </span>
         </a>
         <div className="hidden md:flex items-center gap-8 text-sm">
           <a href="#videos" className="text-muted hover:text-foreground transition-colors">
@@ -272,12 +275,15 @@ export default function Home() {
       {/* Footer */}
       <footer className="relative z-10 px-6 md:px-12 lg:px-20 py-12 border-t border-border">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <img
-              src="/logo.svg"
+              src="/icon.svg"
               alt="The MOPerator"
               className="h-10 w-auto"
             />
+            <span className="font-medium">
+              The <span className="text-accent">MOP</span>erator
+            </span>
             <span className="text-sm text-muted">
               © 2026 Built with Cursor.
             </span>
