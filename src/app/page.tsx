@@ -62,18 +62,31 @@ export default function Home() {
 
           {/* Main headline */}
           <h1
-            className="animate-fade-up text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-2"
+            className="animate-fade-up text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-6"
             style={{ animationDelay: "100ms" }}
           >
             Learn how to{" "}
-            <span className="text-accent glow-text">Ship Apps</span>
+            <span className="text-accent glow-text">Ship Apps</span>:
+            <br className="hidden md:block" />
+            by operators,{" "}
+            <span className="inline-block">
+              <span className="relative">
+                for operators
+                <svg
+                  className="absolute -bottom-2 left-0 w-full"
+                  viewBox="0 0 300 8"
+                  fill="none"
+                >
+                  <path
+                    d="M2 6C75 2 225 2 298 6"
+                    stroke="#f59e0b"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
+            </span>
           </h1>
-          <p
-            className="animate-fade-up text-xl md:text-2xl lg:text-3xl text-muted font-medium mb-6"
-            style={{ animationDelay: "150ms" }}
-          >
-            by operators, for operators
-          </p>
 
           {/* Subheadline */}
           <p
