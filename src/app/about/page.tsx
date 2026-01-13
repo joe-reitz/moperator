@@ -98,15 +98,17 @@ export default function AboutPage() {
             <div className="bg-surface p-8 md:p-12">
               <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
                 <div className="flex-shrink-0">
-                  <div className="w-24 h-24 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br from-accent to-accent-secondary flex items-center justify-center text-4xl md:text-5xl font-bold text-background glow">
-                    JR
-                  </div>
+                  <img
+                    src="https://pbs.twimg.com/profile_images/1877541781976743936/fAPmHVq8_400x400.jpg"
+                    alt="Joe Reitz"
+                    className="w-24 h-24 md:w-32 md:h-32 rounded-2xl object-cover glow"
+                  />
                 </div>
                 <div className="text-center md:text-left">
                   <h2 className="text-2xl md:text-3xl font-bold mb-2">Joe Reitz</h2>
                   <p className="text-accent font-medium mb-4">Marketing Operations → GTM Engineer</p>
                   <p className="text-muted text-lg leading-relaxed">
-                    Building in public and documenting the journey from Marketing Ops to shipping 
+                    Whether we wanted it or not, times are changing. The best Operators are no longer just system admins, they're part product manager, part engineer. This is becoming known Building in public and documenting the journey from Marketing Ops to shipping 
                     real applications. If I can do it, so can you.
                   </p>
                   <a
