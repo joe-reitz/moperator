@@ -6,8 +6,8 @@ import { schemaTypes } from "./src/sanity/schemaTypes";
 export default defineConfig({
   name: "default",
   title: "The MOPerator",
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "placeholder",
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
+  projectId: "gdalykgx",
+  dataset: "production",
   basePath: "/studio",
   plugins: [structureTool(), visionTool()],
   schema: {
