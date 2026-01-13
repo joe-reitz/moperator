@@ -56,36 +56,24 @@ export default function Home() {
           >
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
             <span className="text-sm text-muted">
-              For Operators becoming GTM Engineers
+              From Operations to GTM Engineering
             </span>
           </div>
 
           {/* Main headline */}
           <h1
-            className="animate-fade-up text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-6"
+            className="animate-fade-up text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-2"
             style={{ animationDelay: "100ms" }}
           >
-            By Operators, for Operators:
-            <br className="hidden md:block" />
-            learn how to{" "}
-            <span className="inline-block">
-              <span className="relative text-accent glow-text">
-                ship apps
-                <svg
-                  className="absolute -bottom-2 left-0 w-full"
-                  viewBox="0 0 200 8"
-                  fill="none"
-                >
-                  <path
-                    d="M2 6C50 2 150 2 198 6"
-                    stroke="#f59e0b"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
-            </span>
+            Learn how to{" "}
+            <span className="text-accent glow-text">Ship Apps</span>
           </h1>
+          <p
+            className="animate-fade-up text-xl md:text-2xl lg:text-3xl text-muted font-medium mb-6"
+            style={{ animationDelay: "150ms" }}
+          >
+            by operators, for operators
+          </p>
 
           {/* Subheadline */}
           <p
