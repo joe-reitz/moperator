@@ -23,14 +23,13 @@ export default function Home() {
 
       {/* Navigation */}
       <nav className="relative z-10 flex items-center justify-between px-6 py-6 md:px-12 lg:px-20">
-        <div className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-accent to-accent-secondary flex items-center justify-center">
-            <span className="text-background font-bold text-lg font-mono">M</span>
-          </div>
-          <span className="text-xl font-semibold tracking-tight">
-            The <span className="text-accent">MOP</span>erator
-          </span>
-        </div>
+        <a href="/" className="flex items-center">
+          <img
+            src="/logo.svg"
+            alt="The MOPerator"
+            className="h-10 md:h-12 w-auto"
+          />
+        </a>
         <div className="hidden md:flex items-center gap-8 text-sm">
           <a href="#videos" className="text-muted hover:text-foreground transition-colors">
             Videos
@@ -273,14 +272,14 @@ export default function Home() {
       {/* Footer */}
       <footer className="relative z-10 px-6 md:px-12 lg:px-20 py-12 border-t border-border">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-accent-secondary flex items-center justify-center">
-              <span className="text-background font-bold text-sm font-mono">
-                M
-              </span>
-            </div>
+          <div className="flex items-center gap-4">
+            <img
+              src="/logo.svg"
+              alt="The MOPerator"
+              className="h-8 w-auto"
+            />
             <span className="text-sm text-muted">
-              © 2026 The MOPerator. Built with Cursor.
+              © 2026 Built with Cursor.
             </span>
           </div>
           <div className="flex items-center gap-6 text-sm text-muted">
