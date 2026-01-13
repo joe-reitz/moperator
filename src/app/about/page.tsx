@@ -8,7 +8,26 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen relative">
+    <main className="min-h-screen relative overflow-hidden">
+      {/* Geometric background pattern */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] opacity-10">
+          <svg viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="400" cy="400" r="380" stroke="#f59e0b" strokeWidth="1" />
+            <circle cx="400" cy="400" r="280" stroke="#f59e0b" strokeWidth="1" />
+            <circle cx="400" cy="400" r="180" stroke="#f59e0b" strokeWidth="1" />
+            <circle cx="400" cy="400" r="80" stroke="#f59e0b" strokeWidth="1" />
+          </svg>
+        </div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] opacity-5">
+          <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="50" y="50" width="500" height="500" stroke="#f59e0b" strokeWidth="1" />
+            <rect x="150" y="150" width="300" height="300" stroke="#f59e0b" strokeWidth="1" />
+            <rect x="250" y="250" width="100" height="100" stroke="#f59e0b" strokeWidth="1" />
+          </svg>
+        </div>
+      </div>
+
       {/* Navigation */}
       <nav className="relative z-10 flex items-center justify-between px-6 py-6 md:px-12 lg:px-20">
         <a href="/" className="flex items-center gap-4">
@@ -22,112 +41,243 @@ export default function AboutPage() {
           </span>
         </a>
         <div className="hidden md:flex items-center gap-8 text-sm">
-          <a
-            href="/#videos"
-            className="text-muted hover:text-foreground transition-colors"
-          >
+          <a href="/#videos" className="text-muted hover:text-foreground transition-colors">
             Videos
           </a>
-          <a
-            href="/#blog"
-            className="text-muted hover:text-foreground transition-colors"
-          >
+          <a href="/#blog" className="text-muted hover:text-foreground transition-colors">
             Blog
           </a>
-          <a
-            href="/about"
-            className="text-foreground transition-colors"
-          >
+          <a href="/about" className="text-foreground transition-colors">
             About
           </a>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="relative z-10 px-6 md:px-12 lg:px-20 pt-16 md:pt-24 pb-16">
-        <div className="max-w-3xl">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6">
-            About <span className="text-accent glow-text">The MOPerator</span>
-          </h1>
-          <p className="text-xl text-muted">
-            A resource built by an operator, for operators ready to level up.
-          </p>
+      {/* Hero with Giant Logo */}
+      <section className="relative z-10 px-6 md:px-12 lg:px-20 pt-8 md:pt-16 pb-16">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            {/* Giant Logo */}
+            <div className="animate-fade-up flex-shrink-0" style={{ animationDelay: "0ms" }}>
+              <div className="relative">
+                <div className="absolute inset-0 blur-3xl bg-accent/20 rounded-full scale-75" />
+                <img
+                  src="/icon.svg"
+                  alt="The MOPerator"
+                  className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96"
+                />
+              </div>
+            </div>
+
+            {/* Hero Text */}
+            <div className="animate-fade-up text-center lg:text-left" style={{ animationDelay: "100ms" }}>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-4">
+                About{" "}
+                <span className="text-accent glow-text">The MOPerator</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-muted max-w-xl">
+                A resource built by an operator, for operators ready to level up.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Content */}
-      <section className="relative z-10 px-6 md:px-12 lg:px-20 pb-24">
-        <div className="max-w-3xl space-y-8 text-lg leading-relaxed">
-          <div className="p-6 rounded-xl bg-surface border border-border">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-accent-secondary flex items-center justify-center text-2xl font-bold text-background">
-                JR
-              </div>
-              <div>
-                <h2 className="text-xl font-semibold">Joe Reitz</h2>
-                <p className="text-muted">Marketing Operations → GTM Engineer</p>
+      {/* Author Card */}
+      <section className="relative z-10 px-6 md:px-12 lg:px-20 py-12">
+        <div className="max-w-4xl mx-auto">
+          <div
+            className="animate-fade-up gradient-border rounded-2xl overflow-hidden"
+            style={{ animationDelay: "200ms" }}
+          >
+            <div className="bg-surface p-8 md:p-12">
+              <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
+                <div className="flex-shrink-0">
+                  <div className="w-24 h-24 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br from-accent to-accent-secondary flex items-center justify-center text-4xl md:text-5xl font-bold text-background glow">
+                    JR
+                  </div>
+                </div>
+                <div className="text-center md:text-left">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-2">Joe Reitz</h2>
+                  <p className="text-accent font-medium mb-4">Marketing Operations → GTM Engineer</p>
+                  <p className="text-muted text-lg leading-relaxed">
+                    Building in public and documenting the journey from Marketing Ops to shipping 
+                    real applications. If I can do it, so can you.
+                  </p>
+                  <a
+                    href="https://x.com/joe_reitz"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 mt-6 text-muted hover:text-foreground transition-colors"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                    <span>@joe_reitz</span>
+                  </a>
+                </div>
               </div>
             </div>
-            <p className="text-muted">
-              Building in public and documenting the journey from Marketing Ops to shipping real applications.
-            </p>
           </div>
+        </div>
+      </section>
 
-          <h2 className="text-2xl font-bold pt-4">The Mission</h2>
-          <p className="text-muted">
-            Marketing Operations professionals are some of the most systems-minded people in any organization. 
-            We build automations, design processes, manage complex tech stacks, and solve problems every single day.
-          </p>
-          <p className="text-muted">
-            But there&apos;s always been a gap between &quot;I can configure this tool&quot; and &quot;I can build this tool.&quot; 
-            That gap used to require years of learning to code, computer science degrees, or expensive bootcamps.
-          </p>
-          <p className="text-muted">
-            <span className="text-foreground font-medium">Not anymore.</span>
-          </p>
-          <p className="text-muted">
-            With AI-powered development tools like Cursor, v0, Claude, and others, operators can now build real applications. 
-            The skills you already have—systems thinking, problem decomposition, understanding business logic—are exactly 
-            what you need. The AI handles the syntax.
-          </p>
+      {/* The Mission */}
+      <section className="relative z-10 px-6 md:px-12 lg:px-20 py-16">
+        <div className="max-w-4xl mx-auto">
+          <div className="animate-fade-up" style={{ animationDelay: "300ms" }}>
+            <div className="flex items-center gap-4 mb-8">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+              <h2 className="text-sm uppercase tracking-widest text-muted">The Mission</h2>
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+            </div>
 
-          <h2 className="text-2xl font-bold pt-4">What You&apos;ll Find Here</h2>
-          <ul className="space-y-3 text-muted">
-            <li className="flex items-start gap-3">
-              <span className="text-accent mt-1">→</span>
-              <span><strong className="text-foreground">Video tutorials</strong> walking through real builds from start to finish</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-accent mt-1">→</span>
-              <span><strong className="text-foreground">Written guides</strong> breaking down concepts and patterns</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-accent mt-1">→</span>
-              <span><strong className="text-foreground">Real projects</strong> relevant to Marketing Ops work</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-accent mt-1">→</span>
-              <span><strong className="text-foreground">Honest takes</strong> on what works, what doesn&apos;t, and what&apos;s hype</span>
-            </li>
-          </ul>
+            <div className="space-y-6 text-lg md:text-xl leading-relaxed">
+              <p className="text-muted">
+                Marketing Operations professionals are some of the{" "}
+                <span className="text-foreground font-medium">most systems-minded people</span> in 
+                any organization. We build automations, design processes, manage complex tech stacks, 
+                and solve problems every single day.
+              </p>
+              <p className="text-muted">
+                But there&apos;s always been a gap between{" "}
+                <span className="text-foreground">&quot;I can configure this tool&quot;</span> and{" "}
+                <span className="text-accent font-medium">&quot;I can build this tool.&quot;</span>
+              </p>
+              <p className="text-muted">
+                That gap used to require years of learning to code, computer science degrees, 
+                or expensive bootcamps.
+              </p>
+              <div className="py-8 text-center">
+                <span className="text-3xl md:text-4xl font-bold text-accent glow-text">
+                  Not anymore.
+                </span>
+              </div>
+              <p className="text-muted">
+                With AI-powered development tools like{" "}
+                <span className="text-foreground font-medium">Cursor</span>,{" "}
+                <span className="text-foreground font-medium">v0</span>,{" "}
+                <span className="text-foreground font-medium">Claude</span>, and others—operators 
+                can now build real applications.
+              </p>
+              <p className="text-muted">
+                The skills you already have—systems thinking, problem decomposition, understanding 
+                business logic—are{" "}
+                <span className="text-accent font-medium">exactly what you need</span>. 
+                The AI handles the syntax.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-          <h2 className="text-2xl font-bold pt-4">The Name</h2>
-          <p className="text-muted">
-            <span className="text-accent font-semibold">MOP</span>erator = <span className="text-accent">M</span>arketing <span className="text-accent">Op</span>erations + Op<span className="text-accent">erator</span>. 
-            It&apos;s a nod to where we come from and what we&apos;re becoming. Also, someone has to clean up the mess. 🧹
-          </p>
+      {/* What You'll Find */}
+      <section className="relative z-10 px-6 md:px-12 lg:px-20 py-16">
+        <div className="max-w-5xl mx-auto">
+          <div className="animate-fade-up" style={{ animationDelay: "400ms" }}>
+            <div className="flex items-center gap-4 mb-12">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+              <h2 className="text-sm uppercase tracking-widest text-muted">What You&apos;ll Find Here</h2>
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+            </div>
 
-          <div className="pt-8 border-t border-border">
-            <p className="text-muted mb-4">
-              Want to follow along or connect?
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                {
+                  icon: (
+                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  ),
+                  title: "Video Tutorials",
+                  description: "Real builds from start to finish. No fluff, just shipping.",
+                },
+                {
+                  icon: (
+                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                  ),
+                  title: "Written Guides",
+                  description: "Deep dives on concepts, patterns, and best practices.",
+                },
+                {
+                  icon: (
+                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                  ),
+                  title: "Real Projects",
+                  description: "Apps relevant to Marketing Ops work you can learn from.",
+                },
+                {
+                  icon: (
+                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                  ),
+                  title: "Honest Takes",
+                  description: "What works, what doesn't, and what's just hype.",
+                },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="group p-6 rounded-xl bg-surface border border-border hover:border-accent/30 transition-all"
+                >
+                  <div className="w-14 h-14 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2 group-hover:text-accent transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-muted">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Name */}
+      <section className="relative z-10 px-6 md:px-12 lg:px-20 py-16">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="animate-fade-up" style={{ animationDelay: "500ms" }}>
+            <div className="flex items-center gap-4 mb-8">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+              <h2 className="text-sm uppercase tracking-widest text-muted">The Name</h2>
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+            </div>
+
+            <div className="text-2xl md:text-3xl font-bold mb-6">
+              <span className="text-accent glow-text">MOP</span>erator
+            </div>
+            <p className="text-xl text-muted mb-4">
+              <span className="text-accent font-semibold">M</span>arketing{" "}
+              <span className="text-accent font-semibold">Op</span>erations +{" "}
+              Op<span className="text-accent font-semibold">erator</span>
             </p>
+            <p className="text-muted text-lg max-w-xl mx-auto">
+              It&apos;s a nod to where we come from and what we&apos;re becoming. 
+              Also, someone has to clean up the mess.
+            </p>
+            <div className="mt-6 text-6xl">🧹</div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="relative z-10 px-6 md:px-12 lg:px-20 py-20">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="animate-fade-up" style={{ animationDelay: "600ms" }}>
+            <p className="text-muted mb-6 text-lg">Want to follow along or connect?</p>
             <a
               href="https://x.com/joe_reitz"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border bg-surface hover:border-accent/30 transition-colors"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl gradient-border bg-surface hover:bg-surface-elevated transition-colors text-lg font-medium"
             >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
               <span>Follow @joe_reitz</span>
@@ -140,11 +290,7 @@ export default function AboutPage() {
       <footer className="relative z-10 px-6 md:px-12 lg:px-20 py-12 border-t border-border">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <img
-              src="/icon.svg"
-              alt="The MOPerator"
-              className="h-12 w-auto"
-            />
+            <img src="/icon.svg" alt="The MOPerator" className="h-12 w-auto" />
             <span className="font-medium text-lg">
               The <span className="text-accent glow-text">MOP</span>erator
             </span>
@@ -171,4 +317,3 @@ export default function AboutPage() {
     </main>
   );
 }
-
