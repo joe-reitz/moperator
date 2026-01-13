@@ -173,7 +173,7 @@ export default async function BlogPostPage({
           )}
 
           {/* Content */}
-          <div className="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-code:text-accent prose-code:bg-surface prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-surface prose-pre:border prose-pre:border-border">
+          <div className="article-content">
             {post.body && <PortableText value={post.body} />}
           </div>
 
