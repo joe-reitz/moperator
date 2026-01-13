@@ -1,5 +1,5 @@
 import { client } from "@/sanity/lib/client";
-import { PortableText } from "@portabletext/react";
+import { PortableText, PortableTextBlock } from "@portabletext/react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -9,7 +9,7 @@ type Post = {
   slug: { current: string };
   excerpt: string | null;
   publishedAt: string | null;
-  body: unknown[];
+  body: PortableTextBlock[] | null;
   mainImage: {
     asset: {
       url: string;
