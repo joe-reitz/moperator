@@ -266,7 +266,7 @@ export default function AboutPage() {
               Op<span className="text-accent font-semibold">erator</span>
             </p>
             <p className="text-muted text-lg max-w-xl mx-auto">
-              It&apos;s a nod to where we come from and what we&apos;re becoming, but it's just as valid for SOPs and RevOps professionals. 
+              It&apos;s a nod to where we come from and what we&apos;re becoming, but it's just as valid for SOPs and RevOps professional, or really anyone with a little curiousity and spare time. 
               Also, someone has to clean up the mess.
             </p>
             <div className="mt-6 text-6xl">🧹</div>
