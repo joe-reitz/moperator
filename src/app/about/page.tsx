@@ -110,7 +110,7 @@ export default function AboutPage() {
                   <p className="text-accent font-medium mb-4">Marketing Operations → GTM Engineer</p>
                   <p className="text-muted text-lg leading-relaxed">
                     Whether we wanted it or not, times are changing. The best Operators are no longer just system admins, they're part product manager, part engineer. This new emerging field is becoming known as GTM Engineering. The MOPerator is about building in public and documenting the journey from traditional Ops work to shipping 
-                    real applications. If I can do it, so can you. LFG.
+                    real applications that solve real business challenges.
                   </p>
                   <a
                     href="https://x.com/joe_reitz"
@@ -150,11 +150,11 @@ export default function AboutPage() {
               <p className="text-muted">
                 But there&apos;s always been a gap between{" "}
                 <span className="text-foreground">&quot;I can configure this tool&quot;</span> and{" "}
-                <span className="text-accent font-medium">&quot;I can build this tool.&quot;</span>
+                <span className="text-accent font-medium">&quot;I can build something better.&quot;</span>
               </p>
               <p className="text-muted">
-                That gap used to require years of learning to code, computer science degrees, 
-                or expensive bootcamps.
+                That gap used to require years of sweat equity: learning to code, earning a computer science certification, 
+                and/or toiling away for years as a junior developer in the honorable pursuit of working experience.
               </p>
               <div className="py-8 text-center">
                 <span className="text-3xl md:text-4xl font-bold text-accent glow-text">
@@ -169,10 +169,10 @@ export default function AboutPage() {
                 can now build real applications.
               </p>
               <p className="text-muted">
-                The skills you already have—systems thinking, problem decomposition, understanding 
+                And who better to do it? We've worked for years under the constraints of legacy systems and always found a way to make it work. The skills you already have—systems thinking, problem decomposition, understanding 
                 business logic—are{" "}
                 <span className="text-accent font-medium">exactly what you need</span>. 
-                The AI handles the syntax.
+                The AI handles the syntax, your ideas become the product.
               </p>
             </div>
           </div>
@@ -313,11 +313,16 @@ export default function AboutPage() {
             >
               Twitter
             </a>
-            <a href="#" className="hover:text-foreground transition-colors">
-              YouTube
+            <a
+              href="https://www.linkedin.com/in/joereitz/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors"
+            >
+              LinkedIn
             </a>
             <a href="#" className="hover:text-foreground transition-colors">
-              GitHub
+              YouTube
             </a>
           </div>
         </div>

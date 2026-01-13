@@ -298,11 +298,16 @@ export default function Home() {
             >
               Twitter
             </a>
-            <a href="#" className="hover:text-foreground transition-colors">
-              YouTube
+            <a
+              href="https://www.linkedin.com/in/joereitz/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors"
+            >
+              LinkedIn
             </a>
             <a href="#" className="hover:text-foreground transition-colors">
-              GitHub
+              YouTube
             </a>
           </div>
         </div>
