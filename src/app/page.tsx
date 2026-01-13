@@ -66,23 +66,26 @@ export default function Home() {
             style={{ animationDelay: "100ms" }}
           >
             Learn to{" "}
-            <span className="text-accent glow-text">ship apps</span>—from
-            operators, to{" "}
-            <span className="inline-block">
-              <span className="relative">
-                operators
-                <svg
-                  className="absolute -bottom-2 left-0 w-full"
-                  viewBox="0 0 200 8"
-                  fill="none"
-                >
-                  <path
-                    d="M2 6C50 2 150 2 198 6"
-                    stroke="#f59e0b"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  />
-                </svg>
+            <span className="text-accent glow-text">ship apps</span>
+            <br className="hidden md:block" />
+            <span className="whitespace-nowrap">
+              —from operators,{" "}
+              <span className="inline-block">
+                <span className="relative">
+                  for operators
+                  <svg
+                    className="absolute -bottom-2 left-0 w-full"
+                    viewBox="0 0 300 8"
+                    fill="none"
+                  >
+                    <path
+                      d="M2 6C75 2 225 2 298 6"
+                      stroke="#f59e0b"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </span>
               </span>
             </span>
           </h1>
