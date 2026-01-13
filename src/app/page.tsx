@@ -56,7 +56,7 @@ export default function Home() {
           >
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
             <span className="text-sm text-muted">
-              For Marketing Ops building with AI
+              Learn to ship apps—from operators, to operators
             </span>
           </div>
 
