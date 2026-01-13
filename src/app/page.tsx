@@ -23,14 +23,14 @@ export default function Home() {
 
       {/* Navigation */}
       <nav className="relative z-10 flex items-center justify-between px-6 py-6 md:px-12 lg:px-20">
-        <a href="/" className="flex items-center gap-3">
+        <a href="/" className="flex items-center gap-4">
           <img
             src="/icon.svg"
             alt="The MOPerator"
-            className="h-12 md:h-14 w-auto"
+            className="h-14 md:h-16 lg:h-20 w-auto"
           />
-          <span className="text-xl md:text-2xl font-semibold tracking-tight">
-            The <span className="text-accent">MOP</span>erator
+          <span className="text-2xl md:text-3xl font-semibold tracking-tight">
+            The <span className="text-accent glow-text">MOP</span>erator
           </span>
         </a>
         <div className="hidden md:flex items-center gap-8 text-sm">
@@ -279,10 +279,10 @@ export default function Home() {
             <img
               src="/icon.svg"
               alt="The MOPerator"
-              className="h-10 w-auto"
+              className="h-12 w-auto"
             />
-            <span className="font-medium">
-              The <span className="text-accent">MOP</span>erator
+            <span className="font-medium text-lg">
+              The <span className="text-accent glow-text">MOP</span>erator
             </span>
             <span className="text-sm text-muted">
               © 2026 Built with Cursor.
