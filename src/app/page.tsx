@@ -329,7 +329,7 @@ export default function Home() {
             </a>
             <span className="text-border">|</span>
             <a
-              href="https://venmo.com/joereitz"
+              href="https://venmo.com/joe-reitz-1"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-foreground transition-colors flex items-center gap-1"
