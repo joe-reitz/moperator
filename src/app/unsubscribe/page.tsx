@@ -1,9 +1,9 @@
 export default async function UnsubscribePage({
   searchParams,
 }: {
-  searchParams: Promise<{ success?: string; error?: string }>;
+  searchParams: Promise<{ success?: string; error?: string; deleted?: string; email?: string }>;
 }) {
-  const { success, error } = await searchParams;
+  const { success, error, deleted, email } = await searchParams;
 
   return (
     <main className="min-h-screen relative flex items-center justify-center px-4">
@@ -22,7 +22,38 @@ export default async function UnsubscribePage({
       </nav>
 
       <div className="text-center max-w-md">
-        {success === "true" ? (
+        {deleted === "true" ? (
+          <>
+            <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
+              <svg
+                className="w-8 h-8 text-green-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold mb-4">
+              Your data has been deleted
+            </h1>
+            <p className="text-muted mb-8">
+              All your personal data has been permanently removed from our systems
+              in accordance with your Right to be Forgotten request.
+            </p>
+            <a
+              href="/"
+              className="inline-block gradient-border rounded-lg px-6 py-3 font-medium hover:bg-surface-elevated transition-colors"
+            >
+              Back to Home
+            </a>
+          </>
+        ) : success === "true" ? (
           <>
             <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
               <svg
@@ -42,7 +73,7 @@ export default async function UnsubscribePage({
             <h1 className="text-2xl sm:text-3xl font-bold mb-4">
               You&apos;ve been unsubscribed
             </h1>
-            <p className="text-muted mb-8">
+            <p className="text-muted mb-6">
               You won&apos;t receive any more emails from The MOPerator. 
               We&apos;re sorry to see you go!
             </p>
@@ -52,6 +83,21 @@ export default async function UnsubscribePage({
             >
               Back to Home
             </a>
+            
+            {/* Right to be Forgotten option */}
+            {email && (
+              <div className="mt-8 pt-8 border-t border-border">
+                <p className="text-sm text-muted mb-4">
+                  Want to permanently delete all your data from our systems?
+                </p>
+                <a
+                  href={`/api/unsubscribe?email=${email}&action=delete`}
+                  className="text-sm text-red-400 hover:text-red-300 underline transition-colors"
+                >
+                  Delete all my data (Right to be Forgotten)
+                </a>
+              </div>
+            )}
           </>
         ) : error ? (
           <>
