@@ -232,6 +232,16 @@ export default async function BlogPostPage({
             <a href="#" className="hover:text-foreground transition-colors">
               YouTube
             </a>
+            <span className="text-border">|</span>
+            <a
+              href="https://venmo.com/joereitz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors flex items-center gap-1"
+            >
+              <span>☕</span>
+              <span>Buy me a coffee</span>
+            </a>
           </div>
         </div>
       </footer>

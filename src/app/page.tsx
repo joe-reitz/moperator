@@ -310,23 +310,33 @@ export default function Home() {
           <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm text-muted">
             <a
               href="https://x.com/joe_reitz"
-            target="_blank"
-            rel="noopener noreferrer"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-foreground transition-colors"
             >
               Twitter
-          </a>
-          <a
+            </a>
+            <a
               href="https://www.linkedin.com/in/joereitz/"
-            target="_blank"
-            rel="noopener noreferrer"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-foreground transition-colors"
-          >
+            >
               LinkedIn
             </a>
             <a href="#" className="hover:text-foreground transition-colors">
               YouTube
-          </a>
+            </a>
+            <span className="text-border">|</span>
+            <a
+              href="https://venmo.com/joereitz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors flex items-center gap-1"
+            >
+              <span>☕</span>
+              <span>Buy me a coffee</span>
+            </a>
           </div>
         </div>
       </footer>
