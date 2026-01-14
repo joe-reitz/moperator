@@ -57,6 +57,9 @@ export default function AboutPage() {
           <a href="/blog" className="text-muted hover:text-foreground transition-colors">
             Blog
           </a>
+          <a href="/repos" className="text-muted hover:text-foreground transition-colors">
+            Repos
+          </a>
           <a href="/about" className="text-foreground transition-colors">
             About
           </a>
