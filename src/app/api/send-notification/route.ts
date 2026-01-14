@@ -100,25 +100,29 @@ export async function POST(request: Request) {
       };
     });
 
-    // Resend batch API - send up to 100 at a time
-    const batchSize = 100;
+    // Send emails individually for better error tracking
     let sent = 0;
     const errors: string[] = [];
     const resendClient = getResend();
 
-    for (let i = 0; i < emails.length; i += batchSize) {
-      const batch = emails.slice(i, i + batchSize);
+    for (const email of emails) {
       try {
-        await resendClient.batch.send(batch);
-        sent += batch.length;
+        const result = await resendClient.emails.send(email);
+        if (result.error) {
+          console.error(`Failed to send to ${email.to}:`, result.error);
+          errors.push(`${email.to}: ${result.error.message}`);
+        } else {
+          sent++;
+        }
       } catch (error) {
-        console.error(`Batch ${i / batchSize + 1} failed:`, error);
-        errors.push(`Batch ${i / batchSize + 1} failed`);
+        const errorMessage = error instanceof Error ? error.message : "Unknown error";
+        console.error(`Failed to send to ${email.to}:`, errorMessage);
+        errors.push(`${email.to}: ${errorMessage}`);
       }
     }
 
     return NextResponse.json({
-      message: `Notifications sent to ${sent} subscribers`,
+      message: `Notifications sent to ${sent} of ${subscribers.length} subscribers`,
       total: subscribers.length,
       sent,
       errors: errors.length > 0 ? errors : undefined,
