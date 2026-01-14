@@ -218,19 +218,29 @@ export default async function PreviewEmailPage({
                   textAlign: "center" as const,
                 }}
               >
-                <p
-                  style={{
-                    margin: "0 0 8px 0",
-                    fontSize: "14px",
-                    color: "#6b7280",
-                  }}
-                >
-                  You&apos;re receiving this because you subscribed to The
-                  MOPerator.
-                </p>
-                <p style={{ margin: 0, fontSize: "12px", color: "#4b5563" }}>
-                  © 2026 Joe Reitz. All rights reserved.
-                </p>
+              <p
+                style={{
+                  margin: "0 0 8px 0",
+                  fontSize: "14px",
+                  color: "#6b7280",
+                }}
+              >
+                You&apos;re receiving this because you subscribed to The
+                MOPerator.
+              </p>
+              <p style={{ margin: "0 0 8px 0", fontSize: "12px", color: "#4b5563" }}>
+                © 2026 Joe Reitz. All rights reserved.
+              </p>
+              <a
+                href="#"
+                style={{
+                  fontSize: "12px",
+                  color: "#6b7280",
+                  textDecoration: "underline",
+                }}
+              >
+                Unsubscribe
+              </a>
               </td>
             </tr>
           </tbody>

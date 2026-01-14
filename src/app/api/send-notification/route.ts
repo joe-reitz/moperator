@@ -81,17 +81,24 @@ export async function POST(request: Request) {
     const postUrl = `${baseUrl}/blog/${post.slug.current}`;
 
     // Send emails in batches (Resend allows batch sending)
-    const emails = subscribers.map((subscriber) => ({
-      from: "The MOPerator <noreply@the-moperator.com>",
-      to: subscriber.email,
-      subject: `New Post: ${post.title}`,
-      react: NewPostEmail({
-        postTitle: post.title,
-        postExcerpt: post.excerpt || "Check out our latest content!",
-        postUrl,
-        postImage: post.mainImage?.asset?.url,
-      }),
-    }));
+    const emails = subscribers.map((subscriber) => {
+      // Encode email for unsubscribe link
+      const encodedEmail = Buffer.from(subscriber.email).toString("base64");
+      const unsubscribeUrl = `${baseUrl}/api/unsubscribe?email=${encodedEmail}`;
+
+      return {
+        from: "The MOPerator <noreply@the-moperator.com>",
+        to: subscriber.email,
+        subject: `New Post: ${post.title}`,
+        react: NewPostEmail({
+          postTitle: post.title,
+          postExcerpt: post.excerpt || "Check out our latest content!",
+          postUrl,
+          postImage: post.mainImage?.asset?.url,
+          unsubscribeUrl,
+        }),
+      };
+    });
 
     // Resend batch API - send up to 100 at a time
     const batchSize = 100;

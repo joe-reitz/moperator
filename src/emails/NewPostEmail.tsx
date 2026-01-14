@@ -5,6 +5,7 @@ interface NewPostEmailProps {
   postExcerpt: string;
   postUrl: string;
   postImage?: string;
+  unsubscribeUrl: string;
 }
 
 export default function NewPostEmail({
@@ -12,6 +13,7 @@ export default function NewPostEmail({
   postExcerpt,
   postUrl,
   postImage,
+  unsubscribeUrl,
 }: NewPostEmailProps) {
   return (
     <html>
@@ -165,9 +167,19 @@ export default function NewPostEmail({
                 You&apos;re receiving this because you subscribed to The
                 MOPerator.
               </p>
-              <p style={{ margin: 0, fontSize: "12px", color: "#4b5563" }}>
+              <p style={{ margin: "0 0 8px 0", fontSize: "12px", color: "#4b5563" }}>
                 © 2026 Joe Reitz. All rights reserved.
               </p>
+              <a
+                href={unsubscribeUrl}
+                style={{
+                  fontSize: "12px",
+                  color: "#6b7280",
+                  textDecoration: "underline",
+                }}
+              >
+                Unsubscribe
+              </a>
             </td>
           </tr>
         </table>
