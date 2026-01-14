@@ -1,3 +1,5 @@
+import { SubscribeForm } from "./components/SubscribeForm";
+
 export default function Home() {
   return (
     <main className="min-h-screen relative overflow-hidden">
@@ -261,23 +263,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Coming Soon Section */}
+      {/* Subscribe Section */}
       <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-16 sm:py-20 md:py-24 text-center">
         <div
           className="animate-fade-up max-w-xl sm:max-w-2xl mx-auto"
           style={{ animationDelay: "800ms" }}
         >
           <p className="text-muted uppercase tracking-widest text-xs sm:text-sm mb-3 sm:mb-4">
-            Coming Soon
+            Stay Updated
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
-            Content is on the way
+            Get notified when new content drops
           </h2>
           <p className="text-muted text-sm sm:text-base mb-6 sm:mb-8">
-            We&apos;re building out our library of tutorials and guides. Check
-            back soon or follow along as we document the journey.
+            Subscribe to get the latest tutorials, guides, and updates delivered
+            straight to your inbox. No spam, just valuable content for operators.
           </p>
-          <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-lg border border-border bg-surface">
+          <div className="flex justify-center">
+            <SubscribeForm />
+          </div>
+          <div className="mt-8 inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-lg border border-border bg-surface">
             <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-accent animate-pulse" />
             <span className="font-mono text-xs sm:text-sm">Building in public...</span>
           </div>
