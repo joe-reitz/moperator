@@ -45,6 +45,8 @@ export default defineType({
       name: "publishedAt",
       title: "Published at",
       type: "datetime",
+      initialValue: () => new Date().toISOString(),
+      description: "Set to now by default. Clear to save as draft.",
     }),
     defineField({
       name: "excerpt",
