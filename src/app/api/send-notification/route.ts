@@ -100,12 +100,16 @@ export async function POST(request: Request) {
       };
     });
 
-    // Send emails individually for better error tracking
+    // Helper to delay between sends (Resend free tier: 2 requests/second)
+    const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    // Send emails individually with rate limiting
     let sent = 0;
     const errors: string[] = [];
     const resendClient = getResend();
 
-    for (const email of emails) {
+    for (let i = 0; i < emails.length; i++) {
+      const email = emails[i];
       try {
         const result = await resendClient.emails.send(email);
         if (result.error) {
@@ -118,6 +122,11 @@ export async function POST(request: Request) {
         const errorMessage = error instanceof Error ? error.message : "Unknown error";
         console.error(`Failed to send to ${email.to}:`, errorMessage);
         errors.push(`${email.to}: ${errorMessage}`);
+      }
+
+      // Wait 600ms between emails to stay under 2/second rate limit
+      if (i < emails.length - 1) {
+        await delay(600);
       }
     }
 
