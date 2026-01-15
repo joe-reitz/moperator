@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 
+// Revalidate every 60 seconds
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Blog | The MOPerator",
   description: "Guides, tutorials, and insights for operators learning to build apps with AI.",

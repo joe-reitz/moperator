@@ -1,6 +1,9 @@
 import { client } from "@/sanity/lib/client";
 import type { Metadata } from "next";
 
+// Revalidate every 60 seconds
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Videos | The MOPerator",
   description:
@@ -315,4 +318,5 @@ export default async function VideosPage() {
     </main>
   );
 }
+
 
