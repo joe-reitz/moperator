@@ -299,7 +299,7 @@ export default async function VideosPage() {
             >
               LinkedIn
             </a>
-            <a href="#" className="hover:text-foreground transition-colors">
+            <a href="https://www.youtube.com/playlist?list=PLY67q0EVU695eunjuo0G9KjysmzqbDez9" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
               YouTube
             </a>
             <span className="text-border">|</span>
