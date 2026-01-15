@@ -237,11 +237,6 @@ export default async function ReposPage() {
       {/* CTA Section */}
       <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-16 border-t border-border">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-4">Want to contribute?</h2>
-          <p className="text-muted mb-6">
-            Have an idea for a Marketing Ops tool? Open an issue or submit a PR
-            on any of these repos. Let&apos;s build together.
-          </p>
           <a
             href="https://github.com/joe-reitz"
             target="_blank"
