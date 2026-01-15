@@ -3,6 +3,32 @@ import { PortableText, PortableTextBlock } from "@portabletext/react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+// Convert video URLs to embed URLs
+function getEmbedUrl(url: string): string {
+  // YouTube
+  const youtubeMatch = url.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/
+  );
+  if (youtubeMatch) {
+    return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+  }
+
+  // Vimeo
+  const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+  if (vimeoMatch) {
+    return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+  }
+
+  // Loom
+  const loomMatch = url.match(/loom\.com\/share\/([a-zA-Z0-9]+)/);
+  if (loomMatch) {
+    return `https://www.loom.com/embed/${loomMatch[1]}`;
+  }
+
+  // Return original if no match
+  return url;
+}
+
 type Post = {
   _id: string;
   title: string;
@@ -22,6 +48,11 @@ type Post = {
         url: string;
       };
     } | null;
+  } | null;
+  featuredVideo: {
+    title: string;
+    videoUrl: string;
+    duration: string | null;
   } | null;
 };
 
@@ -46,6 +77,11 @@ async function getPost(slug: string): Promise<Post | null> {
             url
           }
         }
+      },
+      featuredVideo-> {
+        title,
+        videoUrl,
+        duration
       }
     }`,
     { slug }
@@ -174,8 +210,28 @@ export default async function BlogPostPage({
             </div>
           </header>
 
-          {/* Featured Image */}
-          {post.mainImage?.asset?.url && (
+          {/* Featured Video */}
+          {post.featuredVideo && (
+            <div className="mb-12">
+              <div className="relative aspect-video rounded-xl overflow-hidden bg-surface-elevated">
+                <iframe
+                  src={getEmbedUrl(post.featuredVideo.videoUrl)}
+                  title={post.featuredVideo.title}
+                  className="absolute inset-0 w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+              {post.featuredVideo.duration && (
+                <p className="text-sm text-muted mt-2 text-center">
+                  Duration: {post.featuredVideo.duration}
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Featured Image (only if no video) */}
+          {!post.featuredVideo && post.mainImage?.asset?.url && (
             <div className="mb-12 rounded-xl overflow-hidden">
               <img
                 src={post.mainImage.asset.url}
