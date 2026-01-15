@@ -76,7 +76,7 @@ export default async function BlogPage() {
         </div>
 
         <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm">
-          <a href="/coming-soon" className="text-muted hover:text-foreground transition-colors">
+          <a href="/videos" className="text-muted hover:text-foreground transition-colors">
             Videos
           </a>
           <a href="/blog" className="text-foreground transition-colors">

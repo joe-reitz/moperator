@@ -63,7 +63,7 @@ export default async function ReposPage() {
 
         <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm">
           <a
-            href="/coming-soon"
+            href="/videos"
             className="text-muted hover:text-foreground transition-colors"
           >
             Videos

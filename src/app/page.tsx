@@ -47,7 +47,7 @@ export default function Home() {
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm">
-          <a href="/coming-soon" className="text-muted hover:text-foreground transition-colors">
+          <a href="/videos" className="text-muted hover:text-foreground transition-colors">
             Videos
           </a>
           <a href="/blog" className="text-muted hover:text-foreground transition-colors">
@@ -119,7 +119,7 @@ export default function Home() {
             className="animate-fade-up flex flex-col sm:flex-row gap-3 sm:gap-4"
             style={{ animationDelay: "300ms" }}
           >
-            <a href="/coming-soon" className="gradient-border rounded-lg px-6 sm:px-8 py-3 sm:py-4 font-medium hover:bg-surface-elevated transition-colors text-center">
+            <a href="/videos" className="gradient-border rounded-lg px-6 sm:px-8 py-3 sm:py-4 font-medium hover:bg-surface-elevated transition-colors text-center">
               Watch Latest Videos
             </a>
             <a href="/coming-soon" className="border border-border rounded-lg px-6 sm:px-8 py-3 sm:py-4 font-medium text-muted hover:text-foreground hover:border-muted transition-colors text-center">
