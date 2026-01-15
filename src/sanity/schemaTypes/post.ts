@@ -71,6 +71,14 @@ export default defineType({
         },
       ],
     }),
+    defineField({
+      name: "notificationSent",
+      title: "Notification Sent",
+      type: "boolean",
+      initialValue: false,
+      description: "Has the email notification been sent for this post?",
+      readOnly: true,
+    }),
   ],
   preview: {
     select: {
