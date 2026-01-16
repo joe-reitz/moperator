@@ -25,7 +25,7 @@ function safeCompare(a: string, b: string): boolean {
 
 // Verify Sanity webhook signature - tries both SHA-1 (Sanity default) and SHA-256
 function isValidSignature(body: string, signature: string | null): boolean {
-  const secret = process.env.SANITY_WEBHOOK_SECRET;
+  const secret = process.env.SANITY_WEBHOOK_SECRET?.trim();
   
   if (!signature || !secret) {
     console.log("Webhook: Missing signature or secret", { 
@@ -55,15 +55,22 @@ function isValidSignature(body: string, signature: string | null): boolean {
     return true;
   }
 
-  console.log("Webhook: Signature mismatch", {
+  const debugInfo = {
     receivedLength: cleanSig.length,
     sha1Length: sha1Digest.length,
     sha256Length: sha256Digest.length,
     receivedPrefix: cleanSig.substring(0, 12),
     sha1Prefix: sha1Digest.substring(0, 12),
     sha256Prefix: sha256Digest.substring(0, 12),
-  });
-  
+    receivedSuffix: cleanSig.substring(cleanSig.length - 12),
+    sha1Suffix: sha1Digest.substring(sha1Digest.length - 12),
+  };
+
+  console.log("Webhook: Signature mismatch", debugInfo);
+
+  // Store debug info for error response
+  (global as any).__lastSignatureDebug = debugInfo;
+
   return false;
 }
 
@@ -107,7 +114,17 @@ export async function POST(request: Request) {
     // Verify webhook signature
     if (!isValidSignature(body, signature)) {
       console.error("Invalid webhook signature");
-      return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
+      const debugInfo = (global as any).__lastSignatureDebug;
+      return NextResponse.json({
+        error: "Invalid signature",
+        debug: debugInfo,
+        headers: {
+          "x-sanity-signature": request.headers.get("x-sanity-signature"),
+          "sanity-webhook-signature": request.headers.get("sanity-webhook-signature"),
+          "x-sanity-webhook-signature": request.headers.get("x-sanity-webhook-signature"),
+          "x-webhook-signature": request.headers.get("x-webhook-signature"),
+        }
+      }, { status: 401 });
     }
 
     const payload = JSON.parse(body);
