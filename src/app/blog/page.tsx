@@ -16,6 +16,7 @@ type Post = {
   slug: { current: string };
   excerpt: string | null;
   publishedAt: string | null;
+  featured: boolean | null;
   mainImage: {
     asset: {
       url: string;
@@ -23,14 +24,35 @@ type Post = {
   } | null;
 };
 
-async function getPosts(): Promise<Post[]> {
-  return client.fetch(
-    `*[_type == "post"] | order(publishedAt desc) {
+async function getFeaturedPost(): Promise<Post | null> {
+  // First try to get an explicitly featured post
+  const featured = await client.fetch(
+    `*[_type == "post" && featured == true] | order(publishedAt desc)[0] {
       _id,
       title,
       slug,
       excerpt,
       publishedAt,
+      featured,
+      mainImage {
+        asset-> {
+          url
+        }
+      }
+    }`
+  );
+  
+  if (featured) return featured;
+  
+  // Fall back to most recent post
+  return client.fetch(
+    `*[_type == "post"] | order(publishedAt desc)[0] {
+      _id,
+      title,
+      slug,
+      excerpt,
+      publishedAt,
+      featured,
       mainImage {
         asset-> {
           url
@@ -40,8 +62,32 @@ async function getPosts(): Promise<Post[]> {
   );
 }
 
+async function getPosts(excludeId?: string): Promise<Post[]> {
+  const filter = excludeId 
+    ? `*[_type == "post" && _id != $excludeId]`
+    : `*[_type == "post"]`;
+  
+  return client.fetch(
+    `${filter} | order(publishedAt desc) {
+      _id,
+      title,
+      slug,
+      excerpt,
+      publishedAt,
+      featured,
+      mainImage {
+        asset-> {
+          url
+        }
+      }
+    }`,
+    { excludeId }
+  );
+}
+
 export default async function BlogPage() {
-  const posts = await getPosts();
+  const featuredPost = await getFeaturedPost();
+  const posts = await getPosts(featuredPost?._id);
 
   return (
     <main className="min-h-screen relative overflow-hidden">
@@ -109,7 +155,7 @@ export default async function BlogPage() {
       {/* Posts Grid */}
       <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 pb-16 sm:pb-24">
         <div className="max-w-6xl">
-          {posts.length === 0 ? (
+          {!featuredPost && posts.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-muted text-lg mb-4">No posts yet. Check back soon!</p>
               <a
@@ -121,10 +167,10 @@ export default async function BlogPage() {
             </div>
           ) : (
             <div className="space-y-12">
-              {/* Featured Post (first post) */}
-              {posts[0] && (
+              {/* Featured Post */}
+              {featuredPost && (
                 <Link
-                  href={`/blog/${posts[0].slug.current}`}
+                  href={`/blog/${featuredPost.slug.current}`}
                   className="animate-fade-up group block"
                   style={{ animationDelay: "200ms" }}
                 >
@@ -145,11 +191,11 @@ export default async function BlogPage() {
                     <div className="flex flex-col lg:flex-row">
                       {/* Image */}
                       <div className="relative lg:w-1/2 h-64 lg:h-auto overflow-hidden">
-                        {posts[0].mainImage?.asset?.url ? (
+                        {featuredPost.mainImage?.asset?.url ? (
                           <>
                             <img
-                              src={posts[0].mainImage.asset.url}
-                              alt={posts[0].title}
+                              src={featuredPost.mainImage.asset.url}
+                              alt={featuredPost.title}
                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             />
                             {/* Gradient overlay */}
@@ -172,20 +218,20 @@ export default async function BlogPage() {
                         </div>
 
                         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 leading-tight group-hover:text-accent transition-colors duration-300">
-                          {posts[0].title}
+                          {featuredPost.title}
                         </h2>
                         
-                        {posts[0].excerpt && (
-                          <p className="text-muted text-lg mb-6 line-clamp-3">{posts[0].excerpt}</p>
+                        {featuredPost.excerpt && (
+                          <p className="text-muted text-lg mb-6 line-clamp-3">{featuredPost.excerpt}</p>
                         )}
 
                         <div className="flex items-center gap-4 text-sm text-muted">
-                          {posts[0].publishedAt && (
+                          {featuredPost.publishedAt && (
                             <span className="flex items-center gap-2">
                               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                               </svg>
-                              {new Date(posts[0].publishedAt).toLocaleDateString("en-US", {
+                              {new Date(featuredPost.publishedAt).toLocaleDateString("en-US", {
                                 year: "numeric",
                                 month: "short",
                                 day: "numeric",
@@ -214,9 +260,9 @@ export default async function BlogPage() {
               )}
 
               {/* Other posts */}
-              {posts.length > 1 && (
+              {posts.length > 0 && (
                 <div className="grid md:grid-cols-2 gap-6">
-                  {posts.slice(1).map((post, i) => (
+                  {posts.map((post, i) => (
                     <Link
                       key={post._id}
                       href={`/blog/${post.slug.current}`}

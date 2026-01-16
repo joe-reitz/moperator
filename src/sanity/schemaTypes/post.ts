@@ -74,6 +74,13 @@ export default defineType({
       ],
     }),
     defineField({
+      name: "featured",
+      title: "Featured",
+      type: "boolean",
+      initialValue: false,
+      description: "Mark this post as featured on the blog page",
+    }),
+    defineField({
       name: "notificationSent",
       title: "Notification Sent",
       type: "boolean",
