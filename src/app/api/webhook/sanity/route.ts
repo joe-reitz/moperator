@@ -17,11 +17,24 @@ function getResend() {
 // Verify Sanity webhook signature
 function isValidSignature(body: string, signature: string | null): boolean {
   if (!signature || !process.env.SANITY_WEBHOOK_SECRET) {
+    console.log("Webhook: Missing signature or secret", { 
+      hasSignature: !!signature, 
+      hasSecret: !!process.env.SANITY_WEBHOOK_SECRET 
+    });
     return false;
   }
   const hmac = crypto.createHmac("sha256", process.env.SANITY_WEBHOOK_SECRET);
   const digest = hmac.update(body).digest("hex");
-  return signature === digest;
+  const isValid = signature === digest;
+  
+  if (!isValid) {
+    console.log("Webhook: Signature mismatch", {
+      received: signature.substring(0, 20) + "...",
+      expected: digest.substring(0, 20) + "...",
+    });
+  }
+  
+  return isValid;
 }
 
 type Subscriber = {
@@ -45,7 +58,14 @@ type Post = {
 export async function POST(request: Request) {
   try {
     const body = await request.text();
-    const signature = request.headers.get("sanity-webhook-signature");
+    
+    // Try multiple header formats that Sanity might use
+    const signature = 
+      request.headers.get("sanity-webhook-signature") || 
+      request.headers.get("x-sanity-webhook-signature");
+
+    // Log all headers for debugging (remove in production)
+    console.log("Webhook headers:", Object.fromEntries(request.headers.entries()));
 
     // Verify webhook signature
     if (!isValidSignature(body, signature)) {

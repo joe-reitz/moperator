@@ -1,4 +1,5 @@
 import { SubscribeForm } from "./components/SubscribeForm";
+import { MobileNav } from "./components/MobileNav";
 
 export default function Home() {
   return (
@@ -36,14 +37,8 @@ export default function Home() {
           </span>
         </a>
         
-        {/* Mobile menu button */}
-        <div className="md:hidden">
-          <a href="/about" className="text-muted hover:text-foreground transition-colors p-2">
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </a>
-        </div>
+        {/* Mobile menu */}
+        <MobileNav />
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm">

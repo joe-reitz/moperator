@@ -1,5 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import type { Metadata } from "next";
+import { MobileNav } from "../components/MobileNav";
 
 // Revalidate every 60 seconds
 export const revalidate = 60;
@@ -63,6 +64,9 @@ export default async function ReposPage() {
             The <span className="text-accent glow-text">MOP</span>erator
           </span>
         </a>
+
+        {/* Mobile menu */}
+        <MobileNav />
 
         <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm">
           <a

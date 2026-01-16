@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
+import { MobileNav } from "../components/MobileNav";
 
 // Revalidate every 60 seconds
 export const revalidate = 60;
@@ -115,14 +116,8 @@ export default async function BlogPage() {
           </span>
         </a>
         
-        {/* Mobile menu button */}
-        <div className="md:hidden">
-          <a href="/" className="text-muted hover:text-foreground transition-colors p-2">
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </a>
-        </div>
+        {/* Mobile menu */}
+        <MobileNav />
 
         <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm">
           <a href="/videos" className="text-muted hover:text-foreground transition-colors">
