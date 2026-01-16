@@ -46,6 +46,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Webhook not configured" }, { status: 500 });
     }
 
+    if (!signature) {
+      console.error("Webhook: No signature header found");
+      return NextResponse.json({ error: "No signature provided" }, { status: 401 });
+    }
+
     // Verify webhook signature using official Sanity package
     const isValid = await isValidSignature(body, signature, secret);
 
