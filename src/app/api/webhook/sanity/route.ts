@@ -3,7 +3,7 @@ import { writeClient } from "@/sanity/lib/writeClient";
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import NewPostEmail from "@/emails/NewPostEmail";
-import crypto from "crypto";
+import { isValidSignature, SIGNATURE_HEADER_NAME } from "@sanity/webhook";
 
 // Ensure Node.js runtime (not Edge)
 export const runtime = "nodejs";
@@ -15,83 +15,6 @@ function getResend() {
     resend = new Resend(process.env.RESEND_API_KEY);
   }
   return resend;
-}
-
-// Timing-safe comparison
-function safeCompare(a: string, b: string): boolean {
-  if (a.length !== b.length) return false;
-  return crypto.timingSafeEqual(Buffer.from(a), Buffer.from(b));
-}
-
-// Verify Sanity webhook signature
-function isValidSignature(body: string, signature: string | null): boolean {
-  const secret = process.env.SANITY_WEBHOOK_SECRET?.trim();
-
-  if (!signature || !secret) {
-    console.log("Webhook: Missing signature or secret", {
-      hasSignature: !!signature,
-      hasSecret: !!secret,
-      secretLength: secret?.length
-    });
-    return false;
-  }
-
-  let cleanSig = signature.trim();
-
-  // Handle Stripe-style format: "t=<timestamp>,v1=<signature>"
-  if (cleanSig.includes("t=") && cleanSig.includes(",v1=")) {
-    const parts = cleanSig.split(",v1=");
-    if (parts.length === 2) {
-      cleanSig = parts[1]; // Extract just the signature part
-    }
-  }
-
-  // Remove other common prefixes
-  if (cleanSig.startsWith("sha256=")) cleanSig = cleanSig.slice(7);
-  if (cleanSig.startsWith("sha1=")) cleanSig = cleanSig.slice(5);
-
-  // Try SHA-256 with base64 encoding (Sanity's current format)
-  const sha256Base64 = crypto.createHmac("sha256", secret).update(body).digest("base64");
-  if (safeCompare(cleanSig, sha256Base64)) {
-    console.log("Webhook: Signature valid (SHA-256 base64)");
-    return true;
-  }
-
-  // Try SHA-1 with base64 encoding
-  const sha1Base64 = crypto.createHmac("sha1", secret).update(body).digest("base64");
-  if (safeCompare(cleanSig, sha1Base64)) {
-    console.log("Webhook: Signature valid (SHA-1 base64)");
-    return true;
-  }
-
-  // Try SHA-256 hex (older format)
-  const sha256Hex = crypto.createHmac("sha256", secret).update(body).digest("hex");
-  if (safeCompare(cleanSig, sha256Hex)) {
-    console.log("Webhook: Signature valid (SHA-256 hex)");
-    return true;
-  }
-
-  // Try SHA-1 hex (older format)
-  const sha1Hex = crypto.createHmac("sha1", secret).update(body).digest("hex");
-  if (safeCompare(cleanSig, sha1Hex)) {
-    console.log("Webhook: Signature valid (SHA-1 hex)");
-    return true;
-  }
-
-  const debugInfo = {
-    originalSignature: signature,
-    cleanedSignature: cleanSig,
-    receivedLength: cleanSig.length,
-    sha256Base64: sha256Base64.substring(0, 20) + "...",
-    sha1Base64: sha1Base64.substring(0, 20) + "...",
-  };
-
-  console.log("Webhook: Signature mismatch", debugInfo);
-
-  // Store debug info for error response
-  (global as any).__lastSignatureDebug = debugInfo;
-
-  return false;
 }
 
 type Subscriber = {
@@ -115,37 +38,23 @@ type Post = {
 export async function POST(request: Request) {
   try {
     const body = await request.text();
-    
-    // Try all possible header names Sanity might use
-    const signature = 
-      request.headers.get("x-sanity-signature") ||
-      request.headers.get("sanity-webhook-signature") || 
-      request.headers.get("x-sanity-webhook-signature") ||
-      request.headers.get("x-webhook-signature");
+    const signature = request.headers.get(SIGNATURE_HEADER_NAME);
+    const secret = process.env.SANITY_WEBHOOK_SECRET;
 
-    // Log headers for debugging
-    const headers = Object.fromEntries(request.headers.entries());
-    console.log("Webhook received:", {
-      headers,
-      bodyLength: body.length,
-      bodyPreview: body.substring(0, 100),
-    });
-
-    // Verify webhook signature
-    if (!isValidSignature(body, signature)) {
-      console.error("Invalid webhook signature");
-      const debugInfo = (global as any).__lastSignatureDebug;
-      return NextResponse.json({
-        error: "Invalid signature",
-        debug: debugInfo,
-        headers: {
-          "x-sanity-signature": request.headers.get("x-sanity-signature"),
-          "sanity-webhook-signature": request.headers.get("sanity-webhook-signature"),
-          "x-sanity-webhook-signature": request.headers.get("x-sanity-webhook-signature"),
-          "x-webhook-signature": request.headers.get("x-webhook-signature"),
-        }
-      }, { status: 401 });
+    if (!secret) {
+      console.error("Webhook: SANITY_WEBHOOK_SECRET not configured");
+      return NextResponse.json({ error: "Webhook not configured" }, { status: 500 });
     }
+
+    // Verify webhook signature using official Sanity package
+    const isValid = await isValidSignature(body, signature, secret);
+
+    if (!isValid) {
+      console.error("Webhook: Invalid signature");
+      return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
+    }
+
+    console.log("Webhook: Signature verified successfully");
 
     const payload = JSON.parse(body);
 
