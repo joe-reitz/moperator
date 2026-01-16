@@ -23,47 +23,67 @@ function safeCompare(a: string, b: string): boolean {
   return crypto.timingSafeEqual(Buffer.from(a), Buffer.from(b));
 }
 
-// Verify Sanity webhook signature - tries both SHA-1 (Sanity default) and SHA-256
+// Verify Sanity webhook signature
 function isValidSignature(body: string, signature: string | null): boolean {
   const secret = process.env.SANITY_WEBHOOK_SECRET?.trim();
-  
+
   if (!signature || !secret) {
-    console.log("Webhook: Missing signature or secret", { 
-      hasSignature: !!signature, 
+    console.log("Webhook: Missing signature or secret", {
+      hasSignature: !!signature,
       hasSecret: !!secret,
-      secretLength: secret?.length 
+      secretLength: secret?.length
     });
     return false;
   }
 
-  // Clean the signature (remove any prefix like "sha1=" or "sha256=")
   let cleanSig = signature.trim();
+
+  // Handle Stripe-style format: "t=<timestamp>,v1=<signature>"
+  if (cleanSig.includes("t=") && cleanSig.includes(",v1=")) {
+    const parts = cleanSig.split(",v1=");
+    if (parts.length === 2) {
+      cleanSig = parts[1]; // Extract just the signature part
+    }
+  }
+
+  // Remove other common prefixes
   if (cleanSig.startsWith("sha256=")) cleanSig = cleanSig.slice(7);
   if (cleanSig.startsWith("sha1=")) cleanSig = cleanSig.slice(5);
 
-  // Try SHA-1 first (Sanity's default)
-  const sha1Digest = crypto.createHmac("sha1", secret).update(body).digest("hex");
-  if (safeCompare(cleanSig, sha1Digest)) {
-    console.log("Webhook: Signature valid (SHA-1)");
+  // Try SHA-256 with base64 encoding (Sanity's current format)
+  const sha256Base64 = crypto.createHmac("sha256", secret).update(body).digest("base64");
+  if (safeCompare(cleanSig, sha256Base64)) {
+    console.log("Webhook: Signature valid (SHA-256 base64)");
     return true;
   }
 
-  // Try SHA-256 as fallback
-  const sha256Digest = crypto.createHmac("sha256", secret).update(body).digest("hex");
-  if (safeCompare(cleanSig, sha256Digest)) {
-    console.log("Webhook: Signature valid (SHA-256)");
+  // Try SHA-1 with base64 encoding
+  const sha1Base64 = crypto.createHmac("sha1", secret).update(body).digest("base64");
+  if (safeCompare(cleanSig, sha1Base64)) {
+    console.log("Webhook: Signature valid (SHA-1 base64)");
+    return true;
+  }
+
+  // Try SHA-256 hex (older format)
+  const sha256Hex = crypto.createHmac("sha256", secret).update(body).digest("hex");
+  if (safeCompare(cleanSig, sha256Hex)) {
+    console.log("Webhook: Signature valid (SHA-256 hex)");
+    return true;
+  }
+
+  // Try SHA-1 hex (older format)
+  const sha1Hex = crypto.createHmac("sha1", secret).update(body).digest("hex");
+  if (safeCompare(cleanSig, sha1Hex)) {
+    console.log("Webhook: Signature valid (SHA-1 hex)");
     return true;
   }
 
   const debugInfo = {
+    originalSignature: signature,
+    cleanedSignature: cleanSig,
     receivedLength: cleanSig.length,
-    sha1Length: sha1Digest.length,
-    sha256Length: sha256Digest.length,
-    receivedPrefix: cleanSig.substring(0, 12),
-    sha1Prefix: sha1Digest.substring(0, 12),
-    sha256Prefix: sha256Digest.substring(0, 12),
-    receivedSuffix: cleanSig.substring(cleanSig.length - 12),
-    sha1Suffix: sha1Digest.substring(sha1Digest.length - 12),
+    sha256Base64: sha256Base64.substring(0, 20) + "...",
+    sha1Base64: sha1Base64.substring(0, 20) + "...",
   };
 
   console.log("Webhook: Signature mismatch", debugInfo);
