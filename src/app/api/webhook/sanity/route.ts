@@ -5,6 +5,9 @@ import { NextResponse } from "next/server";
 import NewPostEmail from "@/emails/NewPostEmail";
 import crypto from "crypto";
 
+// Ensure Node.js runtime (not Edge)
+export const runtime = "nodejs";
+
 // Lazy initialization
 let resend: Resend | null = null;
 function getResend() {
@@ -14,27 +17,54 @@ function getResend() {
   return resend;
 }
 
-// Verify Sanity webhook signature
+// Timing-safe comparison
+function safeCompare(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  return crypto.timingSafeEqual(Buffer.from(a), Buffer.from(b));
+}
+
+// Verify Sanity webhook signature - tries both SHA-1 (Sanity default) and SHA-256
 function isValidSignature(body: string, signature: string | null): boolean {
-  if (!signature || !process.env.SANITY_WEBHOOK_SECRET) {
+  const secret = process.env.SANITY_WEBHOOK_SECRET;
+  
+  if (!signature || !secret) {
     console.log("Webhook: Missing signature or secret", { 
       hasSignature: !!signature, 
-      hasSecret: !!process.env.SANITY_WEBHOOK_SECRET 
+      hasSecret: !!secret,
+      secretLength: secret?.length 
     });
     return false;
   }
-  const hmac = crypto.createHmac("sha256", process.env.SANITY_WEBHOOK_SECRET);
-  const digest = hmac.update(body).digest("hex");
-  const isValid = signature === digest;
-  
-  if (!isValid) {
-    console.log("Webhook: Signature mismatch", {
-      received: signature.substring(0, 20) + "...",
-      expected: digest.substring(0, 20) + "...",
-    });
+
+  // Clean the signature (remove any prefix like "sha1=" or "sha256=")
+  let cleanSig = signature.trim();
+  if (cleanSig.startsWith("sha256=")) cleanSig = cleanSig.slice(7);
+  if (cleanSig.startsWith("sha1=")) cleanSig = cleanSig.slice(5);
+
+  // Try SHA-1 first (Sanity's default)
+  const sha1Digest = crypto.createHmac("sha1", secret).update(body).digest("hex");
+  if (safeCompare(cleanSig, sha1Digest)) {
+    console.log("Webhook: Signature valid (SHA-1)");
+    return true;
   }
+
+  // Try SHA-256 as fallback
+  const sha256Digest = crypto.createHmac("sha256", secret).update(body).digest("hex");
+  if (safeCompare(cleanSig, sha256Digest)) {
+    console.log("Webhook: Signature valid (SHA-256)");
+    return true;
+  }
+
+  console.log("Webhook: Signature mismatch", {
+    receivedLength: cleanSig.length,
+    sha1Length: sha1Digest.length,
+    sha256Length: sha256Digest.length,
+    receivedPrefix: cleanSig.substring(0, 12),
+    sha1Prefix: sha1Digest.substring(0, 12),
+    sha256Prefix: sha256Digest.substring(0, 12),
+  });
   
-  return isValid;
+  return false;
 }
 
 type Subscriber = {
@@ -59,13 +89,20 @@ export async function POST(request: Request) {
   try {
     const body = await request.text();
     
-    // Try multiple header formats that Sanity might use
+    // Try all possible header names Sanity might use
     const signature = 
+      request.headers.get("x-sanity-signature") ||
       request.headers.get("sanity-webhook-signature") || 
-      request.headers.get("x-sanity-webhook-signature");
+      request.headers.get("x-sanity-webhook-signature") ||
+      request.headers.get("x-webhook-signature");
 
-    // Log all headers for debugging (remove in production)
-    console.log("Webhook headers:", Object.fromEntries(request.headers.entries()));
+    // Log headers for debugging
+    const headers = Object.fromEntries(request.headers.entries());
+    console.log("Webhook received:", {
+      headers,
+      bodyLength: body.length,
+      bodyPreview: body.substring(0, 100),
+    });
 
     // Verify webhook signature
     if (!isValidSignature(body, signature)) {
