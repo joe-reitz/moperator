@@ -55,6 +55,14 @@ type Post = {
     videoUrl: string;
     duration: string | null;
   } | null;
+  seoTitle: string | null;
+  metaDescription: string | null;
+  schemaMarkup: string | null;
+  ogImage: {
+    asset: {
+      url: string;
+    };
+  } | null;
 };
 
 async function getPost(slug: string): Promise<Post | null> {
@@ -83,6 +91,14 @@ async function getPost(slug: string): Promise<Post | null> {
         title,
         videoUrl,
         duration
+      },
+      seoTitle,
+      metaDescription,
+      schemaMarkup,
+      ogImage {
+        asset-> {
+          url
+        }
       }
     }`,
     { slug }
@@ -103,9 +119,27 @@ export async function generateMetadata({
     };
   }
 
+  const pageTitle = post.seoTitle || post.title;
+  const pageDescription = post.metaDescription || post.excerpt || "A post from The MOPerator";
+  const ogImageUrl = post.ogImage?.asset?.url || post.mainImage?.asset?.url;
+
   return {
-    title: `${post.title} | The MOPerator`,
-    description: post.excerpt || "A post from The MOPerator",
+    title: `${pageTitle} | The MOPerator`,
+    description: pageDescription,
+    openGraph: {
+      title: pageTitle,
+      description: pageDescription,
+      type: "article",
+      ...(ogImageUrl && {
+        images: [{ url: ogImageUrl, width: 1200, height: 630 }],
+      }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: pageTitle,
+      description: pageDescription,
+      ...(ogImageUrl && { images: [ogImageUrl] }),
+    },
   };
 }
 
@@ -123,6 +157,14 @@ export default async function BlogPostPage({
 
   return (
     <main className="min-h-screen relative">
+      {/* JSON-LD Structured Data */}
+      {post.schemaMarkup && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: post.schemaMarkup }}
+        />
+      )}
+
       {/* Navigation */}
       <nav className="relative z-10 flex items-center justify-between px-4 py-4 sm:px-6 sm:py-6 md:px-12 lg:px-20">
         <a href="/" className="flex items-center gap-2 sm:gap-4">
