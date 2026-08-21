@@ -2,6 +2,7 @@ import { client } from "@/sanity/lib/client";
 import { writeClient } from "@/sanity/lib/writeClient";
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import NewPostEmail from "@/emails/NewPostEmail";
 import { isValidSignature, SIGNATURE_HEADER_NAME } from "@sanity/webhook";
 
@@ -68,6 +69,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "Not a post, skipping" }, { status: 200 });
     }
 
+    // Purge cached pages for this post before any of the notification
+    // early-returns below, so an edit always shows up even when no email goes out.
+    const changedSlug: string | undefined = payload.slug?.current;
+    if (changedSlug) revalidatePath(`/blog/${changedSlug}`);
+    revalidatePath("/blog");
+    revalidatePath("/");
+    revalidatePath("/feed.xml");
+
     // Fetch the full post data
     const post: Post | null = await client.fetch(
       `*[_type == "post" && _id == $id][0] {
@@ -88,6 +97,10 @@ export async function POST(request: Request) {
 
     if (!post) {
       return NextResponse.json({ message: "Post not found" }, { status: 200 });
+    }
+
+    if (!changedSlug && post.slug?.current) {
+      revalidatePath(`/blog/${post.slug.current}`);
     }
 
     // Check if we should send notification
@@ -136,7 +149,7 @@ export async function POST(request: Request) {
 
       try {
         const result = await resendClient.emails.send({
-          from: "The MOPerator <noreply@the-moperator.com>",
+          from: "The mOperator <noreply@the-moperator.com>",
           to: subscriber.email,
           subject: `New Post: ${post.title}`,
           react: NewPostEmail({

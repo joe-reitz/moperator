@@ -49,6 +49,48 @@ body::before {
   z-index: 100;
 }
 
+/* Keyboard focus — visible on every interactive element, never on mouse click */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Skip link: off-screen until focused */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--surface-elevated);
+  color: var(--foreground);
+  border: 1px solid var(--accent);
+  border-radius: 0.5rem;
+}
+
+/* Respect users who ask for less motion: this site leans on entrance
+   animations, a rotating gradient border, and a blinking cursor. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-fade-up {
+    opacity: 1;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

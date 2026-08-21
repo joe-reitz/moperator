@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useCallback } from 'react'
+import { useIsHydrated } from './use-is-hydrated'
 
 const STORAGE_KEY = 'seo-optimizer-draft:v1'
 
@@ -13,11 +14,7 @@ interface DraftData {
 }
 
 export function useLocalStorageDraft() {
-  const [isHydrated, setIsHydrated] = useState(false)
-
-  useEffect(() => {
-    setIsHydrated(true)
-  }, [])
+  const isHydrated = useIsHydrated()
 
   const saveDraft = useCallback((data: Omit<DraftData, 'savedAt'>) => {
     if (typeof window === 'undefined') return

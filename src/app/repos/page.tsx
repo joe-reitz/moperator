@@ -1,12 +1,16 @@
+import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import type { Metadata } from "next";
-import { MobileNav } from "../components/MobileNav";
+import { SiteHeader } from "@/app/components/SiteHeader";
+import { SiteFooter } from "@/app/components/SiteFooter";
+import { blurProps, type SanityImageAsset } from "@/sanity/lib/image";
 
 // Revalidate every 60 seconds
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Open Source Repos | The MOPerator",
+  alternates: { canonical: "/repos" },
+  title: "Open Source Repos | The mOperator",
   description:
     "Forkable open source projects for Marketing Operations professionals. Clone, customize, and deploy your own versions.",
 };
@@ -19,9 +23,7 @@ type Repo = {
   githubUrl: string;
   demoUrl: string | null;
   screenshot: {
-    asset: {
-      url: string;
-    };
+    asset: SanityImageAsset;
   } | null;
   tags: string[] | null;
   featured: boolean;
@@ -38,7 +40,8 @@ async function getRepos(): Promise<Repo[]> {
       demoUrl,
       screenshot {
         asset-> {
-          url
+          url,
+          metadata { lqip, dimensions { width, height } }
         }
       },
       tags,
@@ -51,50 +54,10 @@ export default async function ReposPage() {
   const repos = await getRepos();
 
   return (
-    <main className="min-h-screen relative">
-      {/* Navigation */}
-      <nav className="relative z-10 flex items-center justify-between px-4 py-4 sm:px-6 sm:py-6 md:px-12 lg:px-20">
-        <a href="/" className="flex items-center gap-2 sm:gap-4">
-          <img
-            src="/icon.svg"
-            alt="The MOPerator"
-            className="h-10 sm:h-14 md:h-16 lg:h-20 w-auto"
-          />
-          <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight">
-            The <span className="text-accent glow-text">MOP</span>erator
-          </span>
-        </a>
+    <div className="min-h-screen relative">
+      <SiteHeader />
 
-        {/* Mobile menu */}
-        <MobileNav />
-
-        <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm">
-          <a
-            href="/videos"
-            className="text-muted hover:text-foreground transition-colors"
-          >
-            Videos
-          </a>
-          <a
-            href="/blog"
-            className="text-muted hover:text-foreground transition-colors"
-          >
-            Blog
-          </a>
-          <a
-            href="/repos"
-            className="text-foreground transition-colors"
-          >
-            Repos
-          </a>
-          <a
-            href="/about"
-            className="text-muted hover:text-foreground transition-colors"
-          >
-            About
-          </a>
-        </div>
-      </nav>
+      <main id="main-content">
 
       {/* Hero Section */}
       <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 pt-8 sm:pt-12 pb-12">
@@ -140,10 +103,13 @@ export default async function ReposPage() {
                 {/* Screenshot */}
                 {repo.screenshot?.asset?.url ? (
                   <div className="relative h-48 sm:h-56 overflow-hidden bg-surface-elevated">
-                    <img
+                    <Image
                       src={repo.screenshot.asset.url}
                       alt={repo.title}
-                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      {...blurProps(repo.screenshot.asset)}
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
                   </div>
@@ -258,58 +224,10 @@ export default async function ReposPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-8 sm:py-10 md:py-12 border-t border-border">
-        <div className="max-w-7xl mx-auto flex flex-col gap-4 sm:gap-6 md:flex-row items-center justify-between">
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <img
-                src="/icon.svg"
-                alt="The MOPerator"
-                className="h-8 sm:h-10 md:h-12 w-auto"
-              />
-              <span className="font-medium text-base sm:text-lg">
-                The <span className="text-accent glow-text">MOP</span>erator
-              </span>
-            </div>
-            <span className="text-xs sm:text-sm text-muted">
-              © 2026 Joe Reitz.
-            </span>
-          </div>
-          <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm text-muted">
-            <a
-              href="https://x.com/joe_reitz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              Twitter
-            </a>
-            <a
-              href="https://www.linkedin.com/in/joereitz/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              LinkedIn
-            </a>
-            <a href="https://www.youtube.com/playlist?list=PLY67q0EVU695eunjuo0G9KjysmzqbDez9" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-              YouTube
-            </a>
-            <span className="text-border">|</span>
-            <a
-              href="https://venmo.com/joe-reitz-1"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors flex items-center gap-1"
-            >
-              <span>☕</span>
-              <span>Buy me a coffee</span>
-            </a>
-          </div>
-        </div>
-      </footer>
-    </main>
+      </main>
+
+      <SiteFooter />
+    </div>
   );
 }
 

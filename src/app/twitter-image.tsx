@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
-export const alt = "The MOPerator - Everybody Ships";
+export const alt = "The mOperator - Everybody Ships";
 export const size = {
   width: 1200,
   height: 630,
@@ -86,6 +86,7 @@ export default async function Image() {
             }}
           >
             <img
+              alt=""
               src={iconDataUrl}
               width="200"
               height="200"
@@ -123,7 +124,7 @@ export default async function Image() {
                 textShadow: "0 0 40px rgba(245, 158, 11, 0.5)",
               }}
             >
-              MOP
+              m
             </span>
             <span
               style={{
@@ -133,7 +134,7 @@ export default async function Image() {
                 letterSpacing: "-0.02em",
               }}
             >
-              erator
+              Operator
             </span>
           </div>
 

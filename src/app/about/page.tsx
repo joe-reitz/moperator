@@ -1,15 +1,18 @@
+import Image from "next/image";
 import type { Metadata } from "next";
-import { MobileNav } from "../components/MobileNav";
+import { SiteHeader } from "@/app/components/SiteHeader";
+import { SiteFooter } from "@/app/components/SiteFooter";
 
 export const metadata: Metadata = {
-  title: "About | The MOPerator",
+  alternates: { canonical: "/about" },
+  title: "About | The mOperator",
   description:
-    "Learn about The MOPerator - a resource for Marketing Operations professionals learning to build apps with AI development tools.",
+    "Learn about The mOperator - a resource for Marketing Operations professionals learning to build apps with AI development tools.",
 };
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden">
       {/* Geometric background pattern */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-[300px] sm:w-[500px] lg:w-[800px] h-[300px] sm:h-[500px] lg:h-[800px] opacity-10">
@@ -29,37 +32,9 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="relative z-10 flex items-center justify-between px-4 py-4 sm:px-6 sm:py-6 md:px-12 lg:px-20">
-        <a href="/" className="flex items-center gap-2 sm:gap-4">
-          <img
-            src="/icon.svg"
-            alt="The MOPerator"
-            className="h-10 sm:h-14 md:h-16 lg:h-20 w-auto"
-          />
-          <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight">
-            The <span className="text-accent glow-text">MOP</span>erator
-          </span>
-        </a>
-        
-        {/* Mobile menu */}
-        <MobileNav />
+      <SiteHeader />
 
-        <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm">
-          <a href="/videos" className="text-muted hover:text-foreground transition-colors">
-            Videos
-          </a>
-          <a href="/blog" className="text-muted hover:text-foreground transition-colors">
-            Blog
-          </a>
-          <a href="/repos" className="text-muted hover:text-foreground transition-colors">
-            Repos
-          </a>
-          <a href="/about" className="text-foreground transition-colors">
-            About
-          </a>
-        </div>
-      </nav>
+      <main id="main-content">
 
       {/* Hero with Giant Logo */}
       <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 pt-6 sm:pt-8 md:pt-16 pb-10 sm:pb-16">
@@ -69,9 +44,13 @@ export default function AboutPage() {
             <div className="animate-fade-up flex-shrink-0" style={{ animationDelay: "0ms" }}>
               <div className="relative">
                 <div className="absolute inset-0 blur-3xl bg-accent/20 rounded-full scale-75" />
-                <img
+                <Image
                   src="/icon.svg"
-                  alt="The MOPerator"
+                  alt="The mOperator logo"
+                  width={384}
+                  height={384}
+                  priority
+                  unoptimized
                   className="relative w-40 h-40 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-96 lg:h-96"
                 />
               </div>
@@ -81,13 +60,13 @@ export default function AboutPage() {
             <div className="animate-fade-up text-center lg:text-left" style={{ animationDelay: "100ms" }}>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-4">
                 About{" "}
-                <span className="text-accent glow-text">The MOPerator</span>
+                <span className="text-accent glow-text">The mOperator</span>
               </h1>
               <blockquote className="text-base sm:text-lg md:text-xl text-muted max-w-xl italic leading-relaxed">
                 <p className="mb-1">Only where love and need are one,</p>
                 <p className="mb-1">And the work is play for mortal stakes,</p>
                 <p>Is the deed ever really done.</p>
-                <p>For Heaven and the Future's sakes.</p>
+                <p>For Heaven and the Future&apos;s sakes.</p>
                 <footer className="mt-4 text-xs sm:text-sm not-italic text-accent">
                   — Robert Frost, &quot;Two Tramps in Mud Time&quot;
                 </footer>
@@ -107,9 +86,11 @@ export default function AboutPage() {
             <div className="bg-surface p-5 sm:p-8 md:p-12">
               <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
                 <div className="flex-shrink-0">
-                  <img
+                  <Image
                     src="/joe-reitz.jpg"
                     alt="Joe Reitz"
+                    width={128}
+                    height={128}
                     className="w-24 h-24 md:w-32 md:h-32 rounded-2xl object-cover glow"
                   />
                 </div>
@@ -117,7 +98,7 @@ export default function AboutPage() {
                   <h2 className="text-2xl md:text-3xl font-bold mb-2">Joe Reitz</h2>
                   <p className="text-accent font-medium mb-4">Marketing Operations → GTM Engineer</p>
                   <p className="text-muted text-lg leading-relaxed">
-                    Whether we wanted it or not, times are changing. The best Operators are no longer just system admins, they're part product manager, part engineer. This new emerging field is becoming known as GTM Engineering. The MOPerator is about building in public and documenting the journey from traditional Ops work to shipping 
+                    Whether we wanted it or not, times are changing. The best Operators are no longer just system admins, they&apos;re part product manager, part engineer. This new emerging field is becoming known as GTM Engineering. The mOperator is about building in public and documenting the journey from traditional Ops work to shipping 
                     real applications that solve real business challenges.
                   </p>
                   <a
@@ -177,7 +158,7 @@ export default function AboutPage() {
                 can now build real applications.
               </p>
               <p className="text-muted">
-                And who better to do it? We've worked for years under the constraints of legacy systems and always found a way to make it work. The skills you already have—systems thinking, problem decomposition, understanding 
+                And who better to do it? We&apos;ve worked for years under the constraints of legacy systems and always found a way to make it work. The skills you already have—systems thinking, problem decomposition, understanding 
                 business logic—are{" "}
                 <span className="text-accent font-medium">exactly what you need</span>. 
                 The AI handles the syntax, your ideas become the product.
@@ -266,15 +247,15 @@ export default function AboutPage() {
             </div>
 
             <div className="text-2xl md:text-3xl font-bold mb-6">
-              <span className="text-accent glow-text">MOP</span>erator
+              <span className="text-accent glow-text">m</span>Operator
             </div>
             <p className="text-xl text-muted mb-4">
-              <span className="text-accent font-semibold">M</span>arketing{" "}
+              <span className="text-accent font-semibold">m</span>arketing{" "}
               <span className="text-accent font-semibold">Op</span>erations +{" "}
-              Op<span className="text-accent font-semibold">erator</span>
+              <span className="text-accent font-semibold">Operator</span>
             </p>
             <p className="text-muted text-lg max-w-xl mx-auto">
-              It&apos;s a nod to where we come from and what we&apos;re becoming, but it's just as valid for SOPs and RevOps professionals, or really anyone with a little curiousity and spare time. 
+              It&apos;s a nod to where we come from and what we&apos;re becoming, but it&apos;s just as valid for SOPs and RevOps professionals, or really anyone with a little curiousity and spare time. 
               Also, someone has to clean up the mess.
             </p>
             <div className="mt-6 text-6xl">🧹</div>
@@ -315,41 +296,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-8 sm:py-10 md:py-12 border-t border-border">
-        <div className="max-w-7xl mx-auto flex flex-col gap-4 sm:gap-6 md:flex-row items-center justify-between">
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <img src="/icon.svg" alt="The MOPerator" className="h-8 sm:h-10 md:h-12 w-auto" />
-              <span className="font-medium text-base sm:text-lg">
-                The <span className="text-accent glow-text">MOP</span>erator
-              </span>
-            </div>
-            <span className="text-xs sm:text-sm text-muted">© 2026 Joe Reitz.</span>
-          </div>
-          <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm text-muted">
-            <a
-              href="https://x.com/joe_reitz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              Twitter
-            </a>
-            <a
-              href="https://www.linkedin.com/in/joereitz/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              LinkedIn
-            </a>
-            <a href="https://www.youtube.com/playlist?list=PLY67q0EVU695eunjuo0G9KjysmzqbDez9" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-              YouTube
-            </a>
-          </div>
-        </div>
-      </footer>
-    </main>
+      </main>
+
+      <SiteFooter />
+    </div>
   );
 }

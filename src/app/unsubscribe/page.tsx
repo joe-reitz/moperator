@@ -1,3 +1,5 @@
+import Link from "next/link";
+import Image from "next/image";
 export default async function UnsubscribePage({
   searchParams,
 }: {
@@ -9,16 +11,19 @@ export default async function UnsubscribePage({
     <main className="min-h-screen relative flex items-center justify-center px-4">
       {/* Navigation */}
       <nav className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-4 py-4 sm:px-6 sm:py-6 md:px-12 lg:px-20">
-        <a href="/" className="flex items-center gap-2 sm:gap-4">
-          <img
+        <Link href="/" className="flex items-center gap-2 sm:gap-4">
+          <Image
             src="/icon.svg"
-            alt="The MOPerator"
+            alt=""
+            width={80}
+            height={80}
+            unoptimized
             className="h-10 sm:h-14 md:h-16 lg:h-20 w-auto"
           />
           <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight">
-            The <span className="text-accent glow-text">MOP</span>erator
+            The <span className="text-accent glow-text">m</span>Operator
           </span>
-        </a>
+        </Link>
       </nav>
 
       <div className="text-center max-w-md">
@@ -46,12 +51,12 @@ export default async function UnsubscribePage({
               All your personal data has been permanently removed from our systems
               in accordance with your Right to be Forgotten request.
             </p>
-            <a
+            <Link
               href="/"
               className="inline-block gradient-border rounded-lg px-6 py-3 font-medium hover:bg-surface-elevated transition-colors"
             >
               Back to Home
-            </a>
+            </Link>
           </>
         ) : success === "true" ? (
           <>
@@ -74,15 +79,15 @@ export default async function UnsubscribePage({
               You&apos;ve been unsubscribed
             </h1>
             <p className="text-muted mb-6">
-              You won&apos;t receive any more emails from The MOPerator. 
+              You won&apos;t receive any more emails from The mOperator. 
               We&apos;re sorry to see you go!
             </p>
-            <a
+            <Link
               href="/"
               className="inline-block gradient-border rounded-lg px-6 py-3 font-medium hover:bg-surface-elevated transition-colors"
             >
               Back to Home
-            </a>
+            </Link>
             
             {/* Right to be Forgotten option */}
             {email && (
@@ -126,12 +131,12 @@ export default async function UnsubscribePage({
                 ? "The unsubscribe link appears to be invalid."
                 : "There was an error processing your request. Please try again."}
             </p>
-            <a
+            <Link
               href="/"
               className="inline-block gradient-border rounded-lg px-6 py-3 font-medium hover:bg-surface-elevated transition-colors"
             >
               Back to Home
-            </a>
+            </Link>
           </>
         ) : (
           <>

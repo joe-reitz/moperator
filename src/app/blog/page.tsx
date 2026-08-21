@@ -1,13 +1,27 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
-import { MobileNav } from "../components/MobileNav";
+import { SiteHeader } from "@/app/components/SiteHeader";
+import { SiteFooter } from "@/app/components/SiteFooter";
+import { blurProps, type SanityImageAsset } from "@/sanity/lib/image";
+import {
+  buildBlogSchema,
+  buildBreadcrumbSchema,
+  jsonLdScriptProps,
+} from "@/lib/seo/schema";
 
 // Revalidate every 60 seconds
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Blog | The MOPerator",
+  alternates: {
+    canonical: "/blog",
+    types: {
+      "application/rss+xml": [{ url: "/feed.xml", title: "The mOperator" }],
+    },
+  },
+  title: "Blog | The mOperator",
   description: "Guides, tutorials, and insights for operators learning to build apps with AI.",
 };
 
@@ -19,9 +33,7 @@ type Post = {
   publishedAt: string | null;
   featured: boolean | null;
   mainImage: {
-    asset: {
-      url: string;
-    };
+    asset: SanityImageAsset;
   } | null;
 };
 
@@ -37,7 +49,8 @@ async function getFeaturedPost(): Promise<Post | null> {
       featured,
       mainImage {
         asset-> {
-          url
+          url,
+          metadata { lqip, dimensions { width, height } }
         }
       }
     }`
@@ -56,7 +69,8 @@ async function getFeaturedPost(): Promise<Post | null> {
       featured,
       mainImage {
         asset-> {
-          url
+          url,
+          metadata { lqip, dimensions { width, height } }
         }
       }
     }`
@@ -78,7 +92,8 @@ async function getPosts(excludeId?: string): Promise<Post[]> {
       featured,
       mainImage {
         asset-> {
-          url
+          url,
+          metadata { lqip, dimensions { width, height } }
         }
       }
     }`,
@@ -90,8 +105,29 @@ export default async function BlogPage() {
   const featuredPost = await getFeaturedPost();
   const posts = await getPosts(featuredPost?._id);
 
+  const allPosts = [featuredPost, ...posts].filter((p) => p !== null);
+
   return (
-    <main className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden">
+      <script
+        {...jsonLdScriptProps(
+          buildBlogSchema(
+            allPosts.map((post) => ({
+              title: post.title,
+              slug: post.slug.current,
+              publishedAt: post.publishedAt,
+            }))
+          )
+        )}
+      />
+      <script
+        {...jsonLdScriptProps(
+          buildBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blog" },
+          ])
+        )}
+      />
       {/* Geometric background pattern */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-[300px] sm:w-[400px] lg:w-[600px] h-[300px] sm:h-[400px] lg:h-[600px] opacity-10">
@@ -103,37 +139,9 @@ export default async function BlogPage() {
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="relative z-10 flex items-center justify-between px-4 py-4 sm:px-6 sm:py-6 md:px-12 lg:px-20">
-        <a href="/" className="flex items-center gap-2 sm:gap-4">
-          <img
-            src="/icon.svg"
-            alt="The MOPerator"
-            className="h-10 sm:h-14 md:h-16 lg:h-20 w-auto"
-          />
-          <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight">
-            The <span className="text-accent glow-text">MOP</span>erator
-          </span>
-        </a>
-        
-        {/* Mobile menu */}
-        <MobileNav />
+      <SiteHeader />
 
-        <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm">
-          <a href="/videos" className="text-muted hover:text-foreground transition-colors">
-            Videos
-          </a>
-          <a href="/blog" className="text-foreground transition-colors">
-            Blog
-          </a>
-          <a href="/repos" className="text-muted hover:text-foreground transition-colors">
-            Repos
-          </a>
-          <a href="/about" className="text-muted hover:text-foreground transition-colors">
-            About
-          </a>
-        </div>
-      </nav>
+      <main id="main-content">
 
       {/* Hero */}
       <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 pt-8 sm:pt-12 md:pt-20 pb-8 sm:pb-12">
@@ -153,12 +161,12 @@ export default async function BlogPage() {
           {!featuredPost && posts.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-muted text-lg mb-4">No posts yet. Check back soon!</p>
-              <a
+              <Link
                 href="/"
                 className="text-accent hover:underline"
               >
                 ← Back to home
-              </a>
+              </Link>
             </div>
           ) : (
             <div className="space-y-12">
@@ -188,10 +196,14 @@ export default async function BlogPage() {
                       <div className="relative lg:w-1/2 h-64 lg:h-auto overflow-hidden">
                         {featuredPost.mainImage?.asset?.url ? (
                           <>
-                            <img
+                            <Image
                               src={featuredPost.mainImage.asset.url}
                               alt={featuredPost.title}
-                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                              fill
+                              priority
+                              sizes="(max-width: 1024px) 100vw, 50vw"
+                              {...blurProps(featuredPost.mainImage.asset)}
+                              className="object-cover transition-transform duration-700 group-hover:scale-105"
                             />
                             {/* Gradient overlay */}
                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-surface opacity-80 lg:opacity-100" />
@@ -199,7 +211,7 @@ export default async function BlogPage() {
                           </>
                         ) : (
                           <div className="w-full h-full bg-gradient-to-br from-accent/20 to-surface-elevated flex items-center justify-center">
-                            <img src="/icon.svg" alt="" className="w-24 h-24 opacity-30" />
+                            <Image src="/icon.svg" alt="" width={96} height={96} unoptimized className="w-24 h-24 opacity-30" />
                           </div>
                         )}
                       </div>
@@ -269,16 +281,19 @@ export default async function BlogPage() {
                         <div className="relative h-48 overflow-hidden">
                           {post.mainImage?.asset?.url ? (
                             <>
-                              <img
+                              <Image
                                 src={post.mainImage.asset.url}
                                 alt={post.title}
-                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                fill
+                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                {...blurProps(post.mainImage.asset)}
+                                className="object-cover transition-transform duration-500 group-hover:scale-110"
                               />
                               <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/50 to-transparent" />
                             </>
                           ) : (
                             <div className="w-full h-full bg-gradient-to-br from-surface-elevated to-surface flex items-center justify-center">
-                              <img src="/icon.svg" alt="" className="w-16 h-16 opacity-20" />
+                              <Image src="/icon.svg" alt="" width={64} height={64} unoptimized className="w-16 h-16 opacity-20" />
                             </div>
                           )}
                           
@@ -331,42 +346,10 @@ export default async function BlogPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-8 sm:py-10 md:py-12 border-t border-border">
-        <div className="max-w-7xl mx-auto flex flex-col gap-4 sm:gap-6 md:flex-row items-center justify-between">
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <img src="/icon.svg" alt="The MOPerator" className="h-8 sm:h-10 md:h-12 w-auto" />
-              <span className="font-medium text-base sm:text-lg">
-                The <span className="text-accent glow-text">MOP</span>erator
-              </span>
-            </div>
-            <span className="text-xs sm:text-sm text-muted">© 2026 Joe Reitz.</span>
-          </div>
-          <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm text-muted">
-            <a
-              href="https://x.com/joe_reitz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              Twitter
-            </a>
-            <a
-              href="https://www.linkedin.com/in/joereitz/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              LinkedIn
-            </a>
-            <a href="https://www.youtube.com/playlist?list=PLY67q0EVU695eunjuo0G9KjysmzqbDez9" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-              YouTube
-            </a>
-          </div>
-        </div>
-      </footer>
-    </main>
+      </main>
+
+      <SiteFooter />
+    </div>
   );
 }
 

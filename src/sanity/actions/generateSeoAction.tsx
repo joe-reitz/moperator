@@ -165,7 +165,8 @@ async function generateOGImageBlob(title: string): Promise<Blob> {
   })
 }
 
-export const generateSeoAction: DocumentActionComponent = (props) => {
+// PascalCase because Sanity invokes this as a React component (it uses hooks).
+export const GenerateSeoAction: DocumentActionComponent = (props) => {
   const { draft, published } = props
   const { patch } = useDocumentOperation(props.id, props.type)
   const sanityClient = useClient({ apiVersion: '2024-01-01' })

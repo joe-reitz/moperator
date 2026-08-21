@@ -87,7 +87,7 @@ export async function POST(request: Request) {
       const unsubscribeUrl = `${baseUrl}/api/unsubscribe?email=${encodedEmail}`;
 
       return {
-        from: "The MOPerator <noreply@the-moperator.com>",
+        from: "The mOperator <noreply@the-moperator.com>",
         to: subscriber.email,
         subject: `New Post: ${post.title}`,
         react: NewPostEmail({

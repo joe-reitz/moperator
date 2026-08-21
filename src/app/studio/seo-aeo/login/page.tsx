@@ -1,5 +1,7 @@
 'use client'
 
+import Link from "next/link";
+import Image from "next/image";
 import { Suspense, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
@@ -71,9 +73,9 @@ export default function SEOStudioLoginPage() {
     <main className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <a href="/" className="inline-flex items-center gap-2 mb-4">
-            <img src="/icon.svg" alt="The MOPerator" className="h-12 w-auto" />
-          </a>
+          <Link href="/" className="inline-flex items-center gap-2 mb-4">
+            <Image src="/icon.svg" alt="" width={48} height={48} unoptimized className="h-12 w-auto" />
+          </Link>
           <h1 className="text-xl font-semibold text-foreground">SEO Studio</h1>
           <p className="text-sm text-muted mt-1">Enter your password to continue</p>
         </div>

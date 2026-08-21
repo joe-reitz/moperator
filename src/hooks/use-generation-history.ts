@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useMemo, useCallback } from 'react'
+import { useIsHydrated } from './use-is-hydrated'
 
 const HISTORY_KEY = 'seo-optimizer-history:v1'
 const MAX_HISTORY_ITEMS = 10
@@ -15,21 +16,28 @@ export interface HistoryItem {
   createdAt: number
 }
 
-export function useGenerationHistory() {
-  const [history, setHistory] = useState<HistoryItem[]>([])
-  const [isHydrated, setIsHydrated] = useState(false)
-
-  useEffect(() => {
+function readStoredHistory(): HistoryItem[] {
+  try {
     const stored = localStorage.getItem(HISTORY_KEY)
-    if (stored) {
-      try {
-        setHistory(JSON.parse(stored))
-      } catch {
-        // Invalid data
-      }
-    }
-    setIsHydrated(true)
-  }, [])
+    return stored ? (JSON.parse(stored) as HistoryItem[]) : []
+  } catch {
+    return []
+  }
+}
+
+export function useGenerationHistory() {
+  const isHydrated = useIsHydrated()
+
+  // Read once on the first client render rather than syncing via an effect,
+  // which would cost an extra render pass.
+  const storedHistory = useMemo(
+    () => (isHydrated ? readStoredHistory() : []),
+    [isHydrated]
+  )
+
+  // Only set once the user actually mutates the list.
+  const [localHistory, setLocalHistory] = useState<HistoryItem[] | null>(null)
+  const history = localHistory ?? storedHistory
 
   const addToHistory = useCallback((item: Omit<HistoryItem, 'id' | 'createdAt'>) => {
     const newItem: HistoryItem = {
@@ -38,15 +46,16 @@ export function useGenerationHistory() {
       createdAt: Date.now(),
     }
 
-    setHistory(prev => {
-      const updated = [newItem, ...prev].slice(0, MAX_HISTORY_ITEMS)
+    setLocalHistory(prev => {
+      const current = prev ?? readStoredHistory()
+      const updated = [newItem, ...current].slice(0, MAX_HISTORY_ITEMS)
       localStorage.setItem(HISTORY_KEY, JSON.stringify(updated))
       return updated
     })
   }, [])
 
   const clearHistory = useCallback(() => {
-    setHistory([])
+    setLocalHistory([])
     localStorage.removeItem(HISTORY_KEY)
   }, [])
 

@@ -1,14 +1,17 @@
+import Link from "next/link";
 import type { Metadata } from "next";
-import { MobileNav } from "../components/MobileNav";
+import { SiteHeader } from "@/app/components/SiteHeader";
+import { SiteFooter } from "@/app/components/SiteFooter";
 
 export const metadata: Metadata = {
-  title: "Coming Soon | The MOPerator",
+  alternates: { canonical: "/coming-soon" },
+  title: "Coming Soon | The mOperator",
   description: "New content is on the way. Check back soon!",
 };
 
 export default function ComingSoonPage() {
   return (
-    <main className="min-h-screen relative overflow-hidden flex flex-col">
+    <div className="min-h-screen relative overflow-hidden flex flex-col">
       {/* Geometric background pattern */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] lg:w-[800px] h-[400px] sm:h-[600px] lg:h-[800px] opacity-10">
@@ -21,37 +24,9 @@ export default function ComingSoonPage() {
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="relative z-10 flex items-center justify-between px-4 py-4 sm:px-6 sm:py-6 md:px-12 lg:px-20">
-        <a href="/" className="flex items-center gap-2 sm:gap-4">
-          <img
-            src="/icon.svg"
-            alt="The MOPerator"
-            className="h-10 sm:h-14 md:h-16 lg:h-20 w-auto"
-          />
-          <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight">
-            The <span className="text-accent glow-text">MOP</span>erator
-          </span>
-        </a>
-        
-        {/* Mobile menu */}
-        <MobileNav />
+      <SiteHeader />
 
-        <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm">
-          <a href="/videos" className="text-foreground transition-colors">
-            Videos
-          </a>
-          <a href="/blog" className="text-muted hover:text-foreground transition-colors">
-            Blog
-          </a>
-          <a href="/repos" className="text-muted hover:text-foreground transition-colors">
-            Repos
-          </a>
-          <a href="/about" className="text-muted hover:text-foreground transition-colors">
-            About
-          </a>
-        </div>
-      </nav>
+      <main id="main-content">
 
       {/* Content */}
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6">
@@ -82,12 +57,12 @@ export default function ComingSoonPage() {
             className="animate-fade-up flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
             style={{ animationDelay: "300ms" }}
           >
-            <a
+            <Link
               href="/"
               className="w-full sm:w-auto gradient-border rounded-lg px-6 sm:px-8 py-3 sm:py-4 font-medium hover:bg-surface-elevated transition-colors text-center"
             >
               Back to Home
-            </a>
+            </Link>
             <a
               href="https://x.com/joe_reitz"
               target="_blank"
@@ -103,41 +78,9 @@ export default function ComingSoonPage() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-8 sm:py-10 md:py-12 border-t border-border">
-        <div className="max-w-7xl mx-auto flex flex-col gap-4 sm:gap-6 md:flex-row items-center justify-between">
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <img src="/icon.svg" alt="The MOPerator" className="h-8 sm:h-10 md:h-12 w-auto" />
-              <span className="font-medium text-base sm:text-lg">
-                The <span className="text-accent glow-text">MOP</span>erator
-              </span>
-            </div>
-            <span className="text-xs sm:text-sm text-muted">© 2026 Joe Reitz.</span>
-          </div>
-          <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm text-muted">
-            <a
-              href="https://x.com/joe_reitz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              Twitter
-            </a>
-            <a
-              href="https://www.linkedin.com/in/joereitz/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              LinkedIn
-            </a>
-            <a href="https://www.youtube.com/playlist?list=PLY67q0EVU695eunjuo0G9KjysmzqbDez9" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-              YouTube
-            </a>
-          </div>
-        </div>
-      </footer>
-    </main>
+      </main>
+
+      <SiteFooter />
+    </div>
   );
 }

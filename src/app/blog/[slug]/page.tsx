@@ -1,8 +1,18 @@
+import Link from "next/link";
+import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { PortableText, PortableTextBlock } from "@portabletext/react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { MobileNav } from "../../components/MobileNav";
+import { SiteHeader } from "@/app/components/SiteHeader";
+import { SiteFooter } from "@/app/components/SiteFooter";
+import { blurProps, type SanityImageAsset } from "@/sanity/lib/image";
+import {
+  buildArticleSchema,
+  buildBreadcrumbSchema,
+  jsonLdScriptProps,
+} from "@/lib/seo/schema";
+import { portableTextComponents } from "../portable-text-components";
 
 // Convert video URLs to embed URLs
 function getEmbedUrl(url: string): string {
@@ -32,22 +42,19 @@ function getEmbedUrl(url: string): string {
 
 type Post = {
   _id: string;
+  _updatedAt: string;
   title: string;
   slug: { current: string };
   excerpt: string | null;
   publishedAt: string | null;
   body: PortableTextBlock[] | null;
   mainImage: {
-    asset: {
-      url: string;
-    };
+    asset: SanityImageAsset;
   } | null;
   author: {
     name: string;
     image: {
-      asset: {
-        url: string;
-      };
+      asset: SanityImageAsset;
     } | null;
   } | null;
   featuredVideo: {
@@ -58,17 +65,29 @@ type Post = {
   seoTitle: string | null;
   metaDescription: string | null;
   schemaMarkup: string | null;
+  primaryKeyword: string | null;
+  secondaryKeywords: string[] | null;
   ogImage: {
-    asset: {
-      url: string;
-    };
+    asset: SanityImageAsset;
   } | null;
 };
+
+// Posts are prerendered at build time and refreshed by the Sanity webhook
+// (revalidatePath). The hourly window is just a safety net if a webhook is missed.
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const slugs = await client.fetch<string[]>(
+    `*[_type == "post" && defined(slug.current)].slug.current`
+  );
+  return slugs.map((slug) => ({ slug }));
+}
 
 async function getPost(slug: string): Promise<Post | null> {
   return client.fetch(
     `*[_type == "post" && slug.current == $slug][0] {
       _id,
+      _updatedAt,
       title,
       slug,
       excerpt,
@@ -76,14 +95,16 @@ async function getPost(slug: string): Promise<Post | null> {
       body,
       mainImage {
         asset-> {
-          url
+          url,
+          metadata { lqip, dimensions { width, height } }
         }
       },
       author-> {
         name,
         image {
           asset-> {
-            url
+            url,
+            metadata { lqip, dimensions { width, height } }
           }
         }
       },
@@ -95,9 +116,12 @@ async function getPost(slug: string): Promise<Post | null> {
       seoTitle,
       metaDescription,
       schemaMarkup,
+      primaryKeyword,
+      secondaryKeywords,
       ogImage {
         asset-> {
-          url
+          url,
+          metadata { lqip, dimensions { width, height } }
         }
       }
     }`,
@@ -115,21 +139,25 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: "Post Not Found | The MOPerator",
+      title: "Post Not Found | The mOperator",
     };
   }
 
   const pageTitle = post.seoTitle || post.title;
-  const pageDescription = post.metaDescription || post.excerpt || "A post from The MOPerator";
+  const pageDescription = post.metaDescription || post.excerpt || "A post from The mOperator";
   const ogImageUrl = post.ogImage?.asset?.url || post.mainImage?.asset?.url;
 
   return {
-    title: `${pageTitle} | The MOPerator`,
+    title: `${pageTitle} | The mOperator`,
     description: pageDescription,
+    alternates: { canonical: `/blog/${slug}` },
     openGraph: {
       title: pageTitle,
       description: pageDescription,
       type: "article",
+      url: `/blog/${slug}`,
+      ...(post.publishedAt && { publishedTime: post.publishedAt }),
+      ...(post.author?.name && { authors: [post.author.name] }),
       ...(ogImageUrl && {
         images: [{ url: ogImageUrl, width: 1200, height: 630 }],
       }),
@@ -156,58 +184,59 @@ export default async function BlogPostPage({
   }
 
   return (
-    <main className="min-h-screen relative">
-      {/* JSON-LD Structured Data */}
-      {post.schemaMarkup && (
+    <div className="min-h-screen relative">
+      {/* JSON-LD: hand-authored markup from the Studio wins, otherwise we
+          derive BlogPosting from the post's own fields. */}
+      {post.schemaMarkup ? (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: post.schemaMarkup }}
         />
+      ) : (
+        <script
+          {...jsonLdScriptProps(
+            buildArticleSchema({
+              title: post.title,
+              slug: post.slug.current,
+              description: post.metaDescription || post.excerpt,
+              publishedAt: post.publishedAt,
+              updatedAt: post._updatedAt,
+              imageUrl: post.ogImage?.asset?.url || post.mainImage?.asset?.url,
+              authorName: post.author?.name,
+              keywords: [
+                post.primaryKeyword,
+                ...(post.secondaryKeywords ?? []),
+              ].filter((k): k is string => Boolean(k)),
+            })
+          )}
+        />
       )}
 
-      {/* Navigation */}
-      <nav className="relative z-10 flex items-center justify-between px-4 py-4 sm:px-6 sm:py-6 md:px-12 lg:px-20">
-        <a href="/" className="flex items-center gap-2 sm:gap-4">
-          <img
-            src="/icon.svg"
-            alt="The MOPerator"
-            className="h-10 sm:h-14 md:h-16 lg:h-20 w-auto"
-          />
-          <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight">
-            The <span className="text-accent glow-text">MOP</span>erator
-          </span>
-        </a>
-        
-        {/* Mobile menu */}
-        <MobileNav />
+      <script
+        {...jsonLdScriptProps(
+          buildBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blog" },
+            { name: post.title, path: `/blog/${post.slug.current}` },
+          ])
+        )}
+      />
 
-        <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm">
-          <a href="/videos" className="text-muted hover:text-foreground transition-colors">
-            Videos
-          </a>
-          <a href="/blog" className="text-muted hover:text-foreground transition-colors">
-            Blog
-          </a>
-          <a href="/repos" className="text-muted hover:text-foreground transition-colors">
-            Repos
-          </a>
-          <a href="/about" className="text-muted hover:text-foreground transition-colors">
-            About
-          </a>
-        </div>
-      </nav>
+      <SiteHeader />
+
+      <main id="main-content">
 
       {/* Article */}
       <article className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 pt-4 sm:pt-8 pb-16 sm:pb-24">
         <div className="max-w-3xl mx-auto">
           {/* Back link */}
-          <a
+          <Link
             href="/blog"
             className="inline-flex items-center gap-2 text-sm sm:text-base text-muted hover:text-foreground transition-colors mb-6 sm:mb-8"
           >
             <span>←</span>
             <span>Back to Blog</span>
-          </a>
+          </Link>
 
           {/* Header */}
           <header className="mb-8 sm:mb-12">
@@ -219,9 +248,12 @@ export default async function BlogPostPage({
               {post.author && (
                 <div className="flex items-center gap-3">
                   {post.author.image?.asset?.url ? (
-                    <img
+                    <Image
                       src={post.author.image.asset.url}
-                      alt={post.author.name}
+                      alt=""
+                      width={40}
+                      height={40}
+                      {...blurProps(post.author.image.asset)}
                       className="w-10 h-10 rounded-full object-cover"
                     />
                   ) : (
@@ -270,9 +302,14 @@ export default async function BlogPostPage({
           {/* Featured Image (only if no video) */}
           {!post.featuredVideo && post.mainImage?.asset?.url && (
             <div className="mb-12 rounded-xl overflow-hidden">
-              <img
+              <Image
                 src={post.mainImage.asset.url}
                 alt={post.title}
+                width={post.mainImage.asset.metadata?.dimensions?.width ?? 1200}
+                height={post.mainImage.asset.metadata?.dimensions?.height ?? 675}
+                priority
+                sizes="(max-width: 896px) 100vw, 896px"
+                {...blurProps(post.mainImage.asset)}
                 className="w-full h-auto"
               />
             </div>
@@ -280,7 +317,12 @@ export default async function BlogPostPage({
 
           {/* Content */}
           <div className="article-content">
-            {post.body && <PortableText value={post.body} />}
+            {post.body && (
+              <PortableText
+                value={post.body}
+                components={portableTextComponents}
+              />
+            )}
           </div>
 
           {/* Join the Discussion */}
@@ -317,63 +359,21 @@ export default async function BlogPostPage({
 
           {/* Footer */}
           <div className="mt-8 pt-8 border-t border-border">
-            <a
+            <Link
               href="/blog"
               className="inline-flex items-center gap-2 text-accent hover:underline"
             >
               <span>←</span>
               <span>Back to all posts</span>
-            </a>
+            </Link>
           </div>
         </div>
       </article>
 
-      {/* Footer */}
-      <footer className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-8 sm:py-10 md:py-12 border-t border-border">
-        <div className="max-w-7xl mx-auto flex flex-col gap-4 sm:gap-6 md:flex-row items-center justify-between">
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <img src="/icon.svg" alt="The MOPerator" className="h-8 sm:h-10 md:h-12 w-auto" />
-              <span className="font-medium text-base sm:text-lg">
-                The <span className="text-accent glow-text">MOP</span>erator
-              </span>
-            </div>
-            <span className="text-xs sm:text-sm text-muted">© 2026 Joe Reitz.</span>
-          </div>
-          <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm text-muted">
-            <a
-              href="https://x.com/joe_reitz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              Twitter
-            </a>
-            <a
-              href="https://www.linkedin.com/in/joereitz/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              LinkedIn
-            </a>
-            <a href="https://www.youtube.com/playlist?list=PLY67q0EVU695eunjuo0G9KjysmzqbDez9" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-              YouTube
-            </a>
-            <span className="text-border">|</span>
-            <a
-              href="https://venmo.com/joe-reitz-1"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors flex items-center gap-1"
-            >
-              <span>☕</span>
-              <span>Buy me a coffee</span>
-            </a>
-          </div>
-        </div>
-      </footer>
-    </main>
+      </main>
+
+      <SiteFooter />
+    </div>
   );
 }
 

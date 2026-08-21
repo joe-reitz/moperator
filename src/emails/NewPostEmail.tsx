@@ -60,8 +60,8 @@ export default function NewPostEmail({
                       }}
                     >
                       The{" "}
-                      <span style={{ color: "#f59e0b" }}>MOP</span>
-                      erator
+                      <span style={{ color: "#f59e0b" }}>m</span>
+                      Operator
                     </span>
                   </td>
                 </tr>
@@ -165,7 +165,7 @@ export default function NewPostEmail({
                 }}
               >
                 You&apos;re receiving this because you subscribed to The
-                MOPerator.
+                mOperator.
               </p>
               <p style={{ margin: "0 0 8px 0", fontSize: "12px", color: "#4b5563" }}>
                 © 2026 Joe Reitz. All rights reserved.

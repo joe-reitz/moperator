@@ -2,9 +2,9 @@
 
 ## Context
 
-The user has a standalone SEO/AEO Optimizer (`moperator-seo-aeo-optimizer`) that generates SEO metadata, JSON-LD structured schema, and OG image prompts using Claude AI. They want to integrate this tool into their main moperator site (Next.js + Sanity CMS) so it's accessible at `/studio/seo-aeo`, update the post schema to store the generated data, add an OG image field, and enable auto-fill from the Sanity Studio editor.
+The user has a standalone SEO/AEO Optimizer (`moperator-seo-aeo-optimizer`) that generates SEO metadata, JSON-LD structured schema, and OG image prompts using Claude AI. They want to integrate this tool into their main mOperator site (Next.js + Sanity CMS) so it's accessible at `/studio/seo-aeo`, update the post schema to store the generated data, add an OG image field, and enable auto-fill from the Sanity Studio editor.
 
-**Key constraint**: The moperator project uses Tailwind CSS v4 with raw CSS variables (no shadcn/ui), while the optimizer uses Tailwind v3 + shadcn/ui + 50 Radix UI components. We'll port the UI using moperator's native styling to avoid dependency bloat and CSS conflicts.
+**Key constraint**: The mOperator project uses Tailwind CSS v4 with raw CSS variables (no shadcn/ui), while the optimizer uses Tailwind v3 + shadcn/ui + 50 Radix UI components. We'll port the UI using mOperator's native styling to avoid dependency bloat and CSS conflicts.
 
 ---
 
@@ -69,7 +69,7 @@ Port the two API endpoints from the optimizer:
 
 Create a standalone page at `/studio/seo-aeo` (Next.js route takes priority over the Sanity `[[...tool]]` catch-all).
 
-Port the 4 main components, restyled with moperator's native CSS variables (no shadcn/Radix dependencies):
+Port the 4 main components, restyled with mOperator's native CSS variables (no shadcn/Radix dependencies):
 
 1. **SEOInputForm** - Title input, body textarea with write/preview tabs, keyword + persona inputs, generate button
 2. **SEOMetadataCard** - Displays generated SEO title, meta description, excerpt, slug, keywords with copy buttons

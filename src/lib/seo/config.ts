@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: 'The MOPerator',
+  name: 'The mOperator',
   url: 'https://the-moperator.com',
   domain: 'the-moperator.com',
   description: 'A technical Marketing Operations and RevOps blog',
@@ -7,9 +7,24 @@ export const siteConfig = {
   author: {
     name: 'Joe Reitz',
     url: 'https://the-moperator.com',
+    jobTitle: 'Marketing Operations leader and GTM Engineer',
+    bio: 'Marketing Operations leader writing about the move from running go-to-market systems to building and shipping software with AI development tools.',
+    knowsAbout: [
+      'Marketing Operations',
+      'Revenue Operations',
+      'GTM Engineering',
+      'AI-assisted software development',
+      'Vibe coding',
+      'Next.js',
+      'Vercel',
+      'v0',
+      'Cursor',
+      'Claude',
+      'GitHub',
+    ],
   },
   publisher: {
-    name: 'The MOPerator',
+    name: 'The mOperator',
     url: 'https://the-moperator.com',
   },
 
@@ -56,15 +71,15 @@ export const siteConfig = {
       - Clean, geometric accents with subtle glow effects
     `.trim(),
     logoDescription: `
-      - The MOOperator logo features a geometric "M" mark made of overlapping angular shapes
+      - The mOperator logo features a geometric "M" mark made of overlapping angular shapes
       - Logo uses amber (#f59e0b) and gold (#fbbf24) on white elements
       - Place branding subtly in upper left or lower right
-      - Include "THE MOPERATOR" text badge
+      - Include "The mOperator" text badge
     `.trim(),
   },
 
   model: {
-    id: 'claude-sonnet-4-20250514' as const,
+    id: 'claude-sonnet-5' as const,
   },
 }
 

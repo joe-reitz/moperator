@@ -1,6 +1,5 @@
 import { client } from "@/sanity/lib/client";
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
 
 type Post = {
   title: string;
@@ -118,8 +117,8 @@ export default async function PreviewEmailPage({
                             color: "#e8e4dd",
                           }}
                         >
-                          The <span style={{ color: "#f59e0b" }}>MOP</span>
-                          erator
+                          The <span style={{ color: "#f59e0b" }}>m</span>
+                          Operator
                         </span>
                       </td>
                     </tr>
@@ -226,7 +225,7 @@ export default async function PreviewEmailPage({
                 }}
               >
                 You&apos;re receiving this because you subscribed to The
-                MOPerator.
+                mOperator.
               </p>
               <p style={{ margin: "0 0 8px 0", fontSize: "12px", color: "#4b5563" }}>
                 © 2026 Joe Reitz. All rights reserved.

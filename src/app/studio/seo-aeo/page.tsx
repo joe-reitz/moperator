@@ -1,5 +1,7 @@
 'use client'
 
+import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect, useCallback } from 'react'
 import { SEOInputForm } from '@/components/seo-aeo/seo-input-form'
 import { SEOMetadataCard } from '@/components/seo-aeo/seo-metadata-card'
@@ -81,11 +83,15 @@ export default function SEOOptimizerPage() {
   const { saveDraft, loadDraft, clearDraft, isHydrated } = useLocalStorageDraft()
   const { addToHistory, history, clearHistory } = useGenerationHistory()
 
-  // Restore draft on mount
+  // Restore draft once hydration completes. This has to be an effect: the
+  // server has no localStorage, so seeding the initial state from it would
+  // produce a hydration mismatch, and reading it during render would make
+  // render impure. It runs at most once.
   useEffect(() => {
     if (!isHydrated) return
     const draft = loadDraft()
     if (draft) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTitle(draft.title)
       setBody(draft.body)
       setTargetKeyword(draft.targetKeyword)
@@ -172,9 +178,9 @@ export default function SEOOptimizerPage() {
         <div className="mb-8 flex items-center justify-between">
           <div>
             <div className="flex items-center gap-3 mb-1">
-              <a href="/" className="flex items-center gap-2">
-                <img src="/icon.svg" alt="The MOPerator" className="h-8 w-auto" />
-              </a>
+              <Link href="/" className="flex items-center gap-2">
+                <Image src="/icon.svg" alt="" width={32} height={32} unoptimized className="h-8 w-auto" />
+              </Link>
               <h1 className="text-2xl font-semibold tracking-tight text-foreground">
                 {siteConfig.name} SEO Optimizer
               </h1>
@@ -189,12 +195,12 @@ export default function SEOOptimizerPage() {
                 {history.length} generation{history.length !== 1 ? 's' : ''} saved
               </span>
             )}
-            <a
+            <Link
               href="/studio"
               className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs text-muted hover:text-foreground hover:border-muted transition-colors"
             >
               Back to Studio
-            </a>
+            </Link>
           </div>
         </div>
 
