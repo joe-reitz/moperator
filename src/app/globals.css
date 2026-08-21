@@ -349,6 +349,23 @@ body::before {
   margin: 2em 0;
 }
 
+/* Aside — a side note inside article body copy. Set apart with the accent
+   rule rather than a box, so it reads as a digression, not a warning. */
+.article-content .article-aside {
+  margin: 2em 0;
+  padding: 1.25em 1.75em;
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: 0.95em;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.article-content .article-aside > p:last-child {
+  margin-bottom: 0;
+}
+
 /* First paragraph styling - drop cap feel */
 .article-content > p:first-of-type {
   font-size: 19px;
