@@ -1,10 +1,21 @@
 import type { BlockStyleProps } from "sanity";
 
 /**
- * Renders the "Aside" style inside the Studio editor so it looks like an aside
- * while you are writing it, rather than looking identical to a normal paragraph.
+ * Renders the "Aside" style inside the Studio so it looks like an aside while
+ * you are writing it, rather than being indistinguishable from a paragraph.
+ *
+ * Sanity invokes a style's `component` in two different places: rendering the
+ * block inside the editor, where `renderDefault` is supplied, and rendering the
+ * entry in the style dropdown, where it is not. Calling `renderDefault`
+ * unconditionally therefore crashes the moment the dropdown opens, so fall back
+ * to `children` whenever it is absent.
  */
 export function AsideStyle(props: BlockStyleProps) {
+  const content =
+    typeof props.renderDefault === "function"
+      ? props.renderDefault(props)
+      : props.children;
+
   return (
     <div
       style={{
@@ -15,7 +26,7 @@ export function AsideStyle(props: BlockStyleProps) {
         margin: "4px 0",
       }}
     >
-      {props.renderDefault(props)}
+      {content}
     </div>
   );
 }
