@@ -20,7 +20,11 @@ const ART_OPACITY = siteConfig.ogImage.artOpacity
  * washes), one accent colour, and the crossed-mops ASCII art as the illustration
  * layer. The logo is typographic, so the mark is never drawn as a picture.
  */
-export async function drawOgCard(title: string): Promise<Blob> {
+export async function drawOgCard(
+  title: string,
+  options: { artOpacity?: number } = {}
+): Promise<Blob> {
+  const artOpacity = options.artOpacity ?? ART_OPACITY
   const canvas = document.createElement('canvas')
   canvas.width = W
   canvas.height = H
@@ -40,7 +44,7 @@ export async function drawOgCard(title: string): Promise<Blob> {
     })
     const artW = 620
     const artH = artW * (art.height / art.width || 541 / 760)
-    ctx.globalAlpha = ART_OPACITY
+    ctx.globalAlpha = artOpacity
     ctx.drawImage(art, W - artW + 40, (H - artH) / 2, artW, artH)
     ctx.globalAlpha = 1
   } catch {

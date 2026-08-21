@@ -62,9 +62,15 @@ export const siteConfig = {
 
   ogImage: {
     // Opacity of the heritage ASCII crossed-mops artwork behind OG cards.
-    // The brand guide suggests 6-10%; raised deliberately at Joe's request so
-    // the art actually reads at social-thumbnail size.
-    artOpacity: 0.16,
+    //
+    // Well above the brand guide's 6-10%, deliberately. The artwork is thin
+    // glyph strokes on transparency, so opacity barely moves the average
+    // brightness — it only raises peak glyph contrast. Measured against the
+    // #070a08 background: 0.16 peaks at 31/255 above background, 0.30 at 58.
+    // Sanity's preview downscale then averages those thin strokes toward the
+    // background, so anything under ~0.25 disappears at thumbnail size.
+    // 0.40 reads well too but starts competing with the headline.
+    artOpacity: 0.3,
     style: `
       - CRT phosphor terminal aesthetic on a FLAT near-black green-tinted background
       - Single accent colour only: phosphor green (#3ee07f). Never amber, gold, or any second hue
