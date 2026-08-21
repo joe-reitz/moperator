@@ -9,11 +9,17 @@ export const size = {
 };
 export const contentType = "image/png";
 
-// Phosphor mark, composed from primitives so no asset fetch is needed.
+// Phosphor mark, composed from primitives so no logo asset is needed.
 // Proportions mirror src/app/components/Logo.tsx at a 4.6x scale.
 const S = 4.6;
 
 export default async function Image() {
+  // Heritage ASCII crossed-mops art, used as texture only — never as the logo.
+  const ascii = await fetch(
+    new URL("../../public/mark-ascii-green.png", import.meta.url)
+  ).then((res) => res.arrayBuffer());
+  const asciiUrl = `data:image/png;base64,${Buffer.from(ascii).toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -28,27 +34,18 @@ export default async function Image() {
           position: "relative",
         }}
       >
-        {/* Concentric line art — a legacy motif the brand keeps, sparingly */}
-        <div
+        <img
+          alt=""
+          src={asciiUrl}
+          width="760"
+          height="541"
           style={{
             position: "absolute",
-            top: "-100px",
-            right: "-100px",
-            width: "500px",
-            height: "500px",
-            borderRadius: "50%",
-            border: "1px solid rgba(62, 224, 127, 0.1)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            bottom: "-150px",
-            left: "-150px",
-            width: "400px",
-            height: "400px",
-            borderRadius: "50%",
-            border: "1px solid rgba(62, 224, 127, 0.05)",
+            right: "-40px",
+            top: "40px",
+            width: "620px",
+            height: "441px",
+            opacity: 0.09,
           }}
         />
 

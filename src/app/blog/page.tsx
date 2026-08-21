@@ -128,15 +128,16 @@ export default async function BlogPage() {
           ])
         )}
       />
-      {/* Geometric background pattern */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[300px] sm:w-[400px] lg:w-[600px] h-[300px] sm:h-[400px] lg:h-[600px] opacity-10">
-          <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="300" cy="300" r="280" stroke="#3ee07f" strokeWidth="1" />
-            <circle cx="300" cy="300" r="200" stroke="#3ee07f" strokeWidth="1" />
-            <circle cx="300" cy="300" r="120" stroke="#3ee07f" strokeWidth="1" />
-          </svg>
-        </div>
+      {/* Heritage ASCII crossed mops — illustration/texture only, never a logo */}
+      <div className="pointer-events-none fixed inset-0">
+        <Image
+          src="/mark-ascii-green.png"
+          alt=""
+          width={760}
+          height={541}
+          aria-hidden="true"
+          className="absolute right-0 top-24 hidden w-[380px] opacity-[0.07] sm:block lg:right-8 lg:top-4 lg:w-[560px]"
+        />
       </div>
 
       <SiteHeader />

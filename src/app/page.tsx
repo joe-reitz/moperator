@@ -67,8 +67,8 @@ export default function Home() {
           <Image
             src="/mark-ascii-green.png"
             alt=""
-            width={891}
-            height={634}
+            width={760}
+            height={541}
             aria-hidden="true"
             className="pointer-events-none absolute right-14 top-8 hidden w-[520px] opacity-[0.06] lg:block"
           />

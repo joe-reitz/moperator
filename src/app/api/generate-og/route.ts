@@ -19,11 +19,11 @@ export async function POST(req: Request) {
       system: `You are an expert at writing prompts for AI image generation. Create prompts for professional, technical blog OpenGraph images that match the ${siteConfig.name} brand identity.
 
 BRAND SPECIFICATIONS:
-- Background: Deep charcoal/near-black (${siteConfig.colors.background} to ${siteConfig.colors.backgroundGradientEnd} gradient)
-- Primary Accent: ${siteConfig.colors.primary} with glow effects
-- Secondary Accent: ${siteConfig.colors.secondary}
-- Text Color: ${siteConfig.colors.text}
-- Typography: Modern geometric sans-serif (${siteConfig.fonts.heading} style)
+- Background: FLAT near-black, green-tinted (${siteConfig.colors.background}). Never a gradient.
+- Accent: ${siteConfig.colors.primary} — the ONLY accent colour, with green glow effects
+- Dimmed accent (sparingly): ${siteConfig.colors.secondary}
+- Text: ${siteConfig.colors.text}; muted sage text: ${siteConfig.colors.textMuted}
+- Typography: geometric sans-serif (${siteConfig.fonts.heading}) for display, monospace (${siteConfig.fonts.mono}) for labels and terminal lines
 
 VISUAL STYLE:
 ${siteConfig.ogImage.style}
@@ -37,7 +37,7 @@ ${siteConfig.ogImage.logoDescription}`,
 
 Description: ${description || title}
 
-The image should incorporate the ${siteConfig.name} brand identity with accents on a dark background. Include subtle geometric patterns and the brand mark. Generate ONLY the prompt, nothing else.`,
+The image should incorporate the ${siteConfig.name} brand identity: phosphor green on flat near-black, the typographic mark, and — where it suits the composition — the heritage ASCII crossed-mops art as a faint background texture. Generate ONLY the prompt, nothing else.`,
         },
       ],
       maxOutputTokens: 500,

@@ -62,24 +62,28 @@ export const siteConfig = {
 
   ogImage: {
     style: `
-      - CRT phosphor terminal aesthetic on a flat near-black green-tinted background
+      - CRT phosphor terminal aesthetic on a FLAT near-black green-tinted background
       - Single accent colour only: phosphor green (#3ee07f). Never amber, gold, or any second hue
       - Absolutely no gradients — flat colour fields only
       - Green glow as the one signature effect, on at most one or two elements
       - Monospace type for labels and terminal lines; geometric sans for headlines
-      - Optional faint ASCII-art or thin line-art texture at 6-10% opacity
+      - The heritage ASCII crossed-mops artwork is the brand's illustration: green
+        monospace characters forming two crossed mops, sat behind the composition at
+        roughly 6-10% opacity as a texture layer
+      - Thin concentric green circles at ~10% opacity are an acceptable legacy motif
       - Professional, minimalist, airy — similar to Vercel or Linear marketing
       - No photographs of people, no stock-art feeling, no emoji
     `.trim(),
     logoDescription: `
-      - The mOperator mark is typographic, not pictorial: a lowercase cream "m",
+      - The mOperator LOGO is typographic, never pictorial: a lowercase cream "m",
         then a glowing green ring standing in for the "O" of Operator, then a
         cream block cursor
       - Ring stroke is roughly one seventh of its diameter, phosphor green (#3ee07f) with a soft glow
       - Cream is #e6f2e8; never render the mark in amber or gold
-      - Never draw mops, brooms, or any pictorial illustration as the logo
-      - Place branding subtly in the upper left or lower right
       - The wordmark is typeset: "the mOperator" in monospace, with "Operator" in green
+      - Place the mark subtly in the upper left or lower right
+      - The ASCII crossed-mops art may appear as a faint background TEXTURE (see style),
+        but it is heritage illustration and must never stand in for the logo itself
     `.trim(),
   },
 
