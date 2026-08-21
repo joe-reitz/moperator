@@ -46,7 +46,7 @@ export default async function Image() {
             top: "40px",
             width: "620px",
             height: "441px",
-            opacity: siteConfig.ogImage.artOpacity,
+            opacity: siteConfig.ogImage.artOpacitySiteCard,
           }}
         />
 

@@ -22,9 +22,10 @@ const ART_OPACITY = siteConfig.ogImage.artOpacity
  */
 export async function drawOgCard(
   title: string,
-  options: { artOpacity?: number } = {}
+  options: { artOpacity?: number; artWidth?: number } = {}
 ): Promise<Blob> {
   const artOpacity = options.artOpacity ?? ART_OPACITY
+  const artWidth = options.artWidth ?? siteConfig.ogImage.artWidth
   const canvas = document.createElement('canvas')
   canvas.width = W
   canvas.height = H
@@ -42,7 +43,7 @@ export async function drawOgCard(
       art.onload = () => resolve()
       art.onerror = reject
     })
-    const artW = 620
+    const artW = artWidth
     const artH = artW * (art.height / art.width || 541 / 760)
     ctx.globalAlpha = artOpacity
     ctx.drawImage(art, W - artW + 40, (H - artH) / 2, artW, artH)

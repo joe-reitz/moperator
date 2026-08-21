@@ -69,8 +69,18 @@ export const siteConfig = {
     // #070a08 background: 0.16 peaks at 31/255 above background, 0.30 at 58.
     // Sanity's preview downscale then averages those thin strokes toward the
     // background, so anything under ~0.25 disappears at thumbnail size.
-    // 0.40 reads well too but starts competing with the headline.
-    artOpacity: 0.3,
+    // Going wider than 900px pushes the art behind the title and the domain and
+    // measurably hurts their legibility, so width is the binding constraint here,
+    // not opacity.
+    artOpacity: 0.4,
+    // Drawn width of the artwork inside the 1200px card. Larger glyphs survive
+    // the preview downscale, so size matters as much as opacity here.
+    artWidth: 900,
+    // The site-wide card centres the mark, wordmark and tagline, so the artwork
+    // sits directly behind text there and has to stay much fainter. The per-post
+    // card puts its copy bottom-left, clear of the art, which is why these two
+    // values legitimately differ rather than having drifted.
+    artOpacitySiteCard: 0.16,
     style: `
       - CRT phosphor terminal aesthetic on a FLAT near-black green-tinted background
       - Single accent colour only: phosphor green (#3ee07f). Never amber, gold, or any second hue
