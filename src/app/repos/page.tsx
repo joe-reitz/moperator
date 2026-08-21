@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import type { Metadata } from "next";
@@ -73,6 +74,29 @@ export default async function ReposPage() {
             Clone, customize, and deploy. These open source projects are built
             for Marketing Operations professionals to make their own.
           </p>
+
+          <div className="mt-8 rounded-[--radius-lg] border border-border bg-surface p-6 transition-colors hover:border-accent/35">
+            <p className="eyebrow mb-3">Start here</p>
+            <h2 className="mb-2 text-xl font-semibold text-foreground">
+              The mOperator agent
+            </h2>
+            <p className="mb-4 text-sm leading-relaxed text-muted">
+              A marketing ops agent that lives in your Slack and works in your
+              CRM. Every rule it follows is a file you can edit — and the setup
+              guide assumes no command-line experience.
+            </p>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[13px]">
+              <Link href="/oss-moperator" className="text-accent hover:brightness-110">
+                Read the overview →
+              </Link>
+              <Link
+                href="/oss-moperator/setup"
+                className="text-muted transition-colors hover:text-foreground"
+              >
+                Setup guide
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 

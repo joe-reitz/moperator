@@ -87,7 +87,7 @@ export default function Home() {
                 style={{ animationDelay: "100ms" }}
               >
                 Learn how to{" "}
-                <span className="text-accent glow-text">Ship Apps</span>:
+                <span className="text-accent glow-text">Ship Anything</span>:
                 <br className="hidden sm:block" />{" "}
                 by operators, for operators
               </h1>
@@ -97,8 +97,8 @@ export default function Home() {
                 style={{ animationDelay: "200ms" }}
               >
                 Video tutorials, guides, and real-world examples for Marketing
-                Operations professionals ready to break into AI app development
-                using tools like v0, Cursor, Claude, and more.
+                Operations professionals ready to build apps, agents, and
+                automations with tools like v0, Cursor, Claude, and more.
               </p>
 
               <div

@@ -6,6 +6,7 @@ import { LogoMark } from "./Logo";
 import { MobileNav } from "./MobileNav";
 
 export const NAV_LINKS = [
+  { href: "/oss-moperator", label: "Agent" },
   { href: "/videos", label: "Videos" },
   { href: "/blog", label: "Blog" },
   { href: "/repos", label: "Repos" },

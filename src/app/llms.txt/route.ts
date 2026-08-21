@@ -42,6 +42,11 @@ The site documents that transition in public: hands-on tutorials using tools lik
 
 ${postLines}
 
+## The mOperator agent (open source)
+
+- [mOperator agent](${siteConfig.url}/oss-moperator): an open-source marketing operations agent that runs in Slack and works in your CRM. MIT licensed, built on eve, deploys to Vercel. Every rule it follows is an editable file, so teams fork it rather than buy a closed product.
+- [Setup guide for non-developers](${siteConfig.url}/oss-moperator/setup): step-by-step deployment written for marketing operators with no command-line experience — creating accounts, running it against a mock CRM, deploying to Vercel, adding Slack, connecting a real CRM, and the security options for IP-restricted CRMs.
+
 ## Sections
 
 - [Blog](${siteConfig.url}/blog): all written guides and tutorials.

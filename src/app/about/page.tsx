@@ -258,7 +258,6 @@ export default function AboutPage() {
               It&apos;s a nod to where we come from and what we&apos;re becoming, but it&apos;s just as valid for SOPs and RevOps professionals, or really anyone with a little curiousity and spare time. 
               Also, someone has to clean up the mess.
             </p>
-            <div className="mt-6 text-6xl">🧹</div>
           </div>
         </div>
       </section>

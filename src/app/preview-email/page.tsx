@@ -82,7 +82,7 @@ export default async function PreviewEmailPage({
             textAlign: "center" as const,
           }}
         >
-          📧 Email Preview {post ? `— "${post.title}"` : "— Demo Content"}
+          Email Preview {post ? `— "${post.title}"` : "— Demo Content"}
         </div>
 
         {/* Email content */}

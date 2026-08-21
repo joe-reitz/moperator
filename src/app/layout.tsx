@@ -18,7 +18,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "The mOperator | AI App Development for Marketing Ops",
   description:
-    "Learn to build AI-powered applications with tools like Cursor and v0. A resource hub for Marketing Operations professionals breaking into AI development.",
+    "Learn to build AI-powered apps, agents, and automations with tools like Cursor, v0, and Claude. A resource hub for Marketing Operations professionals breaking into AI development.",
   keywords: [
     "Marketing Operations",
     "AI Development",
