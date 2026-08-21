@@ -1,7 +1,7 @@
 import { useState, useCallback, createElement } from 'react'
 import { useDocumentOperation, useClient } from 'sanity'
 import type { DocumentActionComponent, DocumentActionDialogProps } from 'sanity'
-import { siteConfig } from '@/lib/seo/config'
+import { drawOgCard } from '@/lib/seo/og-canvas'
 
 /**
  * Extract plain text from Portable Text blocks.
@@ -46,125 +46,6 @@ function formatSchemaForStorage(schema: Record<string, unknown>): string {
 /**
  * Generate a branded OG image (1200x630) using Canvas and return as a Blob.
  */
-async function generateOGImageBlob(title: string): Promise<Blob> {
-  const W = 1200
-  const H = 630
-  const pad = 48
-  const canvas = document.createElement('canvas')
-  canvas.width = W
-  canvas.height = H
-  const ctx = canvas.getContext('2d')!
-
-  // Background gradient
-  const bg = ctx.createLinearGradient(0, 0, W, H)
-  bg.addColorStop(0, siteConfig.colors.background)
-  bg.addColorStop(1, siteConfig.colors.backgroundGradientEnd)
-  ctx.fillStyle = bg
-  ctx.fillRect(0, 0, W, H)
-
-  // Grid overlay
-  ctx.strokeStyle = `${siteConfig.colors.primary}14`
-  ctx.lineWidth = 1
-  for (let x = 0; x <= W; x += 48) {
-    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke()
-  }
-  for (let y = 0; y <= H; y += 48) {
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke()
-  }
-
-  // Decorative circles
-  ctx.strokeStyle = `${siteConfig.colors.primary}10`
-  ctx.lineWidth = 2
-  ctx.beginPath(); ctx.arc(pad + 64, pad + 64, 64, 0, Math.PI * 2); ctx.stroke()
-  ctx.strokeStyle = `${siteConfig.colors.secondary}0A`
-  ctx.beginPath(); ctx.arc(W - 144, H - 96, 96, 0, Math.PI * 2); ctx.stroke()
-
-  // Radial glow accents
-  const topGlow = ctx.createRadialGradient(W, 0, 0, W, 0, 320)
-  topGlow.addColorStop(0, `${siteConfig.colors.primary}26`)
-  topGlow.addColorStop(1, 'transparent')
-  ctx.fillStyle = topGlow
-  ctx.fillRect(W - 320, 0, 320, 320)
-
-  const bottomGlow = ctx.createRadialGradient(0, H, 0, 0, H, 256)
-  bottomGlow.addColorStop(0, `${siteConfig.colors.secondary}14`)
-  bottomGlow.addColorStop(1, 'transparent')
-  ctx.fillStyle = bottomGlow
-  ctx.fillRect(0, H - 256, 256, 256)
-
-  // Try to load and draw the logo
-  try {
-    const svgRes = await fetch('/icon.svg')
-    const svgText = await svgRes.text()
-    const logoDataUri = `data:image/svg+xml;base64,${btoa(svgText)}`
-    const img = new Image()
-    img.src = logoDataUri
-    await new Promise<void>((resolve, reject) => {
-      img.onload = () => resolve()
-      img.onerror = reject
-    })
-    const logoSize = 320
-    ctx.globalAlpha = 0.4
-    ctx.drawImage(img, (W - logoSize) / 2, (H - logoSize) / 2 - H * 0.15, logoSize, logoSize)
-    ctx.globalAlpha = 1
-  } catch {
-    // Logo load failed, continue without it
-  }
-
-  // Top badge
-  ctx.fillStyle = siteConfig.colors.primary
-  ctx.shadowColor = `${siteConfig.colors.primary}99`
-  ctx.shadowBlur = 8
-  ctx.beginPath(); ctx.arc(pad + 8, pad + 8, 8, 0, Math.PI * 2); ctx.fill()
-  ctx.shadowBlur = 0
-  ctx.shadowColor = 'transparent'
-
-  ctx.font = '600 16px system-ui, -apple-system, sans-serif'
-  ctx.fillStyle = siteConfig.colors.primary
-  ctx.textBaseline = 'middle'
-  ctx.fillText(siteConfig.name.toUpperCase(), pad + 24, pad + 8)
-
-  // Domain
-  ctx.font = '400 22px system-ui, -apple-system, sans-serif'
-  ctx.fillStyle = siteConfig.colors.textMuted
-  ctx.textBaseline = 'alphabetic'
-  const domainY = H - pad
-  ctx.fillText(siteConfig.domain, pad, domainY)
-
-  // Title (word-wrapped)
-  ctx.font = '600 42px system-ui, -apple-system, sans-serif'
-  ctx.fillStyle = siteConfig.colors.text
-  const words = title.split(' ')
-  const maxWidth = W - pad * 2
-  const lines: string[] = []
-  let currentLine = ''
-  for (const word of words) {
-    const testLine = currentLine ? `${currentLine} ${word}` : word
-    if (ctx.measureText(testLine).width > maxWidth) {
-      lines.push(currentLine)
-      currentLine = word
-    } else {
-      currentLine = testLine
-    }
-  }
-  if (currentLine) lines.push(currentLine)
-  const displayLines = lines.slice(0, 3)
-  if (lines.length > 3) {
-    displayLines[2] = displayLines[2].replace(/\s+\S+$/, '...')
-  }
-
-  const lineHeight = 52
-  const titleBottomY = domainY - 32
-  for (let i = displayLines.length - 1; i >= 0; i--) {
-    const y = titleBottomY - (displayLines.length - 1 - i) * lineHeight
-    ctx.fillText(displayLines[i], pad, y)
-  }
-
-  return new Promise((resolve) => {
-    canvas.toBlob((blob) => resolve(blob!), 'image/png')
-  })
-}
-
 // PascalCase because Sanity invokes this as a React component (it uses hooks).
 export const GenerateSeoAction: DocumentActionComponent = (props) => {
   const { draft, published } = props
@@ -213,7 +94,7 @@ export const GenerateSeoAction: DocumentActionComponent = (props) => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ title, body: plainText }),
         }),
-        generateOGImageBlob(title),
+        drawOgCard(title),
       ])
 
       if (!seoResponse.ok) {
