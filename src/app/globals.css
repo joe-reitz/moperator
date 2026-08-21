@@ -349,6 +349,64 @@ body::before {
   margin: 2em 0;
 }
 
+/* Article code blocks — TerminalWindow chrome per the brand handoff, with a
+   plain <pre> body so every language renders, not just shell transcripts. */
+.article-content .article-code {
+  margin: 2em 0;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.article-code-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.article-code-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+.article-code-dot-danger { background: var(--danger); }
+.article-code-dot-warning { background: var(--warning); }
+.article-code-dot-accent { background: var(--accent); }
+
+.article-code-caption {
+  margin-left: 8px;
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Reset the generic prose <pre> rules — the frame owns the border and radius */
+.article-content .article-code pre {
+  margin: 0;
+  padding: 18px;
+  background: none;
+  border: none;
+  border-radius: 0;
+  overflow-x: auto;
+}
+
+.article-content .article-code code {
+  background: none;
+  padding: 0;
+  color: var(--foreground);
+  font-size: 13.5px;
+  line-height: 1.9;
+}
+
 /* Aside — a side note inside article body copy. Set apart with the accent
    rule rather than a box, so it reads as a digression, not a warning. */
 .article-content .article-aside {

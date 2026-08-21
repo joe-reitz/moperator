@@ -98,6 +98,29 @@ export default defineType({
           type: "image",
           options: { hotspot: true },
         },
+        {
+          // Multi-line code, from @sanity/code-input. The inline `code` mark
+          // still exists for short snippets inside a sentence.
+          type: "code",
+          name: "codeBlock",
+          title: "Code block",
+          options: {
+            withFilename: true,
+            languageAlternatives: [
+              { title: "Shell / terminal", value: "sh" },
+              { title: "TypeScript", value: "typescript" },
+              { title: "JavaScript", value: "javascript" },
+              { title: "TSX / JSX", value: "jsx" },
+              { title: "JSON", value: "json" },
+              { title: "SQL / SOQL", value: "sql" },
+              { title: "Python", value: "python" },
+              { title: "HTML", value: "html" },
+              { title: "CSS", value: "css" },
+              { title: "Markdown", value: "markdown" },
+              { title: "Plain text", value: "text" },
+            ],
+          },
+        },
       ],
     }),
     defineField({

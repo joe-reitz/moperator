@@ -1,6 +1,15 @@
 import type { PortableTextComponents } from "@portabletext/react";
+import { ArticleCodeBlock, type SanityCode } from "./ArticleCodeBlock";
 
 export const portableTextComponents: PortableTextComponents = {
+  types: {
+    codeBlock: ({ value }: { value: SanityCode }) => (
+      <ArticleCodeBlock value={value} />
+    ),
+    // Documents authored before the field was named still carry _type "code"
+    code: ({ value }: { value: SanityCode }) => <ArticleCodeBlock value={value} />,
+  },
+
   block: {
     /**
      * The page template already renders the post title as the page's only <h1>.

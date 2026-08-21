@@ -13,6 +13,7 @@
     "@ai-sdk/anthropic": "^4.0.39",
     "@portabletext/react": "^8.0.0",
     "@react-email/components": "^1.0.12",
+    "@sanity/code-input": "^7.3.5",
     "@sanity/image-url": "^2.1.1",
     "@sanity/vision": "^6.10.1",
     "@sanity/webhook": "^4.0.4",
