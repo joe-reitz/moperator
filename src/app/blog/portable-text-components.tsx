@@ -1,8 +1,10 @@
 import type { PortableTextComponents } from "@portabletext/react";
 import { ArticleCodeBlock, type SanityCode } from "./ArticleCodeBlock";
+import { ArticleImage, type BodyImage } from "./ArticleImage";
 
 export const portableTextComponents: PortableTextComponents = {
   types: {
+    image: ({ value }: { value: BodyImage }) => <ArticleImage value={value} />,
     codeBlock: ({ value }: { value: SanityCode }) => (
       <ArticleCodeBlock value={value} />
     ),

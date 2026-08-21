@@ -146,7 +146,7 @@ export default async function BlogPage() {
 
       {/* Hero */}
       <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 pt-8 sm:pt-12 md:pt-20 pb-8 sm:pb-12">
-        <div className="max-w-4xl">
+        <div className="mx-auto max-w-4xl">
           <h1 className="animate-fade-up text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-3 sm:mb-4">
             <span className="text-accent glow-text">Blog</span>
           </h1>
@@ -158,7 +158,7 @@ export default async function BlogPage() {
 
       {/* Posts Grid */}
       <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 pb-16 sm:pb-24">
-        <div className="max-w-6xl">
+        <div className="mx-auto max-w-6xl">
           {!featuredPost && posts.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-muted text-lg mb-4">No posts yet. Check back soon!</p>

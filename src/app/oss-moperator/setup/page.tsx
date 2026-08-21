@@ -115,7 +115,7 @@ export default function SetupGuidePage() {
 
       <main id="main-content">
         <article className="px-4 pb-20 pt-6 sm:px-6 md:px-12 lg:px-20">
-          <div className="max-w-[760px]">
+          <div className="mx-auto max-w-[760px]">
             <Link
               href="/oss-moperator"
               className="font-mono text-[13px] text-accent transition-colors hover:brightness-110"

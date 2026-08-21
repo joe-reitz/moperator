@@ -97,6 +97,21 @@ export default defineType({
         {
           type: "image",
           options: { hotspot: true },
+          fields: [
+            {
+              name: "alt",
+              type: "string",
+              title: "Alt text",
+              description:
+                "What the image shows, for screen readers and search. Leave empty only if the image is purely decorative.",
+            },
+            {
+              name: "caption",
+              type: "string",
+              title: "Caption",
+              description: "Optional caption shown beneath the image.",
+            },
+          ],
         },
         {
           // Multi-line code, from @sanity/code-input. The inline `code` mark

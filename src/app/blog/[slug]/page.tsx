@@ -231,7 +231,7 @@ export default async function BlogPostPage({
 
       {/* Article */}
       <article className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 pt-4 sm:pt-8 pb-16 sm:pb-24">
-        <div className="max-w-[760px]">
+        <div className="mx-auto max-w-[760px]">
           {/* Back link */}
           <Link
             href="/blog"
