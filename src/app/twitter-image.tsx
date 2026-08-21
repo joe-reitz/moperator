@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { siteConfig } from "@/lib/seo/config";
 
 export const runtime = "edge";
 
@@ -45,7 +46,7 @@ export default async function Image() {
             top: "40px",
             width: "620px",
             height: "441px",
-            opacity: 0.09,
+            opacity: siteConfig.ogImage.artOpacity,
           }}
         />
 

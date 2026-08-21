@@ -6,8 +6,8 @@ const PAD = 48
 const MONO = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'
 const SANS = 'system-ui, -apple-system, sans-serif'
 
-/** Opacity of the heritage ASCII texture. The brand guide specifies 6-10%. */
-const ART_OPACITY = 0.09
+/** Opacity of the heritage ASCII texture — see siteConfig.ogImage.artOpacity. */
+const ART_OPACITY = siteConfig.ogImage.artOpacity
 
 /**
  * Draws a branded 1200x630 OG card on a canvas and returns it as a PNG blob.

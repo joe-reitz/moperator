@@ -75,8 +75,8 @@ export function OGPreviewCard({ ogData, title }: OGPreviewCardProps) {
             src="/mark-ascii-green.png"
             alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute top-1/2 w-[52%] -translate-y-1/2 opacity-[0.09]"
-            style={{ right: "-3%" }}
+            className="pointer-events-none absolute top-1/2 w-[52%] -translate-y-1/2"
+            style={{ right: "-3%", opacity: siteConfig.ogImage.artOpacity }}
           />
 
           {/* Thin concentric line art — legacy motif, used sparingly */}

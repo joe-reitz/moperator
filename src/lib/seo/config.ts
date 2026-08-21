@@ -61,6 +61,10 @@ export const siteConfig = {
   },
 
   ogImage: {
+    // Opacity of the heritage ASCII crossed-mops artwork behind OG cards.
+    // The brand guide suggests 6-10%; raised deliberately at Joe's request so
+    // the art actually reads at social-thumbnail size.
+    artOpacity: 0.16,
     style: `
       - CRT phosphor terminal aesthetic on a FLAT near-black green-tinted background
       - Single accent colour only: phosphor green (#3ee07f). Never amber, gold, or any second hue
