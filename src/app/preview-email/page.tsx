@@ -63,7 +63,7 @@ export default async function PreviewEmailPage({
         style={{
           margin: 0,
           padding: "40px 20px",
-          backgroundColor: "#0c0c0f",
+          backgroundColor: "#070a08",
           fontFamily:
             '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         }}
@@ -74,9 +74,9 @@ export default async function PreviewEmailPage({
             maxWidth: "600px",
             margin: "0 auto 20px",
             padding: "12px 16px",
-            backgroundColor: "#f59e0b",
+            backgroundColor: "#3ee07f",
             borderRadius: "8px",
-            color: "#0c0c0f",
+            color: "#070a08",
             fontSize: "14px",
             fontWeight: 500,
             textAlign: "center" as const,
@@ -92,7 +92,7 @@ export default async function PreviewEmailPage({
             width: "100%",
             maxWidth: "600px",
             margin: "0 auto",
-            backgroundColor: "#16161a",
+            backgroundColor: "#0e140f",
             borderRadius: "12px",
             overflow: "hidden",
           }}
@@ -103,7 +103,7 @@ export default async function PreviewEmailPage({
               <td
                 style={{
                   padding: "32px 24px",
-                  borderBottom: "1px solid #2a2a32",
+                  borderBottom: "1px solid #1e2b20",
                 }}
               >
                 <table role="presentation" style={{ width: "100%" }}>
@@ -114,10 +114,10 @@ export default async function PreviewEmailPage({
                           style={{
                             fontSize: "24px",
                             fontWeight: 600,
-                            color: "#e8e4dd",
+                            color: "#e6f2e8",
                           }}
                         >
-                          The <span style={{ color: "#f59e0b" }}>m</span>
+                          The <span style={{ color: "#3ee07f" }}>m</span>
                           Operator
                         </span>
                       </td>
@@ -136,7 +136,7 @@ export default async function PreviewEmailPage({
                     fontSize: "12px",
                     textTransform: "uppercase" as const,
                     letterSpacing: "2px",
-                    color: "#f59e0b",
+                    color: "#3ee07f",
                   }}
                 >
                   New Post
@@ -146,7 +146,7 @@ export default async function PreviewEmailPage({
                     margin: "0 0 16px 0",
                     fontSize: "28px",
                     fontWeight: 700,
-                    color: "#e8e4dd",
+                    color: "#e6f2e8",
                     lineHeight: 1.3,
                   }}
                 >
@@ -185,7 +185,7 @@ export default async function PreviewEmailPage({
                         style={{
                           borderRadius: "8px",
                           background:
-                            "linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)",
+                            "#3ee07f",
                         }}
                       >
                         <a
@@ -195,7 +195,7 @@ export default async function PreviewEmailPage({
                             padding: "14px 28px",
                             fontSize: "16px",
                             fontWeight: 600,
-                            color: "#0c0c0f",
+                            color: "#070a08",
                             textDecoration: "none",
                           }}
                         >
@@ -213,7 +213,7 @@ export default async function PreviewEmailPage({
               <td
                 style={{
                   padding: "24px",
-                  borderTop: "1px solid #2a2a32",
+                  borderTop: "1px solid #1e2b20",
                   textAlign: "center" as const,
                 }}
               >
@@ -221,7 +221,7 @@ export default async function PreviewEmailPage({
                 style={{
                   margin: "0 0 8px 0",
                   fontSize: "14px",
-                  color: "#6b7280",
+                  color: "#6e8a76",
                 }}
               >
                 You&apos;re receiving this because you subscribed to The
@@ -234,7 +234,7 @@ export default async function PreviewEmailPage({
                 href="#"
                 style={{
                   fontSize: "12px",
-                  color: "#6b7280",
+                  color: "#6e8a76",
                   textDecoration: "underline",
                 }}
               >

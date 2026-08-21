@@ -1,8 +1,13 @@
+import Image from "next/image";
+import type { Metadata } from "next";
 import { SubscribeForm } from "./components/SubscribeForm";
 import { SiteHeader } from "@/app/components/SiteHeader";
 import { SiteFooter } from "@/app/components/SiteFooter";
+import { Badge } from "@/app/components/ui/Badge";
+import { ButtonLink } from "@/app/components/ui/Button";
+import { Card } from "@/app/components/ui/Card";
+import { TerminalWindow } from "@/app/components/ui/TerminalWindow";
 import { buildWebSiteSchema, jsonLdScriptProps } from "@/lib/seo/schema";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   alternates: {
@@ -13,268 +18,163 @@ export const metadata: Metadata = {
   },
 };
 
+const FEATURES = [
+  {
+    title: "Video tutorials",
+    body: "Step-by-step walkthroughs building real applications from scratch with AI-assisted development tools.",
+    path: "M14.75 11.17l-3.2-2.13A1 1 0 0010 9.87v4.26a1 1 0 001.56.83l3.2-2.13a1 1 0 000-1.66zM21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+  },
+  {
+    title: "Written guides",
+    body: "Deep-dive articles on concepts, best practices, and patterns for AI-assisted development in marketing contexts.",
+    path: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.59a1 1 0 01.7.29l5.42 5.42a1 1 0 01.29.7V19a2 2 0 01-2 2z",
+  },
+  {
+    title: "Real projects",
+    body: "Follow along with actual Marketing Ops projects—from lead scoring apps to attribution dashboards.",
+    path: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4",
+  },
+];
+
+function FeatureIcon({ path }: { path: string }) {
+  return (
+    <svg
+      width="22"
+      height="22"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d={path} />
+    </svg>
+  );
+}
+
 export default function Home() {
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden">
       <script {...jsonLdScriptProps(buildWebSiteSchema())} />
-
-      {/* Geometric background pattern */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[300px] md:w-[400px] lg:w-[600px] h-[300px] md:h-[400px] lg:h-[600px] opacity-10">
-          <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="300" cy="300" r="280" stroke="#f59e0b" strokeWidth="1" />
-            <circle cx="300" cy="300" r="200" stroke="#f59e0b" strokeWidth="1" />
-            <circle cx="300" cy="300" r="120" stroke="#f59e0b" strokeWidth="1" />
-            <line x1="300" y1="0" x2="300" y2="600" stroke="#f59e0b" strokeWidth="0.5" />
-            <line x1="0" y1="300" x2="600" y2="300" stroke="#f59e0b" strokeWidth="0.5" />
-          </svg>
-        </div>
-        <div className="absolute bottom-0 left-0 w-[200px] md:w-[300px] lg:w-[400px] h-[200px] md:h-[300px] lg:h-[400px] opacity-5">
-          <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="50" y="50" width="300" height="300" stroke="#f59e0b" strokeWidth="1" />
-            <rect x="100" y="100" width="200" height="200" stroke="#f59e0b" strokeWidth="1" />
-            <rect x="150" y="150" width="100" height="100" stroke="#f59e0b" strokeWidth="1" />
-          </svg>
-        </div>
-      </div>
 
       <SiteHeader />
 
       <main id="main-content">
+        {/* Hero */}
+        <section className="relative px-4 pb-14 pt-8 sm:px-6 sm:pt-12 md:px-12 md:pb-20 md:pt-16 lg:px-20 lg:pb-20 lg:pt-[90px]">
+          {/* Heritage ASCII art — illustration only, never the logo */}
+          <Image
+            src="/mark-ascii-green.png"
+            alt=""
+            width={891}
+            height={634}
+            aria-hidden="true"
+            className="pointer-events-none absolute right-14 top-8 hidden w-[520px] opacity-[0.06] lg:block"
+          />
 
-      {/* Hero Section */}
-      <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 pt-8 sm:pt-12 md:pt-20 lg:pt-28 pb-12 sm:pb-16 md:pb-20">
-        <div className="max-w-full lg:max-w-3xl xl:max-w-4xl">
-          {/* Tag line */}
-          <div
-            className="animate-fade-up inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-border bg-surface mb-6 sm:mb-8"
-            style={{ animationDelay: "0ms" }}
-          >
-            <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-xs sm:text-sm text-muted">
-              From Operations to GTM Engineering
-            </span>
-          </div>
-
-          {/* Main headline */}
-          <h1
-            className="animate-fade-up text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.15] tracking-tight mb-4 sm:mb-6"
-            style={{ animationDelay: "100ms" }}
-          >
-            Learn how to{" "}
-            <span className="text-accent glow-text">Ship Apps</span>:
-            <br className="hidden sm:block" />
-            <span className="block sm:inline">by operators,{" "}</span>
-            <span className="inline-block">
-              <span className="relative">
-                for operators
-                <svg
-                  className="absolute -bottom-1 sm:-bottom-2 left-0 w-full"
-                  viewBox="0 0 300 8"
-                  fill="none"
-                >
-                  <path
-                    d="M2 6C75 2 225 2 298 6"
-                    stroke="#f59e0b"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
-            </span>
-          </h1>
-
-          {/* Subheadline */}
-          <p
-            className="animate-fade-up text-base sm:text-lg md:text-xl text-muted max-w-xl lg:max-w-2xl mb-8 sm:mb-10 md:mb-12"
-            style={{ animationDelay: "200ms" }}
-          >
-            Video tutorials, guides, and real-world examples for Marketing
-            Operations professionals ready to break into AI app development
-            using tools like v0, Cursor, Claude, and more.
-          </p>
-
-          {/* CTA Buttons */}
-          <div
-            className="animate-fade-up flex flex-col sm:flex-row gap-3 sm:gap-4"
-            style={{ animationDelay: "300ms" }}
-          >
-            <a href="/videos" className="gradient-border rounded-lg px-6 sm:px-8 py-3 sm:py-4 font-medium hover:bg-surface-elevated transition-colors text-center">
-              Watch Latest Videos
-            </a>
-            <a href="/coming-soon" className="border border-border rounded-lg px-6 sm:px-8 py-3 sm:py-4 font-medium text-muted hover:text-foreground hover:border-muted transition-colors text-center">
-              Browse Tutorials
-            </a>
-          </div>
-        </div>
-
-        {/* Terminal-style decoration - only on xl screens */}
-        <div
-          className="animate-fade-up hidden xl:block absolute right-20 top-1/2 -translate-y-1/2 w-[340px] 2xl:w-[380px]"
-          style={{ animationDelay: "400ms" }}
-        >
-          <div className="gradient-border rounded-xl overflow-hidden">
-            <div className="bg-surface p-1">
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-border">
-                <span className="w-3 h-3 rounded-full bg-red-500/80" />
-                <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                <span className="w-3 h-3 rounded-full bg-green-500/80" />
-                <span className="text-xs text-muted ml-2 font-mono">
-                  ~/projects/my-ai-app
-                </span>
+          <div className="relative mx-auto flex max-w-[1200px] flex-col items-start gap-10 lg:flex-row lg:items-center lg:gap-12">
+            <div className="min-w-0 flex-1 lg:max-w-[820px]">
+              <div
+                className="animate-fade-up mb-7 sm:mb-8"
+                style={{ animationDelay: "0ms" }}
+              >
+                <Badge dot>From Operations to GTM Engineering</Badge>
               </div>
-              <div className="p-4 font-mono text-sm">
-                <div className="text-muted">
-                  <span className="text-accent">$</span> cursor --init
-                </div>
-                <div className="text-green-400 mt-2">
-                  ✓ Project initialized
-                </div>
-                <div className="text-muted mt-2">
-                  <span className="text-accent">$</span> npm run dev
-                </div>
-                <div className="text-foreground mt-2">
-                  → Ready on localhost:3000
-                </div>
-                <div className="text-muted mt-4 flex items-center">
-                  <span className="text-accent">$</span>
-                  <span className="ml-2 w-2 h-4 bg-accent cursor-blink" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Featured Section */}
-      <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-12 sm:py-16 md:py-20 border-t border-border">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-            {/* Card 1 */}
-            <div
-              className="animate-fade-up group p-5 sm:p-6 rounded-xl bg-surface border border-border hover:border-accent/30 transition-all"
-              style={{ animationDelay: "500ms" }}
-            >
-              <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-3 sm:mb-4">
-                <svg
-                  className="w-5 sm:w-6 h-5 sm:h-6 text-accent"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-base sm:text-lg font-semibold mb-2 group-hover:text-accent transition-colors">
-                Video Tutorials
-              </h3>
-              <p className="text-muted text-sm">
-                Step-by-step walkthroughs building real applications from
-                scratch with AI-assisted development tools.
+              <h1
+                className="animate-fade-up mb-6 text-[32px] font-bold leading-[1.12] tracking-[var(--tracking-display)] text-foreground sm:text-[44px] md:text-[52px] lg:text-[60px] xl:text-[64px]"
+                style={{ animationDelay: "100ms" }}
+              >
+                Learn how to{" "}
+                <span className="text-accent glow-text">Ship Apps</span>:
+                <br className="hidden sm:block" />{" "}
+                by operators, for operators
+              </h1>
+
+              <p
+                className="animate-fade-up mb-8 max-w-[600px] text-base leading-relaxed text-muted sm:text-lg md:mb-10 md:text-[19px]"
+                style={{ animationDelay: "200ms" }}
+              >
+                Video tutorials, guides, and real-world examples for Marketing
+                Operations professionals ready to break into AI app development
+                using tools like v0, Cursor, Claude, and more.
               </p>
-            </div>
 
-            {/* Card 2 */}
-            <div
-              className="animate-fade-up group p-5 sm:p-6 rounded-xl bg-surface border border-border hover:border-accent/30 transition-all"
-              style={{ animationDelay: "600ms" }}
-            >
-              <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-3 sm:mb-4">
-                <svg
-                  className="w-5 sm:w-6 h-5 sm:h-6 text-accent"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
+              <div
+                className="animate-fade-up flex flex-col gap-3 sm:flex-row sm:gap-3.5"
+                style={{ animationDelay: "300ms" }}
+              >
+                <ButtonLink href="/videos" size="lg" glow>
+                  Watch latest videos
+                </ButtonLink>
+                <ButtonLink href="/coming-soon" variant="secondary" size="lg">
+                  Browse tutorials
+                </ButtonLink>
               </div>
-              <h3 className="text-base sm:text-lg font-semibold mb-2 group-hover:text-accent transition-colors">
-                Written Guides
-              </h3>
-              <p className="text-muted text-sm">
-                Deep-dive articles on concepts, best practices, and patterns
-                for AI-assisted development in marketing contexts.
-              </p>
             </div>
 
-            {/* Card 3 */}
+            {/* Terminal card — the brand's hero motif, so it stacks rather than hides */}
             <div
-              className="animate-fade-up group p-5 sm:p-6 rounded-xl bg-surface border border-border hover:border-accent/30 transition-all sm:col-span-2 md:col-span-1"
-              style={{ animationDelay: "700ms" }}
+              className="animate-fade-up w-full shrink-0 sm:max-w-[420px] lg:w-[360px] lg:max-w-none"
+              style={{ animationDelay: "400ms" }}
             >
-              <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-3 sm:mb-4">
-                <svg
-                  className="w-5 sm:w-6 h-5 sm:h-6 text-accent"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-base sm:text-lg font-semibold mb-2 group-hover:text-accent transition-colors">
-                Real Projects
-              </h3>
-              <p className="text-muted text-sm">
-                Follow along with actual Marketing Ops projects—from lead
-                scoring apps to attribution dashboards.
-              </p>
+              <TerminalWindow
+                glow
+                lines={[
+                  { type: "cmd", text: "cursor --init" },
+                  { type: "ok", text: "Project initialized" },
+                  { type: "cmd", text: "npm run dev" },
+                  { type: "out", text: "Ready on localhost:3000" },
+                ]}
+              />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Subscribe Section */}
-      <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-16 sm:py-20 md:py-24 text-center">
-        <div
-          className="animate-fade-up max-w-xl sm:max-w-2xl mx-auto"
-          style={{ animationDelay: "800ms" }}
-        >
-          <p className="text-muted uppercase tracking-widest text-xs sm:text-sm mb-3 sm:mb-4">
-            Stay Updated
-          </p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
-            Get notified when new content drops
-          </h2>
-          <p className="text-muted text-sm sm:text-base mb-6 sm:mb-8">
-            Subscribe to get the latest tutorials, guides, and updates delivered
-            straight to your inbox. No spam, just valuable content for operators.
-          </p>
-          <div className="flex justify-center">
-            <SubscribeForm />
+        {/* Features */}
+        <section className="border-t border-border px-4 py-12 sm:px-6 md:px-12 md:py-16 lg:px-20">
+          <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
+            {FEATURES.map((feature, i) => (
+              <Card
+                key={feature.title}
+                title={feature.title}
+                icon={<FeatureIcon path={feature.path} />}
+                className={
+                  i === 2 ? "animate-fade-up sm:col-span-2 md:col-span-1" : "animate-fade-up"
+                }
+              >
+                {feature.body}
+              </Card>
+            ))}
           </div>
-          <div className="mt-8 inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-lg border border-border bg-surface">
-            <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-xs sm:text-sm">Building in public...</span>
-          </div>
-        </div>
-      </section>
+        </section>
 
+        {/* Subscribe */}
+        <section className="px-4 py-16 text-center sm:px-6 md:px-12 md:py-24 lg:px-20">
+          <div className="mx-auto max-w-[560px]">
+            <p className="eyebrow mb-4">Stay updated</p>
+            <h2 className="mb-4 text-[26px] font-bold tracking-[var(--tracking-display)] text-foreground sm:text-[32px] md:text-[38px]">
+              Get notified when new content drops
+            </h2>
+            <p className="mx-auto mb-8 max-w-[520px] text-[15px] leading-relaxed text-muted">
+              Subscribe to get the latest tutorials, guides, and updates
+              delivered straight to your inbox. No spam, just valuable content
+              for operators.
+            </p>
+            <div className="flex justify-center">
+              <SubscribeForm />
+            </div>
+            <div className="mt-10 flex justify-center">
+              <Badge variant="muted" dot>
+                Building in public...
+              </Badge>
+            </div>
+          </div>
+        </section>
       </main>
 
       <SiteFooter />
-      </div>
+    </div>
   );
 }

@@ -34,12 +34,12 @@ export const siteConfig = {
   },
 
   colors: {
-    background: '#0c0c0f',
-    backgroundGradientEnd: '#1a1a22',
-    primary: '#f59e0b',
-    secondary: '#fbbf24',
-    text: '#e8e4dd',
-    textMuted: '#6b7280',
+    background: '#070a08',
+    backgroundGradientEnd: '#0b120c',
+    primary: '#3ee07f',
+    secondary: '#2ba55d',
+    text: '#e6f2e8',
+    textMuted: '#6e8a76',
   },
 
   fonts: {
@@ -62,19 +62,24 @@ export const siteConfig = {
 
   ogImage: {
     style: `
-      - Operator/terminal aesthetic with subtle tech grid patterns
-      - Geometric shapes (circles, rectangles) as decorative overlays at very low opacity
-      - Amber/gold glowing accents and highlights (similar to neon terminal styling)
-      - Professional, minimalist aesthetic similar to Vercel or Linear marketing
-      - No photographs of people
-      - No stock-art feeling
-      - Clean, geometric accents with subtle glow effects
+      - CRT phosphor terminal aesthetic on a flat near-black green-tinted background
+      - Single accent colour only: phosphor green (#3ee07f). Never amber, gold, or any second hue
+      - Absolutely no gradients — flat colour fields only
+      - Green glow as the one signature effect, on at most one or two elements
+      - Monospace type for labels and terminal lines; geometric sans for headlines
+      - Optional faint ASCII-art or thin line-art texture at 6-10% opacity
+      - Professional, minimalist, airy — similar to Vercel or Linear marketing
+      - No photographs of people, no stock-art feeling, no emoji
     `.trim(),
     logoDescription: `
-      - The mOperator logo features a geometric "M" mark made of overlapping angular shapes
-      - Logo uses amber (#f59e0b) and gold (#fbbf24) on white elements
-      - Place branding subtly in upper left or lower right
-      - Include "The mOperator" text badge
+      - The mOperator mark is typographic, not pictorial: a lowercase cream "m",
+        then a glowing green ring standing in for the "O" of Operator, then a
+        cream block cursor
+      - Ring stroke is roughly one seventh of its diameter, phosphor green (#3ee07f) with a soft glow
+      - Cream is #e6f2e8; never render the mark in amber or gold
+      - Never draw mops, brooms, or any pictorial illustration as the logo
+      - Place branding subtly in the upper left or lower right
+      - The wordmark is typeset: "the mOperator" in monospace, with "Operator" in green
     `.trim(),
   },
 

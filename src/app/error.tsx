@@ -34,7 +34,7 @@ export default function Error({
           <button
             type="button"
             onClick={reset}
-            className="gradient-border rounded-lg px-6 py-3 font-medium hover:bg-surface-elevated transition-colors"
+            className="accent-border rounded-lg px-6 py-3 font-medium hover:bg-surface-elevated transition-colors"
           >
             Try again
           </button>

@@ -183,7 +183,7 @@ export function OGPreviewCard({ ogData, title }: OGPreviewCardProps) {
         <div
           className="aspect-[1200/630] w-full rounded-lg relative overflow-hidden"
           style={{
-            background: `linear-gradient(135deg, ${siteConfig.colors.background} 0%, ${siteConfig.colors.backgroundGradientEnd} 100%)`,
+            background: siteConfig.colors.background,
           }}
         >
           {/* Grid texture */}

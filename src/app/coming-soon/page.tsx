@@ -16,10 +16,10 @@ export default function ComingSoonPage() {
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] lg:w-[800px] h-[400px] sm:h-[600px] lg:h-[800px] opacity-10">
           <svg viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="400" cy="400" r="380" stroke="#f59e0b" strokeWidth="1" />
-            <circle cx="400" cy="400" r="280" stroke="#f59e0b" strokeWidth="1" />
-            <circle cx="400" cy="400" r="180" stroke="#f59e0b" strokeWidth="1" />
-            <circle cx="400" cy="400" r="80" stroke="#f59e0b" strokeWidth="1" />
+            <circle cx="400" cy="400" r="380" stroke="#3ee07f" strokeWidth="1" />
+            <circle cx="400" cy="400" r="280" stroke="#3ee07f" strokeWidth="1" />
+            <circle cx="400" cy="400" r="180" stroke="#3ee07f" strokeWidth="1" />
+            <circle cx="400" cy="400" r="80" stroke="#3ee07f" strokeWidth="1" />
           </svg>
         </div>
       </div>
@@ -59,7 +59,7 @@ export default function ComingSoonPage() {
           >
             <Link
               href="/"
-              className="w-full sm:w-auto gradient-border rounded-lg px-6 sm:px-8 py-3 sm:py-4 font-medium hover:bg-surface-elevated transition-colors text-center"
+              className="w-full sm:w-auto accent-border rounded-lg px-6 sm:px-8 py-3 sm:py-4 font-medium hover:bg-surface-elevated transition-colors text-center"
             >
               Back to Home
             </Link>

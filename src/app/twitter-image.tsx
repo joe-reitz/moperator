@@ -9,20 +9,16 @@ export const size = {
 };
 export const contentType = "image/png";
 
+// Phosphor mark, composed from primitives so no asset fetch is needed.
+// Proportions mirror src/app/components/Logo.tsx at a 4.6x scale.
+const S = 4.6;
+
 export default async function Image() {
-  // Fetch the icon SVG
-  const iconData = await fetch(
-    new URL("../../public/icon.svg", import.meta.url)
-  ).then((res) => res.text());
-
-  // Convert SVG to data URL
-  const iconDataUrl = `data:image/svg+xml;base64,${Buffer.from(iconData).toString("base64")}`;
-
   return new ImageResponse(
     (
       <div
         style={{
-          background: "linear-gradient(135deg, #0c0c0f 0%, #1a1a22 100%)",
+          background: "#070a08",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -32,7 +28,7 @@ export default async function Image() {
           position: "relative",
         }}
       >
-        {/* Background decorative circles */}
+        {/* Concentric line art — a legacy motif the brand keeps, sparingly */}
         <div
           style={{
             position: "absolute",
@@ -41,18 +37,7 @@ export default async function Image() {
             width: "500px",
             height: "500px",
             borderRadius: "50%",
-            border: "1px solid rgba(245, 158, 11, 0.1)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: "-50px",
-            right: "-50px",
-            width: "400px",
-            height: "400px",
-            borderRadius: "50%",
-            border: "1px solid rgba(245, 158, 11, 0.1)",
+            border: "1px solid rgba(62, 224, 127, 0.1)",
           }}
         />
         <div
@@ -63,110 +48,107 @@ export default async function Image() {
             width: "400px",
             height: "400px",
             borderRadius: "50%",
-            border: "1px solid rgba(245, 158, 11, 0.05)",
+            border: "1px solid rgba(62, 224, 127, 0.05)",
           }}
         />
 
-        {/* Logo area with glow */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: "32px",
+            gap: "40px",
           }}
         >
-          {/* Crossed mops icon */}
+          {/* Mark: m + ring-O + block cursor */}
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
-              filter: "drop-shadow(0 0 60px rgba(245, 158, 11, 0.5))",
-            }}
-          >
-            <img
-              alt=""
-              src={iconDataUrl}
-              width="200"
-              height="200"
-              style={{
-                width: "200px",
-                height: "200px",
-              }}
-            />
-          </div>
-
-          {/* Title */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "baseline",
-              gap: "8px",
+              filter: "drop-shadow(0 0 60px rgba(62, 224, 127, 0.35))",
             }}
           >
             <span
               style={{
-                fontSize: "64px",
-                fontWeight: "700",
-                color: "#e8e4dd",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              The
-            </span>
-            <span
-              style={{
-                fontSize: "64px",
-                fontWeight: "700",
-                color: "#f59e0b",
-                letterSpacing: "-0.02em",
-                textShadow: "0 0 40px rgba(245, 158, 11, 0.5)",
+                fontSize: `${30 * S}px`,
+                fontWeight: 700,
+                color: "#e6f2e8",
+                letterSpacing: "-0.04em",
+                lineHeight: 1,
               }}
             >
               m
             </span>
+            <div
+              style={{
+                width: `${25 * S}px`,
+                height: `${25 * S}px`,
+                borderRadius: "50%",
+                border: `${4 * S}px solid #3ee07f`,
+                marginLeft: `${3 * S}px`,
+                boxSizing: "border-box",
+              }}
+            />
+            <div
+              style={{
+                width: `${7 * S}px`,
+                height: `${19 * S}px`,
+                background: "#e6f2e8",
+                marginLeft: `${4 * S}px`,
+              }}
+            />
+          </div>
+
+          {/* Wordmark: "the m" cream, "Operator" green */}
+          <div style={{ display: "flex", alignItems: "baseline" }}>
             <span
               style={{
-                fontSize: "64px",
-                fontWeight: "700",
-                color: "#e8e4dd",
+                fontSize: "60px",
+                fontWeight: 700,
+                color: "#e6f2e8",
                 letterSpacing: "-0.02em",
+              }}
+            >
+              the m
+            </span>
+            <span
+              style={{
+                fontSize: "60px",
+                fontWeight: 700,
+                color: "#3ee07f",
+                letterSpacing: "-0.02em",
+                textShadow: "0 0 40px rgba(62, 224, 127, 0.5)",
               }}
             >
               Operator
             </span>
           </div>
 
-          {/* Tagline */}
           <div
             style={{
-              fontSize: "32px",
-              color: "#6b7280",
-              letterSpacing: "0.1em",
-              fontWeight: "500",
+              fontSize: "28px",
+              color: "#6e8a76",
+              letterSpacing: "0.14em",
+              fontWeight: 500,
+              textTransform: "uppercase",
             }}
           >
-            Everybody Ships.
+            Everybody ships
           </div>
         </div>
 
-        {/* Bottom accent line */}
         <div
           style={{
             position: "absolute",
-            bottom: "0",
-            left: "0",
-            right: "0",
+            bottom: 0,
+            left: 0,
+            right: 0,
             height: "4px",
-            background: "linear-gradient(90deg, transparent, #f59e0b, transparent)",
+            background: "#3ee07f",
           }}
         />
       </div>
     ),
-    {
-      ...size,
-    }
+    { ...size }
   );
 }
-

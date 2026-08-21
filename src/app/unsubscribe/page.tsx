@@ -29,9 +29,9 @@ export default async function UnsubscribePage({
       <div className="text-center max-w-md">
         {deleted === "true" ? (
           <>
-            <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
+            <div className="w-16 h-16 rounded-full bg-[var(--accent-glow-soft)] flex items-center justify-center mx-auto mb-6">
               <svg
-                className="w-8 h-8 text-green-400"
+                className="w-8 h-8 text-accent"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -53,16 +53,16 @@ export default async function UnsubscribePage({
             </p>
             <Link
               href="/"
-              className="inline-block gradient-border rounded-lg px-6 py-3 font-medium hover:bg-surface-elevated transition-colors"
+              className="inline-block accent-border rounded-lg px-6 py-3 font-medium hover:bg-surface-elevated transition-colors"
             >
               Back to Home
             </Link>
           </>
         ) : success === "true" ? (
           <>
-            <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
+            <div className="w-16 h-16 rounded-full bg-[var(--accent-glow-soft)] flex items-center justify-center mx-auto mb-6">
               <svg
-                className="w-8 h-8 text-green-400"
+                className="w-8 h-8 text-accent"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -84,7 +84,7 @@ export default async function UnsubscribePage({
             </p>
             <Link
               href="/"
-              className="inline-block gradient-border rounded-lg px-6 py-3 font-medium hover:bg-surface-elevated transition-colors"
+              className="inline-block accent-border rounded-lg px-6 py-3 font-medium hover:bg-surface-elevated transition-colors"
             >
               Back to Home
             </Link>
@@ -97,7 +97,7 @@ export default async function UnsubscribePage({
                 </p>
                 <a
                   href={`/api/unsubscribe?email=${email}&action=delete`}
-                  className="text-sm text-red-400 hover:text-red-300 underline transition-colors"
+                  className="text-sm text-danger hover:brightness-125 underline transition-colors"
                 >
                   Delete all my data (Right to be Forgotten)
                 </a>
@@ -106,9 +106,9 @@ export default async function UnsubscribePage({
           </>
         ) : error ? (
           <>
-            <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-6">
+            <div className="w-16 h-16 rounded-full bg-danger/20 flex items-center justify-center mx-auto mb-6">
               <svg
-                className="w-8 h-8 text-red-400"
+                className="w-8 h-8 text-danger"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -133,7 +133,7 @@ export default async function UnsubscribePage({
             </p>
             <Link
               href="/"
-              className="inline-block gradient-border rounded-lg px-6 py-3 font-medium hover:bg-surface-elevated transition-colors"
+              className="inline-block accent-border rounded-lg px-6 py-3 font-medium hover:bg-surface-elevated transition-colors"
             >
               Back to Home
             </Link>

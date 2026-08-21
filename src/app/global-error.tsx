@@ -20,8 +20,8 @@ export default function GlobalError({
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0c0c0f",
-          color: "#e8e4dd",
+          background: "#070a08",
+          color: "#e6f2e8",
           fontFamily: "system-ui, sans-serif",
           textAlign: "center",
           padding: "1rem",
@@ -31,7 +31,7 @@ export default function GlobalError({
           <h1 style={{ fontSize: "1.75rem", marginBottom: "0.75rem" }}>
             Something went wrong
           </h1>
-          <p style={{ color: "#6b7280", marginBottom: "1.5rem" }}>
+          <p style={{ color: "#6e8a76", marginBottom: "1.5rem" }}>
             The page failed to load.
             {error.digest ? ` Reference: ${error.digest}` : ""}
           </p>
@@ -40,8 +40,8 @@ export default function GlobalError({
             onClick={reset}
             style={{
               background: "transparent",
-              color: "#f59e0b",
-              border: "1px solid #f59e0b",
+              color: "#3ee07f",
+              border: "1px solid #3ee07f",
               borderRadius: "0.5rem",
               padding: "0.75rem 1.5rem",
               fontSize: "1rem",

@@ -206,8 +206,8 @@ export default function SEOOptimizerPage() {
 
         {/* Error Banner */}
         {error && (
-          <div className="mb-6 rounded-lg border border-red-500/30 bg-red-500/10 p-4">
-            <p className="text-sm text-red-400">{error}</p>
+          <div className="mb-6 rounded-lg border border-danger/30 bg-danger/10 p-4">
+            <p className="text-sm text-danger">{error}</p>
           </div>
         )}
 

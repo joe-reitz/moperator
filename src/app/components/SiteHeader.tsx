@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { LogoMark } from "./Logo";
 import { MobileNav } from "./MobileNav";
 
 export const NAV_LINKS = [
@@ -23,27 +23,26 @@ export function SiteHeader() {
     <header className="relative z-10">
       <nav
         aria-label="Main"
-        className="flex items-center justify-between px-4 py-4 sm:px-6 sm:py-6 md:px-12 lg:px-20"
+        className="flex items-center justify-between px-4 py-5 sm:px-6 sm:py-6 md:px-12 lg:px-20 lg:py-7"
       >
-        <Link href="/" className="flex items-center gap-2 sm:gap-4">
-          {/* Decorative: the wordmark beside it already names the site */}
-          <Image
-            src="/icon.svg"
-            alt=""
-            width={80}
-            height={80}
-            priority
-            unoptimized
-            className="h-10 sm:h-14 md:h-16 lg:h-20 w-auto"
-          />
-          <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight">
-            The <span className="text-accent glow-text">m</span>Operator
+        {/* Mark only — the brand forbids mark + wordmark together in the header,
+            so the link carries the accessible name instead. */}
+        <Link
+          href="/"
+          aria-label="The mOperator — home"
+          className="inline-flex items-center"
+        >
+          <span className="lg:hidden">
+            <LogoMark size={40} />
+          </span>
+          <span className="hidden lg:inline-flex">
+            <LogoMark size={58} />
           </span>
         </Link>
 
         <MobileNav />
 
-        <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm">
+        <div className="hidden items-center gap-7 text-[15px] md:flex lg:gap-9">
           {NAV_LINKS.map((link) => {
             const active = isActivePath(pathname, link.href);
             return (
@@ -53,8 +52,8 @@ export function SiteHeader() {
                 aria-current={active ? "page" : undefined}
                 className={
                   active
-                    ? "text-foreground transition-colors"
-                    : "text-muted hover:text-foreground transition-colors"
+                    ? "text-accent transition-colors"
+                    : "text-muted transition-colors hover:text-foreground"
                 }
               >
                 {link.label}

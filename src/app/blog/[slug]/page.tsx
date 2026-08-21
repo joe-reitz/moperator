@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/app/components/SiteHeader";
 import { SiteFooter } from "@/app/components/SiteFooter";
+import { Badge } from "@/app/components/ui/Badge";
 import { blurProps, type SanityImageAsset } from "@/sanity/lib/image";
 import {
   buildArticleSchema,
@@ -65,6 +66,7 @@ type Post = {
   seoTitle: string | null;
   metaDescription: string | null;
   schemaMarkup: string | null;
+  tag: string | null;
   primaryKeyword: string | null;
   secondaryKeywords: string[] | null;
   ogImage: {
@@ -116,6 +118,7 @@ async function getPost(slug: string): Promise<Post | null> {
       seoTitle,
       metaDescription,
       schemaMarkup,
+      "tag": categories[0]->title,
       primaryKeyword,
       secondaryKeywords,
       ogImage {
@@ -228,55 +231,54 @@ export default async function BlogPostPage({
 
       {/* Article */}
       <article className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 pt-4 sm:pt-8 pb-16 sm:pb-24">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-[760px]">
           {/* Back link */}
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm sm:text-base text-muted hover:text-foreground transition-colors mb-6 sm:mb-8"
+            className="font-mono text-[13px] text-accent transition-colors hover:brightness-110"
           >
-            <span>←</span>
-            <span>Back to Blog</span>
+            ← back to blog
           </Link>
 
           {/* Header */}
-          <header className="mb-8 sm:mb-12">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.2] tracking-tight mb-4 sm:mb-6">
+          <header className="mb-8 mt-7 sm:mb-12">
+            <div className="mb-4 flex flex-wrap items-center gap-3.5">
+              {post.tag && <Badge variant="muted">{post.tag.toLowerCase()}</Badge>}
+              {post.publishedAt && (
+                <time
+                  dateTime={post.publishedAt}
+                  className="font-mono text-xs text-muted-dim"
+                >
+                  {post.publishedAt.slice(0, 10)}
+                </time>
+              )}
+            </div>
+
+            <h1 className="mb-6 text-[28px] font-bold leading-[1.15] tracking-[var(--tracking-display)] text-foreground sm:text-[34px] md:text-[42px]">
               {post.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-sm sm:text-base text-muted">
-              {post.author && (
-                <div className="flex items-center gap-3">
-                  {post.author.image?.asset?.url ? (
-                    <Image
-                      src={post.author.image.asset.url}
-                      alt=""
-                      width={40}
-                      height={40}
-                      {...blurProps(post.author.image.asset)}
-                      className="w-10 h-10 rounded-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent font-medium">
-                      {post.author.name.charAt(0)}
-                    </div>
-                  )}
-                  <span className="font-medium text-foreground">{post.author.name}</span>
-                </div>
-              )}
-              {post.publishedAt && (
-                <>
-                  <span>•</span>
-                  <time>
-                    {new Date(post.publishedAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </time>
-                </>
-              )}
-            </div>
+            {post.author && (
+              <div className="flex items-center gap-3">
+                {post.author.image?.asset?.url ? (
+                  <Image
+                    src={post.author.image.asset.url}
+                    alt=""
+                    width={36}
+                    height={36}
+                    {...blurProps(post.author.image.asset)}
+                    className="h-9 w-9 rounded-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--accent-glow-soft)] font-medium text-accent">
+                    {post.author.name.charAt(0)}
+                  </div>
+                )}
+                <span className="font-mono text-xs text-muted">
+                  {post.author.name}
+                </span>
+              </div>
+            )}
           </header>
 
           {/* Featured Video */}

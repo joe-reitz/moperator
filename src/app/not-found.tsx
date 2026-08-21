@@ -23,7 +23,7 @@ export default function NotFound() {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
               href="/"
-              className="gradient-border rounded-lg px-6 py-3 font-medium hover:bg-surface-elevated transition-colors"
+              className="accent-border rounded-lg px-6 py-3 font-medium hover:bg-surface-elevated transition-colors"
             >
               Back home
             </Link>

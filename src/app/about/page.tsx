@@ -17,17 +17,17 @@ export default function AboutPage() {
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-[300px] sm:w-[500px] lg:w-[800px] h-[300px] sm:h-[500px] lg:h-[800px] opacity-10">
           <svg viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="400" cy="400" r="380" stroke="#f59e0b" strokeWidth="1" />
-            <circle cx="400" cy="400" r="280" stroke="#f59e0b" strokeWidth="1" />
-            <circle cx="400" cy="400" r="180" stroke="#f59e0b" strokeWidth="1" />
-            <circle cx="400" cy="400" r="80" stroke="#f59e0b" strokeWidth="1" />
+            <circle cx="400" cy="400" r="380" stroke="#3ee07f" strokeWidth="1" />
+            <circle cx="400" cy="400" r="280" stroke="#3ee07f" strokeWidth="1" />
+            <circle cx="400" cy="400" r="180" stroke="#3ee07f" strokeWidth="1" />
+            <circle cx="400" cy="400" r="80" stroke="#3ee07f" strokeWidth="1" />
           </svg>
         </div>
         <div className="absolute bottom-0 left-0 w-[200px] sm:w-[400px] lg:w-[600px] h-[200px] sm:h-[400px] lg:h-[600px] opacity-5">
           <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="50" y="50" width="500" height="500" stroke="#f59e0b" strokeWidth="1" />
-            <rect x="150" y="150" width="300" height="300" stroke="#f59e0b" strokeWidth="1" />
-            <rect x="250" y="250" width="100" height="100" stroke="#f59e0b" strokeWidth="1" />
+            <rect x="50" y="50" width="500" height="500" stroke="#3ee07f" strokeWidth="1" />
+            <rect x="150" y="150" width="300" height="300" stroke="#3ee07f" strokeWidth="1" />
+            <rect x="250" y="250" width="100" height="100" stroke="#3ee07f" strokeWidth="1" />
           </svg>
         </div>
       </div>
@@ -80,7 +80,7 @@ export default function AboutPage() {
       <section className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-8 sm:py-12">
         <div className="max-w-4xl mx-auto">
           <div
-            className="animate-fade-up gradient-border rounded-xl sm:rounded-2xl overflow-hidden"
+            className="animate-fade-up accent-border rounded-xl sm:rounded-2xl overflow-hidden"
             style={{ animationDelay: "200ms" }}
           >
             <div className="bg-surface p-5 sm:p-8 md:p-12">
@@ -273,7 +273,7 @@ export default function AboutPage() {
                 href="https://x.com/joe_reitz"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-xl gradient-border bg-surface hover:bg-surface-elevated transition-colors text-lg font-medium"
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-xl accent-border bg-surface hover:bg-surface-elevated transition-colors text-lg font-medium"
               >
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />

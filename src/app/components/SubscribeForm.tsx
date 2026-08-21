@@ -41,15 +41,15 @@ export function SubscribeForm() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="your@email.com"
+          placeholder="you@company.com"
           required
           disabled={status === "loading"}
-          className="flex-1 px-4 py-3 rounded-lg bg-surface border border-border text-foreground placeholder:text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors disabled:opacity-50 font-mono text-sm"
+          className="flex-1 rounded-[--radius-md] border border-border bg-surface px-4 py-3 font-mono text-sm text-foreground transition-colors placeholder:text-muted-dim focus:border-accent focus:shadow-[0_0_30px_var(--accent-glow-soft)] focus:outline-none disabled:opacity-50"
         />
         <button
           type="submit"
           disabled={status === "loading"}
-          className="gradient-border rounded-lg px-6 py-3 font-medium hover:bg-surface-elevated transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+          className="whitespace-nowrap rounded-[--radius-md] border border-transparent bg-accent px-6 py-3 font-semibold text-background transition-[filter,opacity] hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {status === "loading" ? (
             <span className="flex items-center gap-2">
@@ -80,7 +80,7 @@ export function SubscribeForm() {
       {status !== "idle" && status !== "loading" && (
         <p
           className={`mt-3 text-sm ${
-            status === "success" ? "text-green-400" : "text-red-400"
+            status === "success" ? "text-accent" : "text-danger"
           }`}
         >
           {message}

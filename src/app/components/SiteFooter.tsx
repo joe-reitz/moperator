@@ -1,69 +1,56 @@
-import Image from "next/image";
 import Link from "next/link";
+import { Wordmark } from "./Logo";
 
-const SOCIAL_LINKS = [
-  { href: "https://x.com/joe_reitz", label: "Twitter" },
-  { href: "https://www.linkedin.com/in/joereitz/", label: "LinkedIn" },
+const LINKS = [
+  { href: "https://x.com/joe_reitz", label: "Twitter", external: true },
+  { href: "https://www.linkedin.com/in/joereitz/", label: "LinkedIn", external: true },
   {
     href: "https://www.youtube.com/playlist?list=PLY67q0EVU695eunjuo0G9KjysmzqbDez9",
     label: "YouTube",
+    external: true,
   },
+  { href: "/feed.xml", label: "RSS", external: false },
+  { href: "https://venmo.com/joe-reitz-1", label: "Buy me a coffee", external: true },
 ];
 
 export function SiteFooter() {
   return (
-    <footer className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 py-8 sm:py-10 md:py-12 border-t border-border">
-      <div className="max-w-7xl mx-auto flex flex-col gap-4 sm:gap-6 md:flex-row items-center justify-between">
-        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3">
-          <Link href="/" className="flex items-center gap-2 sm:gap-3">
-            <Image
-              src="/icon.svg"
-              alt=""
-              width={48}
-              height={48}
-              unoptimized
-              className="h-8 sm:h-10 md:h-12 w-auto"
-            />
-            <span className="font-medium text-base sm:text-lg">
-              The <span className="text-accent glow-text">m</span>Operator
-            </span>
-          </Link>
-          <span className="text-xs sm:text-sm text-muted">
-            © {new Date().getFullYear()} Joe Reitz.
-          </span>
-        </div>
+    <footer className="relative z-10 border-t border-border px-4 py-10 sm:px-6 md:px-12 lg:px-20">
+      <div className="mx-auto flex max-w-[1200px] flex-col items-center gap-6 text-center md:flex-row md:items-center md:justify-between md:text-left">
+        <Link href="/" className="inline-flex items-center">
+          <Wordmark />
+        </Link>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-muted">
-          {SOCIAL_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
-          <a
-            href="/feed.xml"
-            className="hover:text-foreground transition-colors"
-          >
-            RSS
-          </a>
-          <span className="text-border" aria-hidden="true">
-            |
-          </span>
-          <a
-            href="https://venmo.com/joe-reitz-1"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-foreground transition-colors flex items-center gap-1"
-          >
-            <span aria-hidden="true">☕</span>
-            <span>Buy me a coffee</span>
-          </a>
-        </div>
+        <p className="font-mono text-xs text-muted">
+          © {new Date().getFullYear()} · built in public by an operator, for operators
+        </p>
+
+        <nav
+          aria-label="Social and feeds"
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono text-xs"
+        >
+          {LINKS.map((link) =>
+            link.external ? (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-muted transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </a>
+            )
+          )}
+        </nav>
       </div>
     </footer>
   );

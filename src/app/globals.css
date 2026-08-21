@@ -2,17 +2,34 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  /* Rich dark theme with amber/gold accents - inspired by operator terminals */
-  --background: #0c0c0f;
-  --foreground: #e8e4dd;
-  --accent: #f59e0b;
-  --accent-secondary: #fbbf24;
-  --muted: #6b7280;
-  --surface: #16161a;
-  --surface-elevated: #1e1e24;
-  --border: #2a2a32;
-  --gradient-start: #0c0c0f;
-  --gradient-end: #1a1a22;
+  /* Phosphor — CRT green on green-tinted near-black. One accent, no gradients. */
+  --background: #070a08;
+  --foreground: #e6f2e8;
+  --accent: #3ee07f;
+  --accent-secondary: #2ba55d;
+  --muted: #6e8a76;
+  --surface: #0e140f;
+  --surface-elevated: #141c15;
+  --border: #1e2b20;
+  --gradient-start: #070a08;
+  --gradient-end: #0b120c;
+
+  /* Phosphor additions */
+  --border-strong: #2c3f2f;
+  --muted-dim: #4a5f50;
+  --accent-glow: rgba(62, 224, 127, 0.4);
+  --accent-glow-soft: rgba(62, 224, 127, 0.15);
+  --warning: #e0c53e;
+  --danger: #e05252;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-glow: 0 0 18px var(--accent-glow);
+  --shadow-glow-soft: 0 0 30px var(--accent-glow-soft);
+
+  --tracking-display: -0.03em;
+  --tracking-label: 0.14em;
 }
 
 @theme inline {
@@ -24,12 +41,20 @@
   --color-surface: var(--surface);
   --color-surface-elevated: var(--surface-elevated);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-muted-dim: var(--muted-dim);
+  --color-accent-dim: var(--accent-secondary);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   min-height: 100vh;
@@ -111,34 +136,17 @@ body::before {
 
 /* Glow effect for accent elements */
 .glow {
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 0 20px rgba(62, 224, 127, 0.3);
 }
 
 .glow-text {
-  text-shadow: 0 0 30px rgba(245, 158, 11, 0.5);
+  text-shadow: 0 0 30px rgba(62, 224, 127, 0.5);
 }
 
-/* Animated gradient border */
-@property --angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-.gradient-border {
-  background: linear-gradient(var(--surface), var(--surface)) padding-box,
-    linear-gradient(var(--angle), var(--accent), var(--accent-secondary), var(--accent)) border-box;
-  border: 2px solid transparent;
-  animation: rotate-gradient 4s linear infinite;
-}
-
-@keyframes rotate-gradient {
-  from {
-    --angle: 0deg;
-  }
-  to {
-    --angle: 360deg;
-  }
+/* Flat accent border — the brand replaced the animated gradient outright */
+.accent-border {
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 18px rgba(62, 224, 127, 0.25);
 }
 
 /* Staggered reveal animation */
@@ -186,9 +194,25 @@ body::before {
   animation: blink 1s step-end infinite;
 }
 
+/* Mono eyebrow label — uppercase, wide-tracked, the recurring section marker */
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Blinking block cursor — the logo mark and the mono wordmark both use it */
+.cursor-block {
+  display: inline-block;
+  background: var(--foreground);
+  animation: blink 1.2s step-end infinite;
+}
+
 /* Article prose styling */
 .article-content {
-  font-size: 1.125rem;
+  font-size: 17px;
   line-height: 1.8;
   color: var(--foreground);
 }
@@ -211,7 +235,7 @@ body::before {
 }
 
 .article-content h2 {
-  font-size: 1.75rem;
+  font-size: 27px;
   padding-bottom: 0.5em;
   border-bottom: 1px solid var(--border);
 }
@@ -275,10 +299,10 @@ body::before {
 
 .article-content blockquote {
   margin: 2em 0;
-  padding: 1.5em 2em;
+  padding: 1.25em 1.75em;
   background: var(--surface);
-  border-left: 4px solid var(--accent);
-  border-radius: 0 8px 8px 0;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
   font-style: italic;
   color: var(--muted);
 }
@@ -289,11 +313,11 @@ body::before {
 
 .article-content code {
   font-family: var(--font-mono), monospace;
-  font-size: 0.875em;
+  font-size: 0.85em;
   background: var(--surface);
   color: var(--accent);
-  padding: 0.2em 0.4em;
-  border-radius: 4px;
+  padding: 2px 7px;
+  border-radius: 5px;
 }
 
 .article-content pre {
@@ -327,7 +351,7 @@ body::before {
 
 /* First paragraph styling - drop cap feel */
 .article-content > p:first-of-type {
-  font-size: 1.25rem;
+  font-size: 19px;
   color: var(--foreground);
 }
 

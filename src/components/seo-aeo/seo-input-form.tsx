@@ -34,7 +34,7 @@ function CharacterCount({ current, min, max }: { current: number; min: number; m
   return (
     <span
       className={`text-xs ${
-        isOptimal ? 'text-green-500' : isOver ? 'text-accent' : 'text-muted'
+        isOptimal ? 'text-accent' : isOver ? 'text-accent' : 'text-muted'
       }`}
     >
       {current}/{max} chars
