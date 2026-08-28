@@ -1,6 +1,6 @@
-import Image from "next/image";
 import type { Metadata } from "next";
 import { SubscribeForm } from "./components/SubscribeForm";
+import { HeroPhosphor } from "./components/HeroPhosphor";
 import { SiteHeader } from "@/app/components/SiteHeader";
 import { SiteFooter } from "@/app/components/SiteFooter";
 import { Badge } from "@/app/components/ui/Badge";
@@ -63,15 +63,9 @@ export default function Home() {
       <main id="main-content">
         {/* Hero */}
         <section className="relative px-4 pb-14 pt-8 sm:px-6 sm:pt-12 md:px-12 md:pb-20 md:pt-16 lg:px-20 lg:pb-20 lg:pt-[90px]">
-          {/* Heritage ASCII art — illustration only, never the logo */}
-          <Image
-            src="/mark-ascii-green.png"
-            alt=""
-            width={760}
-            height={541}
-            aria-hidden="true"
-            className="pointer-events-none absolute right-14 top-8 hidden w-[520px] opacity-[0.06] lg:block"
-          />
+          {/* Live phosphor field (WebGPU via vgpu), with the heritage ASCII
+              art as the static fallback */}
+          <HeroPhosphor />
 
           <div className="relative mx-auto flex max-w-[1200px] flex-col items-start gap-10 lg:flex-row lg:items-center lg:gap-12">
             <div className="min-w-0 flex-1 lg:max-w-[820px]">
