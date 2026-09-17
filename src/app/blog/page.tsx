@@ -5,6 +5,7 @@ import Link from "next/link";
 import { SiteHeader } from "@/app/components/SiteHeader";
 import { SiteFooter } from "@/app/components/SiteFooter";
 import { blurProps, type SanityImageAsset } from "@/sanity/lib/image";
+import { AGENT_ALTERNATE_TYPES } from "@/lib/seo/alternates";
 import {
   buildBlogSchema,
   buildBreadcrumbSchema,
@@ -17,9 +18,7 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   alternates: {
     canonical: "/blog",
-    types: {
-      "application/rss+xml": [{ url: "/feed.xml", title: "The mOperator" }],
-    },
+    types: AGENT_ALTERNATE_TYPES,
   },
   title: "Blog | The mOperator",
   description: "Guides, tutorials, and insights for operators learning to build apps with AI.",

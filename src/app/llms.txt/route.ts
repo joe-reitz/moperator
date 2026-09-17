@@ -1,5 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { siteConfig } from "@/lib/seo/config";
+import { buildAgentInstructions } from "@/lib/agents/instructions";
 
 export const revalidate = 3600;
 
@@ -14,6 +15,9 @@ type LlmsPost = {
 /**
  * llms.txt — a plain-text map of the site for answer engines and agents.
  * Convention: https://llmstxt.org
+ *
+ * The "When to use this site" and "How to call this site" sections come from
+ * `buildAgentInstructions()`, shared with /agents.txt so the two can't drift.
  */
 export async function GET() {
   const posts = await client.fetch<LlmsPost[]>(
@@ -38,6 +42,8 @@ export async function GET() {
 
 The site documents that transition in public: hands-on tutorials using tools like v0, Cursor, Claude, GitHub and Vercel, aimed at readers who are technical operators but not career software engineers.
 
+${buildAgentInstructions()}
+
 ## Guides and tutorials
 
 ${postLines}
@@ -53,11 +59,15 @@ ${postLines}
 - [Videos](${siteConfig.url}/videos): recorded walkthroughs of the same material.
 - [Repos](${siteConfig.url}/repos): example projects referenced by the tutorials.
 - [About](${siteConfig.url}/about): who ${siteConfig.author.name} is and why this site exists.
+- [Contact](${siteConfig.url}/contact): every way to reach ${siteConfig.author.name}, and what each channel is for.
+- [Privacy](${siteConfig.url}/privacy): what this site collects, who processes it, and how to have it deleted.
 
-## Feeds
+## Feeds and machine-readable files
 
+- [Agent instructions](${siteConfig.url}/agents.txt)
 - [RSS](${siteConfig.url}/feed.xml)
 - [Sitemap](${siteConfig.url}/sitemap.xml)
+- [robots.txt](${siteConfig.url}/robots.txt)
 `;
 
   return new Response(body, {

@@ -13,6 +13,17 @@ const LINKS = [
   { href: "https://venmo.com/joe-reitz-1", label: "Buy me a coffee", external: true },
 ];
 
+// Trust anchors and the machine-readable indexes. Kept as a separate row so
+// they are crawlable from every page — an agent checking whether this site is a
+// real business looks for exactly these.
+const SITE_LINKS = [
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+  { href: "/privacy", label: "Privacy" },
+  { href: "/llms.txt", label: "llms.txt" },
+  { href: "/agents.txt", label: "agents.txt" },
+];
+
 export function SiteFooter() {
   return (
     <footer className="relative z-10 border-t border-border px-4 py-10 sm:px-6 md:px-12 lg:px-20">
@@ -52,6 +63,21 @@ export function SiteFooter() {
           )}
         </nav>
       </div>
+
+      <nav
+        aria-label="Site and agent resources"
+        className="mx-auto mt-6 flex max-w-[1200px] flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t border-border pt-6 font-mono text-xs md:justify-start"
+      >
+        {SITE_LINKS.map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            className="text-muted transition-colors hover:text-foreground"
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
     </footer>
   );
 }

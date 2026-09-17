@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { client } from "@/sanity/lib/client";
 import { siteConfig } from "@/lib/seo/config";
+import { STATIC_ROUTES } from "@/lib/site/routes";
 
 export const revalidate = 3600;
 
@@ -9,20 +10,6 @@ type SitemapPost = {
   publishedAt: string | null;
   _updatedAt: string;
 };
-
-const STATIC_ROUTES: Array<{
-  path: string;
-  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
-  priority: number;
-}> = [
-  { path: "/", changeFrequency: "weekly", priority: 1 },
-  { path: "/blog", changeFrequency: "daily", priority: 0.9 },
-  { path: "/oss-moperator", changeFrequency: "monthly", priority: 0.9 },
-  { path: "/oss-moperator/setup", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/videos", changeFrequency: "weekly", priority: 0.8 },
-  { path: "/repos", changeFrequency: "weekly", priority: 0.7 },
-  { path: "/about", changeFrequency: "monthly", priority: 0.5 },
-];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await client.fetch<SitemapPost[]>(

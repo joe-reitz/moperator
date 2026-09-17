@@ -2,17 +2,44 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/app/components/SiteHeader";
 import { SiteFooter } from "@/app/components/SiteFooter";
+import {
+  buildBreadcrumbSchema,
+  buildPageSchema,
+  jsonLdScriptProps,
+} from "@/lib/seo/schema";
+import { siteConfig } from "@/lib/seo/config";
+
+const DESCRIPTION =
+  "Learn about The mOperator - a resource for Marketing Operations professionals learning to build apps with AI development tools.";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/about" },
   title: "About | The mOperator",
-  description:
-    "Learn about The mOperator - a resource for Marketing Operations professionals learning to build apps with AI development tools.",
+  description: DESCRIPTION,
 };
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen relative overflow-hidden">
+      <script
+        {...jsonLdScriptProps(
+          buildPageSchema({
+            type: "AboutPage",
+            path: "/about",
+            name: `About ${siteConfig.name}`,
+            description: DESCRIPTION,
+          })
+        )}
+      />
+      <script
+        {...jsonLdScriptProps(
+          buildBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "About", path: "/about" },
+          ])
+        )}
+      />
+
       {/* Geometric background pattern */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-[300px] sm:w-[500px] lg:w-[800px] h-[300px] sm:h-[500px] lg:h-[800px] opacity-10">
