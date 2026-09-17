@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { AGENT_ALTERNATE_TYPES } from "@/lib/seo/alternates";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -34,9 +35,7 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://the-moperator.com"),
   alternates: {
-    types: {
-      "application/rss+xml": [{ url: "/feed.xml", title: "The mOperator" }],
-    },
+    types: AGENT_ALTERNATE_TYPES,
   },
   openGraph: {
     title: "The mOperator",

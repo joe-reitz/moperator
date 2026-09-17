@@ -8,13 +8,12 @@ import { ButtonLink } from "@/app/components/ui/Button";
 import { Card } from "@/app/components/ui/Card";
 import { TerminalWindow } from "@/app/components/ui/TerminalWindow";
 import { buildWebSiteSchema, jsonLdScriptProps } from "@/lib/seo/schema";
+import { AGENT_ALTERNATE_TYPES } from "@/lib/seo/alternates";
 
 export const metadata: Metadata = {
   alternates: {
     canonical: "/",
-    types: {
-      "application/rss+xml": [{ url: "/feed.xml", title: "The mOperator" }],
-    },
+    types: AGENT_ALTERNATE_TYPES,
   },
 };
 
@@ -128,6 +127,22 @@ export default function Home() {
 
         {/* Features */}
         <section className="border-t border-border px-4 py-12 sm:px-6 md:px-12 md:py-16 lg:px-20">
+          {/* The cards below are h3s, so this h2 is what keeps the document
+              outline nested rather than flat — it matters for screen readers
+              and for crawlers inferring page structure without JavaScript. */}
+          <div className="mx-auto mb-10 max-w-[1200px]">
+            <p className="eyebrow mb-4">What you&apos;ll find here</p>
+            <h2 className="mb-4 max-w-[720px] text-[26px] font-bold tracking-[var(--tracking-display)] text-foreground sm:text-[32px]">
+              Three ways the same material shows up
+            </h2>
+            <p className="max-w-[640px] text-base leading-relaxed text-muted">
+              Everything here is built and published in the open, by an operator
+              rather than a career engineer. Watch a build end to end, read the
+              reasoning behind it, then fork the project and change it for your
+              own stack.
+            </p>
+          </div>
+
           <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
             {FEATURES.map((feature, i) => (
               <Card

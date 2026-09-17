@@ -93,6 +93,64 @@ export function buildBlogSchema(
   };
 }
 
+/**
+ * Everywhere the brand's own profiles live. Emitted as schema.org `sameAs` on
+ * both the Person and the Organization, which is the signal an answer engine
+ * uses to tie the name "The mOperator" to this domain rather than to a
+ * similarly-named account somewhere else.
+ */
+export function brandProfiles(): string[] {
+  const { contact } = siteConfig;
+  return [contact.x, contact.linkedin, contact.youtube, contact.github];
+}
+
+/** The publisher entity. Referenced by @id from every other schema block. */
+export function buildOrganizationSchema() {
+  return {
+    "@type": "Organization",
+    "@id": `${siteConfig.url}/#organization`,
+    name: siteConfig.publisher.name,
+    // Every spelling someone might search for, so a query for any of them can
+    // resolve to this domain.
+    alternateName: siteConfig.alternateNames,
+    url: siteConfig.url,
+    description: siteConfig.description,
+    logo: {
+      "@type": "ImageObject",
+      "@id": `${siteConfig.url}/#logo`,
+      url: `${siteConfig.url}/icon.svg`,
+    },
+    image: { "@id": `${siteConfig.url}/#logo` },
+    founder: { "@id": `${siteConfig.url}/#person` },
+    email: siteConfig.contact.email,
+    sameAs: brandProfiles(),
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        email: siteConfig.contact.email,
+        url: `${siteConfig.url}/contact`,
+        availableLanguage: ["en"],
+      },
+    ],
+  };
+}
+
+/** The author entity. Referenced by @id from every other schema block. */
+export function buildPersonSchema() {
+  return {
+    "@type": "Person",
+    "@id": `${siteConfig.url}/#person`,
+    name: siteConfig.author.name,
+    url: siteConfig.url,
+    description: siteConfig.author.bio,
+    jobTitle: siteConfig.author.jobTitle,
+    knowsAbout: siteConfig.author.knowsAbout,
+    worksFor: { "@id": `${siteConfig.url}/#organization` },
+    sameAs: brandProfiles(),
+  };
+}
+
 /** Site-level identity, rendered once on the homepage. */
 export function buildWebSiteSchema() {
   return {
@@ -103,23 +161,48 @@ export function buildWebSiteSchema() {
         "@id": `${siteConfig.url}/#website`,
         url: siteConfig.url,
         name: siteConfig.name,
+        alternateName: siteConfig.alternateNames,
         description: siteConfig.description,
-        publisher: { "@id": `${siteConfig.url}/#person` },
+        inLanguage: "en-US",
+        publisher: { "@id": `${siteConfig.url}/#organization` },
+        author: { "@id": `${siteConfig.url}/#person` },
       },
+      buildOrganizationSchema(),
+      buildPersonSchema(),
+    ],
+  };
+}
+
+/**
+ * A standalone page in the site graph. `type` narrows it for the pages answer
+ * engines treat as trust anchors — ContactPage and AboutPage specifically.
+ */
+export function buildPageSchema(input: {
+  type: "WebPage" | "AboutPage" | "ContactPage";
+  path: string;
+  name: string;
+  description: string;
+  dateModified?: string;
+}) {
+  const pageUrl = `${siteConfig.url}${input.path}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
       {
-        "@type": "Person",
-        "@id": `${siteConfig.url}/#person`,
-        name: siteConfig.author.name,
-        url: siteConfig.url,
-        description: siteConfig.author.bio,
-        jobTitle: siteConfig.author.jobTitle,
-        knowsAbout: siteConfig.author.knowsAbout,
-        sameAs: [
-          "https://x.com/joe_reitz",
-          "https://www.linkedin.com/in/joereitz/",
-          "https://www.youtube.com/playlist?list=PLY67q0EVU695eunjuo0G9KjysmzqbDez9",
-        ],
+        "@type": input.type,
+        "@id": `${pageUrl}#page`,
+        url: pageUrl,
+        name: input.name,
+        description: input.description,
+        inLanguage: "en-US",
+        ...(input.dateModified && { dateModified: input.dateModified }),
+        isPartOf: { "@id": `${siteConfig.url}/#website` },
+        about: { "@id": `${siteConfig.url}/#organization` },
+        publisher: { "@id": `${siteConfig.url}/#organization` },
       },
+      buildOrganizationSchema(),
+      buildPersonSchema(),
     ],
   };
 }

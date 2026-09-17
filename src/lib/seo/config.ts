@@ -33,6 +33,36 @@ export const siteConfig = {
     defaultPersona: 'Marketing Operations Professional',
   },
 
+  // Spellings a person or an agent might search for. Fed to schema.org
+  // `alternateName` so a query for any of them can resolve to this domain.
+  alternateNames: [
+    'mOperator',
+    'the mOperator',
+    'The mOperator blog',
+    'the-moperator',
+    'the-moperator.com',
+  ],
+
+  // Public contact and profile URLs. These double as the schema.org `sameAs`
+  // set, which is how answer engines tie the brand name to this domain.
+  contact: {
+    // NOTE: this inbox has to exist — it is published on /contact and in the
+    // Organization schema. Change it here and it changes everywhere.
+    email: 'hello@the-moperator.com',
+    x: 'https://x.com/joe_reitz',
+    xHandle: '@joe_reitz',
+    linkedin: 'https://www.linkedin.com/in/joereitz/',
+    youtube:
+      'https://www.youtube.com/playlist?list=PLY67q0EVU695eunjuo0G9KjysmzqbDez9',
+    github: 'https://github.com/joe-reitz',
+    agentRepo: 'https://github.com/joe-reitz/oss-moperator',
+  },
+
+  legal: {
+    /** Shown on /privacy and used as its `dateModified`. */
+    privacyUpdated: '2026-09-17',
+  },
+
   colors: {
     background: '#070a08',
     backgroundGradientEnd: '#0b120c',

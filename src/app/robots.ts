@@ -27,6 +27,11 @@ const PRIVATE_PATHS = [
   "/api/",
   "/preview-email",
   "/unsubscribe",
+  // Internal landing path for the markdown rewrite. Agents reach markdown via
+  // `Accept: text/markdown` on the real URL, or by appending `.md` to it —
+  // neither of which is this path, and neither of which is disallowed.
+  // Keeping /md/ out of the index stops the mirror being crawled as duplicates.
+  "/md/",
 ];
 
 export default function robots(): MetadataRoute.Robots {
